@@ -5,14 +5,18 @@ import HelloWorld from './components/HelloWorld.vue'
 
 <template>
   <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+    <div class="main_home_page_header">
+      <div class="row_with_title_and_login">
+        <div>
+          <h1>Procrastination Buddy System</h1>
+        </div>
+      </div>
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
+      <nav class="nav_bar">
+        <RouterLink to="/">Personal Page</RouterLink>
+        <RouterLink to="/about">Tasks</RouterLink>
+        <RouterLink to="/about">Restricted Websites</RouterLink>
+        <RouterLink to="/login">Login</RouterLink>
       </nav>
     </div>
   </header>
@@ -23,7 +27,7 @@ import HelloWorld from './components/HelloWorld.vue'
 <style scoped>
 header {
   line-height: 1.5;
-  max-height: 100vh;
+  max-height: 50vh;
 }
 
 .logo {
@@ -34,7 +38,7 @@ header {
 nav {
   width: 100%;
   font-size: 12px;
-  text-align: center;
+  /* text-align: center; */
   margin-top: 2rem;
 }
 

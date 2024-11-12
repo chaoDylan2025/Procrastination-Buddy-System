@@ -1,10 +1,12 @@
-@import './base.css';
-
 #app {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 2rem;
+  padding: 1rem;
   font-weight: normal;
+}
+
+body{
+  background-color: lightblue;
 }
 
 a,
@@ -13,6 +15,12 @@ a,
   color: hsla(160, 100%, 37%, 1);
   transition: 0.4s;
   padding: 3px;
+}
+
+.nav_bar{
+  background-color: rgb(0, 255, 17);
+  margin: 100px;
+  padding: 15px;
 }
 
 @media (hover: hover) {
@@ -25,11 +33,5 @@ a,
   body {
     display: flex;
     place-items: center;
-  }
-
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
   }
 }
