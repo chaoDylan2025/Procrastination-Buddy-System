@@ -16,6 +16,10 @@
         <input type="submit" value="Sign in" />
     </div>
 
+    <div id="sign-up">
+        <button id="sign_up"> Sign up </button>
+    </div>
+
 </template>
 
 <style lang="css" scoped>
@@ -24,6 +28,10 @@
     }
 
     input[type='submit'], label {
+        margin-top: 15px;
+    }
+
+    #sign-up{
         margin-top: 15px;
     }
 

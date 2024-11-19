@@ -1,38 +1,52 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import PersonalPage from './views/PersonalPage.vue'
 </script>
 
 <template>
   <header>
-    <div class="main_home_page_header">
-      <div class="row_with_title_and_login">
-        <div>
-          <h1>Procrastination Buddy System</h1>
-        </div>
-      </div>
-
-      <nav class="nav_bar">
-        <RouterLink to="/">Personal Page</RouterLink>
-        <RouterLink to="/about">Tasks</RouterLink>
-        <RouterLink to="/about">Restricted Websites</RouterLink>
-        <RouterLink to="/login">Login</RouterLink>
-      </nav>
+    <div id="header-button-area">
+      <RouterLink to="/login">
+        <button id="login-button">Login</button>
+      </RouterLink>
     </div>
+    <h1>Procrastination Buddy System</h1>
+    <nav class="nav_bar">
+      <RouterLink to="/">About</RouterLink>
+      <RouterLink to="/about">Resources</RouterLink>
+      <RouterLink to="/about">Personal Page</RouterLink>
+      <RouterLink to="/about">Tasks</RouterLink>
+      <RouterLink to="/about">Focus List</RouterLink>
+    </nav>
   </header>
 
+  <!-- <div id="summary_of_procrastination_buddy">
+    <p> Become focused with Procrastination Buddy! A system that will help you focus on work, so you can get a lot done!</p>
+  </div> -->
+
   <RouterView />
+
+  <PersonalPage />
+
 </template>
 
 <style scoped>
 header {
   line-height: 1.5;
   max-height: 50vh;
+  place-items: center;
+  margin-bottom: 30px;
 }
 
 .logo {
   display: block;
   margin: 0 auto 2rem;
+}
+
+header > h1{
+  display: flex;
+  justify-content: center;
 }
 
 nav {
@@ -60,7 +74,7 @@ nav a:first-of-type {
   border: 0;
 }
 
-@media (min-width: 1024px) {
+/* @media (min-width: 1024px) {
   header {
     display: flex;
     place-items: center;
@@ -85,5 +99,5 @@ nav a:first-of-type {
     padding: 1rem 0;
     margin-top: 1rem;
   }
-}
+} */
 </style>
