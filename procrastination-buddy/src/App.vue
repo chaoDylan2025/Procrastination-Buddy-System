@@ -27,8 +27,6 @@ import PersonalPage from './views/PersonalPage.vue'
 
   <RouterView />
 
-  <PersonalPage />
-
 </template>
 
 <style scoped>
