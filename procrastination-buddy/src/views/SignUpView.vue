@@ -28,7 +28,9 @@
         <RouterLink to="/login">
             <button> Back </button>
         </RouterLink>
-        <button> Confirm </button>
+        <RouterLink to="/login">
+            <button> Confirm </button>
+        </RouterLink>
     </div>
 
 </template>

@@ -2,6 +2,19 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import PersonalPage from './views/PersonalPage.vue'
+import { onMounted } from 'vue';
+
+function getRandomInt(min, max) {
+  const minCeiled = Math.ceil(min);
+  const maxFloored = Math.floor(max);
+  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+}
+
+function randomString(){
+  let arr = ["Hello", "World", "!"];
+  return arr[getRandomInt(0,3)];
+}
+
 </script>
 
 <template>
@@ -24,6 +37,12 @@ import PersonalPage from './views/PersonalPage.vue'
   <!-- <div id="summary_of_procrastination_buddy">
     <p> Become focused with Procrastination Buddy! A system that will help you focus on work, so you can get a lot done!</p>
   </div> -->
+  <div id="below-nav-content">
+    <div>
+      <p> Welcome to the Procrastination Buddy System! </p>
+      <p> A system that is meant to help people stay focused on the tasks that they need to do</p>
+    </div>
+  </div>
 
   <RouterView />
 
@@ -70,6 +89,15 @@ nav a {
 
 nav a:first-of-type {
   border: 0;
+}
+
+#below-nav-content{
+  display: flex;
+  justify-content: center;
+}
+
+#below-nav-content > div > p{
+  margin-bottom: 30px;
 }
 
 /* @media (min-width: 1024px) {
