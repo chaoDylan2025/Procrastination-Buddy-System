@@ -9,19 +9,27 @@ const pool = mysql.createPool({
     database: process.env.MYSQL_DATABASE
 }).promise()
 
-async function createUser(emailId, password, confirmPassword){
-    if(password != confirmPassword){
+export async function createUser(emailId, password, confirmPassword){
+    var email = await getUser(emailId)
+    if(email.length != 0){
+        if(emailId == email[0].user_email){
+            return "Email already exists";
+        }
+    }
+
+    if(email != undefined && password != confirmPassword){
         return "Password does not match"
     }
+
     else{
         await pool.query(`
             INSERT INTO users (user_email, user_password)
             VALUES (?, ?)`, [emailId, password] )
-        return "Account has been created"
+        return true
     }
 }
 
-async function getUser(emailId){
+export async function getUser(emailId){
     const [email] = await pool.query(`
     SELECT * from users
     WHERE user_email = ?`, [emailId])
@@ -29,7 +37,7 @@ async function getUser(emailId){
     return email
 }
 
-async function confirmUserLogin(email, password){
+export async function confirmUserLogin(email, password){
     let userEmail = await getUser(email);
 
     if(userEmail == undefined){
@@ -41,13 +49,10 @@ async function confirmUserLogin(email, password){
     WHERE user_email = ? AND user_password = ?`, [email, password])
 
     if(user.length == 0){
+        console.log("Password does not match...")
         return "Password is incorrect"
     }
     else{
         return "Login confirmed!"
     }
 }
-
-console.log(await createUser("user3@gmail.com", "Passwords1", "Passwords1"))
-// let loginConfirmation = await confirmUserLogin("student01@gmail.com", "Password123")
-// console.log(loginConfirmation)

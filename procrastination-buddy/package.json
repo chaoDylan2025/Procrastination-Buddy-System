@@ -11,6 +11,8 @@
   },
   "dependencies": {
     "@google-cloud/storage": "^7.14.0",
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.21.1",

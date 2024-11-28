@@ -34,9 +34,6 @@ function randomString(){
     </nav>
   </header>
 
-  <!-- <div id="summary_of_procrastination_buddy">
-    <p> Become focused with Procrastination Buddy! A system that will help you focus on work, so you can get a lot done!</p>
-  </div> -->
   <div id="below-nav-content">
     <div>
       <p> Welcome to the Procrastination Buddy System! </p>
