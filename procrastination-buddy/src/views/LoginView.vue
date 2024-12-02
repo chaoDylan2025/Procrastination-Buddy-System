@@ -33,22 +33,26 @@
 </script>
 
 <template>
-    <div id="login">
-        <div id="error-msg">
+    <div class="mt-5">
+        <div>
             {{ errorMsg }}
         </div>
-        <div>
-            <h3> Login </h3>
-            <div id="email-login">
-                <label>Email:</label>
-                <input type="text" id="email_login" v-model="user_email">
-            </div>
-            <div id="password-login">
-                <label>Password:</label>
-                <input type="password" id="password-login" v-model="user_password">
-            </div>
+        <h3 class="text-center"> Login </h3>
+        
+        <br>
+        <v-responsive class="mx-auto" max-width="500">
+            <p>Email:</p>
+            <v-text-field type="email"></v-text-field>
+        </v-responsive>
+
+        <v-responsive class="mx-auto" max-width="500">
+            <p>Password:</p>
+            <v-text-field type="password"></v-text-field>
+        </v-responsive>
+
+        <div class="justify-center">
             <button id="sign-in" @click="logUser">
-                Sign in
+            Sign in
             </button>
             <RouterLink to="/SignUp">
                 <div id="sign-up">
@@ -60,15 +64,6 @@
 </template>
 
 <style lang="css" scoped>
-    label{
-        display: block;
-    }
-
-    #login{
-        display: flex;
-        justify-content: center;
-    }
-
     #sign-in{
         margin-top: 15px;
     }

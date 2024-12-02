@@ -1,8 +1,16 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import { ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import HelloWorld from './components/HelloWorld.vue'
 import PersonalPage from './views/PersonalPage.vue'
-import { onMounted } from 'vue';
+
+const links = ref([
+  { text: "About", to: "/about"},
+  { text: "Resources", to: "/about"},
+  { text: "Personal Page", to: "/PersonalPage"},
+  { text: "Tasks", to: "/Tasks"},
+  { text: "Focus List", to: "/FocusList"},
+]);
 
 function getRandomInt(min, max) {
   const minCeiled = Math.ceil(min);
@@ -18,7 +26,30 @@ function randomString(){
 </script>
 
 <template>
-  <header>
+  <v-app>
+    <v-app-bar>
+      <div class="mx-3">
+        <v-app-bar-title>Procrastination Buddy System</v-app-bar-title>
+      </div>
+      <div class="mx-10">
+        <v-btn v-for="link in links" :key="link.text" :to="link.to">
+          {{ link.text }}
+        </v-btn>
+      </div>
+      <div class="ml-10">
+        <v-btn to="/login">
+          Login
+        </v-btn>
+      </div>
+    </v-app-bar>
+
+    <v-main>
+      <router-view v-slot="{ Component }">
+        <component :is="Component" />
+      </router-view>
+    </v-main>
+  </v-app>
+  <!-- <header>
     <div id="header-button-area">
       <RouterLink to="/login">
         <button id="login-button">Login</button>
@@ -28,11 +59,11 @@ function randomString(){
     <nav class="nav_bar">
       <RouterLink to="/">About</RouterLink>
       <RouterLink to="/about">Resources</RouterLink>
-      <RouterLink to="/about">Personal Page</RouterLink>
-      <RouterLink to="/about">Tasks</RouterLink>
-      <RouterLink to="/about">Focus List</RouterLink>
+      <RouterLink to="/PersonalPage">Personal Page</RouterLink>
+      <RouterLink to="/Tasks">Tasks</RouterLink>
+      <RouterLink to="/FocusList">Focus List</RouterLink>
     </nav>
-  </header>
+  </header> -->
 
   <div id="below-nav-content">
     <div>
@@ -40,8 +71,6 @@ function randomString(){
       <p> A system that is meant to help people stay focused on the tasks that they need to do</p>
     </div>
   </div>
-
-  <RouterView />
 
 </template>
 

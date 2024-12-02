@@ -23,6 +23,21 @@ const router = createRouter({
       name: 'SignUp',
       component: () => import('../views/SignUpView.vue'),
     },
+    {
+      path: '/PersonalPage',
+      name: 'personal_page',
+      component: () => import('../views/PersonalPage.vue')
+    },
+    {
+      path: '/Tasks',
+      name: 'tasks',
+      component: () => import('../views/Tasks.vue')
+    },
+    {
+      path: '/FocusList',
+      name: 'focus_list',
+      component: () => import('../views/FocusList.vue')
+    },
   ],
 })
 

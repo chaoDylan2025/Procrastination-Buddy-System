@@ -36,35 +36,37 @@
 </script>
 
 <template>
-    <h3> Sign up for an account </h3>
-    <div id="error-msg">
-        {{ errorMsg }}
-    </div>
-
-    <div id="sign-up">
-        <div>
-            <div>
-                <label for="email">Email:</label>
-                <input id="email" name="email" type="text" required v-model="user_email">
-            </div>
-            <div>
-                <label for="password">Password:</label>
-                <input id="password" name="password" type="password" required v-model="user_password">
-            </div>
-            <div>
-                <label for="confirmPassword"> Confirm Password:</label>
-                <input id="confirmPassword" name="confirmPassword" type="password" required v-model="confirmPassWord">
-            </div>
+    <v-app>
+        <h3> Sign up for an account </h3>
+        <div id="error-msg">
+            {{ errorMsg }}
         </div>
-    </div> 
 
-    <div id="sign-up-buttons">
-        <RouterLink to="/login">
-            <button> Back </button>
-        </RouterLink>
-        <button @click="createUser"> Confirm </button>
-    </div>
-    
+        <div id="sign-up" class="mt-4">
+            <div>
+                <div>
+                    <label for="email">Email:</label>
+                    <input id="email" name="email" type="text" required v-model="user_email">
+                </div>
+                <div>
+                    <label for="password">Password:</label>
+                    <input id="password" name="password" type="password" required v-model="user_password">
+                </div>
+                <div>
+                    <label for="confirmPassword"> Confirm Password:</label>
+                    <input id="confirmPassword" name="confirmPassword" type="password" required v-model="confirmPassWord">
+                </div>
+            </div>
+        </div> 
+
+        <div id="sign-up-buttons">
+            <RouterLink to="/login">
+                <button> Back </button>
+            </RouterLink>
+            <button @click="createUser"> Confirm </button>
+        </div>
+        
+    </v-app>
 
 </template>
 
