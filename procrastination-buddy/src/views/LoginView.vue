@@ -4,8 +4,6 @@
     import { ref, onMounted } from 'vue'
     import AuthenticationService from '../services/AuthenticationService'
 
-    const router = useRouter();
-
     const user_email = ref("")
     const user_password = ref("")
     const errorMsg = ref("")
@@ -50,16 +48,20 @@
             <v-text-field type="password"></v-text-field>
         </v-responsive>
 
-        <div class="justify-center">
-            <button id="sign-in" @click="logUser">
-            Sign in
-            </button>
-            <RouterLink to="/SignUp">
-                <div id="sign-up">
-                    <button id="sign_up"> Sign up </button>
-                </div>
-            </RouterLink>
-        </div>
+        <v-container>
+            <v-row justify="center" no-gutters>
+                <v-btn @click="logUser">
+                    Sign in
+                </v-btn>
+            </v-row>
+            
+            <v-row class="mt-10" justify="center" no-gutters>
+                <v-btn to="/SignUp">
+                    Sign up
+                </v-btn>
+            </v-row>
+
+        </v-container>
     </div>
 </template>
 

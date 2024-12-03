@@ -37,35 +37,39 @@
 
 <template>
     <v-app>
-        <h3> Sign up for an account </h3>
-        <div id="error-msg">
-            {{ errorMsg }}
-        </div>
-
-        <div id="sign-up" class="mt-4">
-            <div>
-                <div>
-                    <label for="email">Email:</label>
-                    <input id="email" name="email" type="text" required v-model="user_email">
-                </div>
-                <div>
-                    <label for="password">Password:</label>
-                    <input id="password" name="password" type="password" required v-model="user_password">
-                </div>
-                <div>
-                    <label for="confirmPassword"> Confirm Password:</label>
-                    <input id="confirmPassword" name="confirmPassword" type="password" required v-model="confirmPassWord">
-                </div>
+        <div class="mt-5">
+            <h3> Sign up for an account </h3>
+            <div id="error-msg">
+                {{ errorMsg }}
             </div>
-        </div> 
 
-        <div id="sign-up-buttons">
-            <RouterLink to="/login">
-                <button> Back </button>
-            </RouterLink>
-            <button @click="createUser"> Confirm </button>
+            <v-responsive class="mx-auto" max-width="500">
+                <p>Email: </p>
+                <v-text-field type="email" v-model="user_email"></v-text-field>
+            </v-responsive>
+            
+            <v-responsive class="mx-auto" max-width="500">
+                <p>Password: </p>
+                <v-text-field type="password" v-model="user_password"></v-text-field>
+            </v-responsive>
+
+            <v-responsive class="mx-auto" max-width="500">
+                <p>Confirm Password: </p>
+                <v-text-field type="password" v-model="confirmPassWord"></v-text-field>
+            </v-responsive>
+
+            <v-container>
+                <v-row justify="center" no-gutters>
+                    <v-btn to="/login" class="mx-8">
+                        Back
+                    </v-btn>
+                    <v-btn @click="createUser" class="mx-8">
+                        Confirm
+                    </v-btn>
+                </v-row>
+
+            </v-container>
         </div>
-        
     </v-app>
 
 </template>
