@@ -1,6 +1,10 @@
+import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
-import { createUser, confirmUserLogin } from './code/login.js'
+import { createUser, confirmUserLogin, getUser } from './code/login.js'
+
+dotenv.config()
+
 const app = express()
 
 app.use(express.json())
@@ -14,14 +18,15 @@ app.post('/SignUp', async (req, res) => {
     const result = await createUser(email, password, confirm_password)
     
     res.send({
+        message: "You have sucessfully signed up!",
         status: result
     })
 })
 
 app.post('/login', async (req, res) => {
-    //Sets values for email and password
-    console.log(req.body)
+    // Sets values for email and password
     const { email, password } = req.body
+
     console.log("Email: " + email)
     console.log("Password: " + password)
 
@@ -29,7 +34,7 @@ app.post('/login', async (req, res) => {
     const result = await confirmUserLogin(email, password)
 
     res.send({
-        status: result
+        message: "You have sucessfully logged in!",
     })
 })
 

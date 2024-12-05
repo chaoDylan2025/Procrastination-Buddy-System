@@ -4,6 +4,8 @@ import { useRouter } from "vue-router";
 import HelloWorld from './components/HelloWorld.vue'
 import PersonalPage from './views/PersonalPage.vue'
 
+const showWelcomeMsg = ref(true)
+
 const links = ref([
   { text: "About", to: "/about"},
   { text: "Resources", to: "/about"},
@@ -11,17 +13,6 @@ const links = ref([
   { text: "Tasks", to: "/Tasks"},
   { text: "Focus List", to: "/FocusList"},
 ]);
-
-function getRandomInt(min, max) {
-  const minCeiled = Math.ceil(min);
-  const maxFloored = Math.floor(max);
-  return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
-}
-
-function randomString(){
-  let arr = ["Hello", "World", "!"];
-  return arr[getRandomInt(0,3)];
-}
 
 </script>
 
@@ -32,7 +23,7 @@ function randomString(){
         <v-app-bar-title>Procrastination Buddy System</v-app-bar-title>
       </div>
       <div class="mx-10">
-        <v-btn v-for="link in links" :key="link.text" :to="link.to">
+        <v-btn @click="showWelcomeMsg = false" v-for="link in links" :key="link.text" :to="link.to">
           {{ link.text }}
         </v-btn>
       </div>
@@ -44,33 +35,17 @@ function randomString(){
     </v-app-bar>
 
     <v-main>
+      <div v-show="showWelcomeMsg" id="below-nav-content" class="mt-10">
+        <div>
+          <p> Welcome to the Procrastination Buddy System! </p>
+          <p> A system that is meant to help people stay focused on the tasks that they need to do</p>
+        </div>
+      </div>
       <router-view v-slot="{ Component }">
         <component :is="Component" />
       </router-view>
     </v-main>
   </v-app>
-  <!-- <header>
-    <div id="header-button-area">
-      <RouterLink to="/login">
-        <button id="login-button">Login</button>
-      </RouterLink>
-    </div>
-    <h1>Procrastination Buddy System</h1>
-    <nav class="nav_bar">
-      <RouterLink to="/">About</RouterLink>
-      <RouterLink to="/about">Resources</RouterLink>
-      <RouterLink to="/PersonalPage">Personal Page</RouterLink>
-      <RouterLink to="/Tasks">Tasks</RouterLink>
-      <RouterLink to="/FocusList">Focus List</RouterLink>
-    </nav>
-  </header> -->
-
-  <div id="below-nav-content">
-    <div>
-      <p> Welcome to the Procrastination Buddy System! </p>
-      <p> A system that is meant to help people stay focused on the tasks that they need to do</p>
-    </div>
-  </div>
 
 </template>
 

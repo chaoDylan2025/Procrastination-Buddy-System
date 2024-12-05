@@ -1,6 +1,7 @@
 <script setup>
     import { RouterLink, RouterView } from 'vue-router'
     import {useRouter} from 'vue-router'
+    import router from '../router/index'
     import { ref, onMounted } from 'vue'
     import AuthenticationService from '../services/AuthenticationService'
 
@@ -14,7 +15,7 @@
             email: user_email.value,
             password: user_password.value
         }).then((result) => {
-            console.log(result.data.status)
+            console.log(result)
             moveToHomePage(result.data.status)
         })
     }
@@ -40,12 +41,12 @@
         <br>
         <v-responsive class="mx-auto" max-width="500">
             <p>Email:</p>
-            <v-text-field type="email"></v-text-field>
+            <v-text-field type="email" v-model="user_email"></v-text-field>
         </v-responsive>
 
         <v-responsive class="mx-auto" max-width="500">
             <p>Password:</p>
-            <v-text-field type="password"></v-text-field>
+            <v-text-field type="password" v-model="user_password"></v-text-field>
         </v-responsive>
 
         <v-container>
@@ -64,14 +65,3 @@
         </v-container>
     </div>
 </template>
-
-<style lang="css" scoped>
-    #sign-in{
-        margin-top: 15px;
-    }
-
-    #sign-up{
-        margin-top: 15px;
-    }
-
-</style>
