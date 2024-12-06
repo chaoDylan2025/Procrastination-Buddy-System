@@ -26,15 +26,12 @@ app.post('/SignUp', async (req, res) => {
 app.post('/login', async (req, res) => {
     // Sets values for email and password
     const { email, password } = req.body
-
-    console.log("Email: " + email)
-    console.log("Password: " + password)
-
+    
     // Calls function
     const result = await confirmUserLogin(email, password)
 
     res.send({
-        message: "You have sucessfully logged in!",
+        status: true,
     })
 })
 

@@ -5,6 +5,10 @@
     import { ref, onMounted } from 'vue'
     import AuthenticationService from '../services/AuthenticationService'
 
+    import { userStore } from "../stores/user";
+
+    const user = userStore()
+
     const user_email = ref("")
     const user_password = ref("")
     const errorMsg = ref("")
@@ -22,7 +26,8 @@
 
     function moveToHomePage(response){
          // Navigate to Home page if user is logged in
-         if(response == "Login confirmed!"){
+         if(response == true){
+            user.isLoggedIn = true
             router.push('/')
          }
          else{

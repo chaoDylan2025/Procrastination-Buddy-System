@@ -2,12 +2,13 @@
 </script>
 
 <template>
-    <div id="buttons-for-focus-list">
-        <button> Create List </button>
-        <button> Edit List </button>
-        <button> Other Lists </button>
-        <button> Upload </button>
-    </div>
+    <v-app>
+        <div class="mt-10" id="buttons-for-focus-list">
+            <v-btn> Create List </v-btn>
+            <v-btn> Edit List </v-btn>
+        </div>
+
+    </v-app>
 </template>
 
 <style lang="css" scoped>

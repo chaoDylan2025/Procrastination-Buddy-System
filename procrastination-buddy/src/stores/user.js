@@ -3,9 +3,9 @@ import { defineStore } from 'pinia'
 
 export const userStore = defineStore('user', {
   state: () => ({
-    isLoggedIn: false
-  }),
-  actions: {
+    email: "",
+    isLoggedIn: false,
+    arr_of_tasks: [],
 
-  }
+  }),
 })
