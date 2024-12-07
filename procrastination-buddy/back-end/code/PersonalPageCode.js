@@ -8,29 +8,29 @@ import path from 'node:path';
 // Creates a client
 const storage = new Storage();
 
-// Array of image files
-var current_user_images_arr = [];
-
 // Retrieves images of current user
 export async function getImages(prefix) {
   // Path to current user's images folder
   const options = {
     prefix: prefix,
   };
-  options.delimiter = "/";
 
   // Lists files in the bucket
   const [files] = await storage.bucket(bucketName).getFiles(options);
 
-  console.log('Files: ');
+  // Array of image files
+  var current_user_images_arr = [];
+
+  // Iterates through each image of current user
   files.forEach(file => {
-    console.log(file.name)
-    if(file.name != `student01@gmail.com/images/`){
-      current_user_images_arr.push(path.win32.basename(file.name))
+    if(file.name !== `${options.prefix}/`){
+      let file_path = `https://storage.googleapis.com/${bucketName}/${file.name}`
+      current_user_images_arr.push(file_path)
     }
   });
 
-  console.log(current_user_images_arr)
+  // Returns array of images in current user's folder
+  return current_user_images_arr
 }
 
 // Current user will be able to upload image
@@ -42,6 +42,3 @@ export async function uploadImage(){
 export async function deleteImage(){
 
 }
-
-
-getImages("student01@gmail.com/images/").catch(console.error);
