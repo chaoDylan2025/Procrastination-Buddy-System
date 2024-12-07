@@ -26,6 +26,7 @@ app.post('/SignUp', async (req, res) => {
     })
 })
 
+// Post request for logging in
 app.post('/login', async (req, res) => {
     // Sets values for email and password
     const { email, password } = req.body
@@ -38,7 +39,9 @@ app.post('/login', async (req, res) => {
     })
 })
 
+// Post request for getting current user's images
 app.post('/PersonalPage', async(req, res) => {
+    // Sets value for email
     const { email } = req.body
 
     // Call function
@@ -47,6 +50,20 @@ app.post('/PersonalPage', async(req, res) => {
     res.send({
         images_arr: result
     })
+}) 
+
+// Post request for deleting a current user's image
+app.post('/PersonalPage/Delete', async(req, res) => {
+    // Sets value for email
+    const { email, image } = req.body
+
+    // Call function
+    const result = await deleteImage(email, image)
+
+    res.send({
+        images_arr: result
+    })
+    // res.sendStatus(203)
 }) 
 
 app.listen(process.env.PORT || 3000)

@@ -11,5 +11,10 @@ export default {
 
     getCurrentUserImages (email) {
         return Api().post('PersonalPage', email)
+    },
+
+    deleteCurrentUserImage (info) {
+        return Api().post('PersonalPage/Delete', info)
     }
+
 }

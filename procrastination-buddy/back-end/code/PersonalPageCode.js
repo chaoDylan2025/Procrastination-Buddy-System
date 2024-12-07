@@ -10,7 +10,7 @@ const storage = new Storage();
 
 // Retrieves images of current user
 export async function getImages(prefix) {
-  // Path to current user's images folder
+  // Path to current user's folder
   const options = {
     prefix: prefix,
   };
@@ -25,7 +25,21 @@ export async function getImages(prefix) {
   files.forEach(file => {
     if(file.name !== `${options.prefix}/`){
       let file_path = `https://storage.googleapis.com/${bucketName}/${file.name}`
-      current_user_images_arr.push(file_path)
+      
+      // Object to push to current user's images object
+      let push_current_user_images_obj = {
+        file: "",
+        public_url: "" 
+      }
+
+      // Fill current image object
+      push_current_user_images_obj.file = file.name
+      push_current_user_images_obj.public_url = file_path
+
+      console.log(push_current_user_images_obj)
+
+      // Push current image's object to current user's images object
+      current_user_images_arr.push(push_current_user_images_obj)
     }
   });
 
@@ -39,6 +53,17 @@ export async function uploadImage(){
 }
 
 // Current user will be able to delete image from their images folder
-export async function deleteImage(){
+export async function deleteImage(prefix, image){
+  // Path to current user's folder
+  const options = {
+    prefix: prefix,
+  };
 
+  await storage.bucket(bucketName).file(image).delete();
+
+  const new_user_image_arr = await getImages(prefix)
+  return new_user_image_arr
 }
+
+// getImages("dylanchao64@gmail.com")
+// deleteImage("dylanchao64@gmail.com", "dylanchao64@gmail.com/ProcrastinationQuote3.png")
