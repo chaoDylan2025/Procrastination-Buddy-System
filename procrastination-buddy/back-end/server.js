@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
 import { createUser, confirmUserLogin, getUser } from './code/login.js'
-import { getImages, uploadImage, deleteImage} from './code/PersonalPageCode.js'
+import { getImages } from './code/PersonalPageCode.js'
 
 dotenv.config()
 
@@ -39,31 +39,14 @@ app.post('/login', async (req, res) => {
     })
 })
 
-// Post request for getting current user's images
-app.post('/PersonalPage', async(req, res) => {
-    // Sets value for email
-    const { email } = req.body
-
+// Post request for getting images
+app.get('/PersonalPage', async(req, res) => {
     // Call function
-    const result = await getImages(email)
+    const result = await getImages()
 
     res.send({
         images_arr: result
     })
-}) 
-
-// Post request for deleting a current user's image
-app.post('/PersonalPage/Delete', async(req, res) => {
-    // Sets value for email
-    const { email, image } = req.body
-
-    // Call function
-    const result = await deleteImage(email, image)
-
-    res.send({
-        images_arr: result
-    })
-    // res.sendStatus(203)
 }) 
 
 app.listen(process.env.PORT || 3000)
