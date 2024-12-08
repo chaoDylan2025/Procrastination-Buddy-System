@@ -9,12 +9,7 @@ export default {
         return Api().post('login', credentials)
     },
 
-    getCurrentUserImages (email) {
-        return Api().post('PersonalPage', email)
+    getImages () {
+        return Api().get('PersonalPage')
     },
-
-    deleteCurrentUserImage (info) {
-        return Api().post('PersonalPage/Delete', info)
-    }
-
 }

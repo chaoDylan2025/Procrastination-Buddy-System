@@ -24,9 +24,9 @@
         })
     }
 
+    // Navigate to Home page if user is logged in
     function moveToHomePage(response){
-         // Navigate to Home page if user is logged in
-         if(response == true){
+         if(response == "Login confirmed!"){
             user.isLoggedIn = true
             router.push('/')
          }

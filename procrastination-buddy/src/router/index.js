@@ -24,9 +24,9 @@ const router = createRouter({
       component: () => import('../views/SignUpView.vue'),
     },
     {
-      path: '/PersonalPage',
-      name: 'personal_page',
-      component: () => import('../views/PersonalPage.vue')
+      path: '/MotivationPage',
+      name: 'motivation_page',
+      component: () => import('../views/MotivationPage.vue')
     },
     {
       path: '/Tasks',

@@ -35,7 +35,7 @@ app.post('/login', async (req, res) => {
     const result = await confirmUserLogin(email, password)
 
     res.send({
-        status: true,
+        status: result,
     })
 })
 

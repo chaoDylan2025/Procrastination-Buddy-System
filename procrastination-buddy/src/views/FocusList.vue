@@ -1,9 +1,12 @@
 <script setup>
+    import AuthenticationService from '../services/AuthenticationService';  
     import { userStore } from '../stores/user'
     import { ref, onMounted } from 'vue'
 
+    // Pinia store for user information
     const user = userStore()
     
+    // Reactive variables
     const dialog = ref(false)
     const dialog2 = ref(false)
     const dialog3 = ref(false)
@@ -19,11 +22,13 @@
     function dialog_confirm(){
         dialog.value = false
     }
+    // Inserts new website in the list
     function new_list_dialog_confirm(website){
-        test_arr.push(website)
+        test_arr.value.push(website)
         new_list_dialog.value = false
     }
 
+    // Deletes website in the list
     function delete_website(index){
         test_arr.value.splice(index, 1)
         console.log(test_arr)
@@ -32,23 +37,37 @@
 
 <template>
     <v-app>
-        <v-container>
+        <v-container v-if="user.isLoggedIn == true">
             <v-row class="mt-10">
                 <v-col></v-col>
                 <!-- Contains buttons that will each show a different dialog window -->
                 <v-col cols="10">
                     <!-- Buttons are only shown if user is logged in -->
-                    <div v-if="user.isLoggedIn == false">
+                    <div>
                         <v-btn class="mr-4" @click="dialog = true"> Edit List </v-btn>
                         <v-btn class="mr-4" @click="dialog2 = true"> Log Number of Sites Visited </v-btn>
                     </div>
 
-                    <div v-else>
-                        <p class="text-h5"> Please login to your account </p>
+                    <div>
+                        <v-list>
+                            <v-list-item
+                                v-for="(item, i) in test_arr"
+                                :key="i"
+                                :value="item"
+                                color="primary"
+                                variant="plain"
+                            >
+                                <v-list-item-title v-text="item"></v-list-item-title>
+                            </v-list-item>
+                        </v-list>
                     </div>
                 </v-col>
                 <v-col></v-col>
             </v-row>
+        </v-container>
+        
+        <v-container v-else>
+            <h2 class="text-center"> Please login to your account </h2>
         </v-container>
 
         <!-- Dialog for when user clicks on 'Edit List' -->
@@ -85,19 +104,13 @@
                     </v-row>
                 </v-container>
 
-                <!-- Gives users the options to exit dialog or submit modified data -->
+                <!-- Gives users the option to exit dialog -->
                 <v-card-actions>
                     <v-btn
                     text="Back"
                     @click="dialog = false">
                     </v-btn> 
-
-                    <v-btn
-                    text="Confirm"
-                    @click="dialog_confirm">
-                    </v-btn> 
                 </v-card-actions>
-                
             </v-card>
         </v-dialog>
 
@@ -110,6 +123,7 @@
             title="Enter a new site that you do not want to access"
             >
                 <v-container>
+                    <!-- Asks user to enter new restricted website -->
                     <v-text-field
                     v-model="new_restricted_wesbite"
                     hide-details="auto"

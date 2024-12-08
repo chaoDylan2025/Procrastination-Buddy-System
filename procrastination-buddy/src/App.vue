@@ -9,8 +9,7 @@ const showWelcomeMsg = ref(true)
 
 const links = ref([
   { text: "About", to: "/about"},
-  { text: "Resources", to: "/about"},
-  { text: "Personal Page", to: "/PersonalPage"},
+  { text: "Motivation Page", to: "/MotivationPage"},
   { text: "Tasks", to: "/Tasks"},
   { text: "Focus List", to: "/FocusList"},
 ]);
@@ -19,7 +18,7 @@ const links = ref([
 
 <template>
   <v-app>
-    <v-app-bar>
+    <v-app-bar color="red">
       <div class="mx-3">
         <v-app-bar-title>Procrastination Buddy System</v-app-bar-title>
       </div>
@@ -44,12 +43,6 @@ const links = ref([
     </v-app-bar>
 
     <v-main>
-      <div v-show="showWelcomeMsg" id="below-nav-content" class="mt-10">
-        <div>
-          <p> Welcome to the Procrastination Buddy System! </p>
-          <p> A system that is meant to help people stay focused on the tasks that they need to do</p>
-        </div>
-      </div>
       <router-view v-slot="{ Component }">
         <component :is="Component" />
       </router-view>
