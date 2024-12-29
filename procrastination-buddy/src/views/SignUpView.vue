@@ -23,8 +23,8 @@
         })
     }
 
+    // Navigate to Login page if account creation is valid
     function moveToLoginPage(response){
-         // Navigate to Login page if account creation is valid
          if(response == true){
             router.push('/login')
          }

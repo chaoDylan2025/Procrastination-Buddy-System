@@ -1,69 +1,64 @@
-import mysql from 'mysql2'
 import dotenv from 'dotenv'
 dotenv.config()
 
-// Configure MySQL setup
-export const pool = mysql.createPool({
-    host: process.env.MYSQL_HOST,
-    user: process.env.MYSQL_USER,
-    password: process.env.MYSQL_PASSWORD,
-    database: process.env.MYSQL_DATABASE
-}).promise()
+import { initializeApp } from "firebase/app"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { addDoc, collection, doc, getFirestore, getDocs, setDoc } from "firebase/firestore"
 
-// Creates an account for a user
-export async function createUser(emailId, password, confirmPassword){
-    var email = await getUser(emailId)
-
-    // Prevents user from using same email for a different account
-    if(email.length != 0){
-        if(emailId == email[0].user_email){
-            return "Email already exists";
-        }
-    }
-
-    // Prevent user from creating an account if password and confirmed password does not match
-    if(email != undefined && password != confirmPassword){
-        return "Password does not match"
-    }
-
-    // Inserts new account into database that stores user's login information
-    else{
-        await pool.query(`
-            INSERT INTO users (user_email, user_password)
-            VALUES (?, ?)`, [emailId, password] )
-        return true
-    }
+const firebaseConfig = {
+  apiKey: process.env.FIREBASE_API_KEY,
+  authDomain: process.env.FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.FIREBASE_PROJECT_ID,
+  storageBucket: process.env.FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.FIREBASE_APP_ID,
+  measurementId: process.env.FIREBASE_MEASUREMENT_ID
 }
 
-// Get an array that contains user's data from the users data table
-export async function getUser(emailId){
-    const [email] = await pool.query(`
-    SELECT * from users
-    WHERE user_email = ?`, [emailId])
-    
-    return email
+// Initialize Firebase
+const firebase = initializeApp(firebaseConfig);
+
+// Initialize Firestore
+const db = getFirestore(firebase)
+
+// Accesses authentication code
+const auth = getAuth()
+
+// Retrieves all documents in 'user-info' collection
+const querySnapshot = await getDocs(collection(db, "user-info"))
+
+// Contains every user's email
+const user_emails_arr = []
+
+// Creates a user account
+export async function createUser(emailId, password, confirmPassword){
+  if(confirmPassword === password){
+    try{
+      await createUserWithEmailAndPassword(auth, emailId, password)
+      return true
+    } 
+    catch(error){
+      const errorMessage = error.message
+      return errorMessage
+    }
+  }
+
+  else{
+    // Return error message if confirmation password does not match password
+    if(confirmPassword !== password){
+      return "Password and confirmation password do not match!"
+    }
+  }
 }
 
 // Logging in the user
-export async function confirmUserLogin(email, password){
-    let userEmail = await getUser(email);
-
-    // Prevents user from logging in if email does not exist
-    if(userEmail == undefined){
-        return "Email does not exist"
-    }
-
-    // Checks to see if entered data is in users data table
-    const [user] = await pool.query(`
-    SELECT * FROM users
-    WHERE user_email = ? AND user_password = ?`, [email, password])
-
-    // If nothing has been returned, prevent user from logging in
-    if(user.length == 0){
-        console.log("Password does not match...")
-        return "Password is incorrect"
-    }
-    else{
-        return "Login confirmed!"
-    }
+export async function userLogin(email, password){
+  try{
+    await signInWithEmailAndPassword(auth, email, password)
+    return true
+  } 
+  catch (error) {
+    const errorMessage = error.message
+    return errorMessage
+  }
 }

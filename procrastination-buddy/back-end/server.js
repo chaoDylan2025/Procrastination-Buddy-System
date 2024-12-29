@@ -1,10 +1,6 @@
-import dotenv from 'dotenv'
 import express from 'express'
 import cors from 'cors'
-import { createUser, confirmUserLogin, getUser } from './code/login.js'
-import { getImages } from './code/PersonalPageCode.js'
-
-dotenv.config()
+import { createUser, userLogin } from './code/login.js'
 
 const app = express()
 
@@ -19,9 +15,8 @@ app.post('/SignUp', async (req, res) => {
 
     // Calls function
     const result = await createUser(email, password, confirm_password)
-    
+
     res.send({
-        message: "You have sucessfully signed up!",
         status: result
     })
 })
@@ -32,21 +27,11 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body
 
     // Call function
-    const result = await confirmUserLogin(email, password)
-
+    const result = await userLogin(email, password)
+    
     res.send({
         status: result,
     })
 })
-
-// Post request for getting images
-app.get('/PersonalPage', async(req, res) => {
-    // Call function
-    const result = await getImages()
-
-    res.send({
-        images_arr: result
-    })
-}) 
 
 app.listen(process.env.PORT || 3000)
