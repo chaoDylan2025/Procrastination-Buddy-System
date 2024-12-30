@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import { initializeApp } from "firebase/app"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser } from "firebase/auth"
 import { addDoc, collection, doc, getFirestore, getDocs, setDoc } from "firebase/firestore"
 
 const firebaseConfig = {
@@ -60,5 +60,29 @@ export async function userLogin(email, password){
   catch (error) {
     const errorMessage = error.message
     return errorMessage
+  }
+}
+
+// Logging the user out
+export async function userLogOut(){
+  try{
+    await signOut(auth)
+    return true
+  }
+  catch (error) {
+
+  }
+}
+
+// Delete user account
+export async function deleteUserAccount(){
+  // Gets the current user
+  const user = auth.currentUser
+
+  try{
+    await deleteUser(user)
+  }
+  catch (error){
+
   }
 }

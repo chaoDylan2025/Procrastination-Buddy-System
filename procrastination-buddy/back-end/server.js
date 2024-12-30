@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { createUser, userLogin } from './code/login.js'
+import { createUser, userLogin } from './code/user.js'
 
 const app = express()
 
