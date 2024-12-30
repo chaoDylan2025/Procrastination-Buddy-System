@@ -4,7 +4,7 @@
     import { ref } from 'vue'
     import AuthenticationService from '../services/AuthenticationService'
 
-    const router = useRouter();
+    const router = useRouter()
 
     // Reactive elements
     const user_email = ref("")
