@@ -1,4 +1,19 @@
 <script setup>
+import { ref } from 'vue'
+
+// Array of images
+var img_arr = ref([
+    "/images/IMG_7112.JPG",
+    "/images/IMG_7113.JPG", 
+    "/images/IMG_7117.WEBP", 
+    "/images/MotivationalQuote.png",
+    "/images/ProcrastinationQuote.png"
+])
+
+// Gets a new Image URL
+function getImageUrl(url) {
+  return new URL(`${url}`, import.meta.url).href
+}
 </script>
 
 <template>
@@ -22,4 +37,18 @@
             <v-col></v-col>
         </v-row>
     </v-container>
+
+    <v-carousel
+        show-arrows="hover"
+        cycle="1"
+        hide-delimiter-background
+    >
+        <v-carousel-item
+            v-for="(image, i) in img_arr"
+            :key="i"
+            :src="`${getImageUrl(image)}`"
+        >
+        </v-carousel-item>
+
+    </v-carousel>
 </template>
