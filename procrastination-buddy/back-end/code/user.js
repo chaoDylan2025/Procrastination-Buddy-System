@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import { initializeApp } from "firebase/app"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser, onAuthStateChanged, setPersistence } from "firebase/auth"
 import { addDoc, collection, doc, getFirestore, getDocs, setDoc } from "firebase/firestore"
 
 const firebaseConfig = {
@@ -26,9 +26,6 @@ const auth = getAuth()
 
 // Retrieves all documents in 'user-info' collection
 const querySnapshot = await getDocs(collection(db, "user-info"))
-
-// Contains every user's email
-const user_emails_arr = []
 
 // Creates a user account
 export async function createUser(emailId, password, confirmPassword){
@@ -61,6 +58,18 @@ export async function userLogin(email, password){
     const errorMessage = error.message
     return errorMessage
   }
+}
+
+// Get the currently signed-in user
+export function getSignedInUser(){
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      return user.email
+    } 
+    else {
+      return "User is signed out"
+    }
+  })
 }
 
 // Logging the user out

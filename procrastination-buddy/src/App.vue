@@ -2,7 +2,7 @@
 import { ref, onMounted } from "vue";
 import { useRouter } from "vue-router";
 import { userStore } from "./stores/user";
-import HomeView from "./views/HomeView.vue";
+import AuthenticationService from './services/AuthenticationService'
 
 const user = userStore()
 
@@ -14,7 +14,6 @@ const links = ref([
   { text: "Tasks", to: "/Tasks"},
   { text: "Focus List", to: "/FocusList"},
 ]);
-
 </script>
 
 <template>
@@ -22,7 +21,7 @@ const links = ref([
     <v-app-bar color="red">
       <div class="mx-3">
         <v-app-bar-title>
-          <v-btn @click="$router.push('/')">
+          <v-btn to="/">
             <p class="text-h6"> Procrastination Buddy System </p>
           </v-btn>
         </v-app-bar-title>
@@ -32,13 +31,13 @@ const links = ref([
           {{ link.text }}
         </v-btn>
       </div>
-      <div class="ml-10" v-if="user.isLoggedIn === false">
+      <!-- <div class="ml-10" v-if="user.isLoggedIn === false">
         <v-btn to="/login">
           Login
         </v-btn>
-      </div>
-      <div class="ml-10" v-else>
-        <v-btn to="/">
+      </div> -->
+      <div class="ml-10">
+        <v-btn to="/Profile">
           Profile
         </v-btn>
         <v-btn to="/">
@@ -49,7 +48,6 @@ const links = ref([
 
     <v-main>
       <router-view v-slot="{ Component }">
-        <HomeView v-if="$route.fullPath == '/'" />
         <component :is="Component" />
       </router-view>
     </v-main>

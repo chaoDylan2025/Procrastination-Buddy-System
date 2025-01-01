@@ -8,6 +8,12 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: '/',
+      name: 'Home',
+      // route level code-splitting
+      component: () => import('../views/HomeView.vue'),
+    },
+    {
       path: '/about',
       name: 'about',
       // route level code-splitting
@@ -22,6 +28,11 @@ const router = createRouter({
       path: '/SignUp',
       name: 'SignUp',
       component: () => import('../views/SignUpView.vue'),
+    },
+    {
+      path: '/Profile',
+      name: 'Profile',
+      component: () => import('../views/Profile.vue'),
     },
     {
       path: '/MotivationPage',

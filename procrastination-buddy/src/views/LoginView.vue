@@ -26,7 +26,6 @@
     // Navigate to Home page if user is logged in
     function moveToHomePage(response){
          if(response == true){
-            user.isLoggedIn = true
             router.push('/')
          }
          else{
