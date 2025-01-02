@@ -2,7 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import { initializeApp } from "firebase/app"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser, onAuthStateChanged, setPersistence } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth"
 import { addDoc, collection, doc, getFirestore, getDocs, setDoc } from "firebase/firestore"
 
 const firebaseConfig = {
@@ -23,6 +23,32 @@ const db = getFirestore(firebase)
 
 // Accesses authentication code
 const auth = getAuth()
+
+// Contains signed-in user's email
+var user_email = ""
+
+// Set session persistence for logging in
+setPersistence(auth, browserLocalPersistence)
+  .then(() => {
+    console.log("Persistence has been set...")
+    return signInWithEmailAndPassword(auth, email, password)
+  })
+  .catch((error) => {
+    // Handle Errors here.
+    const errorCode = error.code
+    const errorMessage = error.message
+  })
+
+// Checks if the user is currently signed in
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("Returning user email")
+    user_email = auth.currentUser.email
+  } 
+  else {
+    console.log("Nothing will be returned")
+  }
+})
 
 // Retrieves all documents in 'user-info' collection
 const querySnapshot = await getDocs(collection(db, "user-info"))
@@ -62,14 +88,12 @@ export async function userLogin(email, password){
 
 // Get the currently signed-in user
 export function getSignedInUser(){
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      return user.email
-    } 
-    else {
-      return "User is signed out"
-    }
-  })
+  if(user_email == null){
+    return null
+  }
+  else{
+    return user_email
+  }
 }
 
 // Logging the user out

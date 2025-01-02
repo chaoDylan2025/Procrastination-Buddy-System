@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { createUser, userLogin } from './code/user.js'
+import { createUser, userLogin, getSignedInUser } from './code/user.js'
 
 const app = express()
 
@@ -15,7 +15,6 @@ app.post('/SignUp', async (req, res) => {
 
     // Calls function
     const result = await createUser(email, password, confirm_password)
-
     res.send({
         status: result
     })
@@ -28,7 +27,17 @@ app.post('/login', async (req, res) => {
 
     // Call function
     const result = await userLogin(email, password)
-    
+    console.log(result)
+    res.send({
+        status: result,
+    })
+})
+
+// Get request for checking if user is currently signed in
+app.get('/Profile', (req, res) => {
+    // Call function
+    const result = getSignedInUser()
+    console.log(result)
     res.send({
         status: result,
     })
