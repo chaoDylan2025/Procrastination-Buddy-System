@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { createUser, userLogin, getSignedInUser } from './code/user.js'
+import { createUser, userLogin, getSignedInUser, logout, deleteUserAccount } from './code/user.js'
 
 const app = express()
 
@@ -37,10 +37,28 @@ app.post('/login', async (req, res) => {
 app.get('/Profile', (req, res) => {
     // Call function
     const result = getSignedInUser()
-    console.log(result)
     res.send({
         status: result,
     })
+})
+
+// Post request for logging user out
+app.post('/Logout', async (req, res) => {
+    const result = await logout()
+    if(result === true){
+        res.status(200).send('Logout')
+    }
+    res.send({
+        status: result
+    })  
+})
+
+// Delete request for deleting user account
+app.delete('/Profile', async (req, res) => {
+    const result = await deleteUserAccount()
+    if(result === true){
+        res.status(200).send('Deleted User Account')
+    }  
 })
 
 app.listen(process.env.PORT || 3000)

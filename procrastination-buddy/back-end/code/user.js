@@ -2,7 +2,8 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import { initializeApp } from "firebase/app"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, deleteUser, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, 
+          deleteUser, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth"
 import { addDoc, collection, doc, getFirestore, getDocs, setDoc } from "firebase/firestore"
 
 const firebaseConfig = {
@@ -34,7 +35,6 @@ setPersistence(auth, browserLocalPersistence)
     return signInWithEmailAndPassword(auth, email, password)
   })
   .catch((error) => {
-    // Handle Errors here.
     const errorCode = error.code
     const errorMessage = error.message
   })
@@ -97,13 +97,15 @@ export function getSignedInUser(){
 }
 
 // Logging the user out
-export async function userLogOut(){
+export async function logout(){
   try{
+    // Calls method that signs out the user
     await signOut(auth)
+    user_email = ""
     return true
   }
   catch (error) {
-
+    return error
   }
 }
 
@@ -113,9 +115,11 @@ export async function deleteUserAccount(){
   const user = auth.currentUser
 
   try{
+    // Calls method that deletes user account
     await deleteUser(user)
+    return true
   }
-  catch (error){
-
+  catch(error){
+    console.log(error)
   }
 }
