@@ -1,7 +1,7 @@
 <script setup>
     import { RouterLink, RouterView } from 'vue-router'
-    import router from '../router/index'
     import { ref, onMounted } from 'vue'
+    import AuthenticationService from '../services/AuthenticationService'
 
     var completed_tasks = ref(0)
     var scheduled_tasks = ref(0)

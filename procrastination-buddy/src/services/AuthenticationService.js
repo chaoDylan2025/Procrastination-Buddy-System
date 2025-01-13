@@ -12,4 +12,12 @@ export default {
     getImages () {
         return Api().get('PersonalPage')
     },
+
+    userIsLoggedIn () {
+        return Api().get('LoggedIn')
+    },
+
+    logoutUser () {
+        return Api().post('logout')
+    }
 }

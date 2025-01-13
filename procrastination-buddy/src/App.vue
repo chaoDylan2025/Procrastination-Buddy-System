@@ -14,6 +14,18 @@ const links = ref([
   { text: "Tasks", to: "/Tasks"},
   { text: "Focus List", to: "/FocusList"},
 ]);
+
+async function logUserOut(){
+  try{
+    const result = await AuthenticationService.logoutUser()
+    if(result.data.status == true){
+      user.isLoggedIn = false
+    }
+  }
+  catch (error){
+    console.error(error)
+  }
+}
 </script>
 
 <template>
@@ -31,16 +43,18 @@ const links = ref([
           {{ link.text }}
         </v-btn>
       </div>
-      <!-- <div class="ml-10" v-if="user.isLoggedIn === false">
+
+      <div class="ml-10" v-if="user.isLoggedIn === false">
         <v-btn to="/login">
           Login
         </v-btn>
-      </div> -->
-      <div class="ml-10">
+      </div>
+
+      <div class="ml-10" v-else>
         <v-btn to="/Profile">
           Profile
         </v-btn>
-        <v-btn to="/">
+        <v-btn to="/" @click="logUserOut">
           Logout
         </v-btn>
       </div>

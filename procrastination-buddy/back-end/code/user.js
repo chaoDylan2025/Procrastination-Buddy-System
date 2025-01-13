@@ -2,8 +2,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 
 import { initializeApp } from "firebase/app"
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, 
-          deleteUser, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth"
+import * as firebaseAuth from "firebase/auth"
 import { addDoc, collection, doc, getFirestore, getDocs, setDoc } from "firebase/firestore"
 
 const firebaseConfig = {
@@ -23,13 +22,13 @@ const firebase = initializeApp(firebaseConfig);
 const db = getFirestore(firebase)
 
 // Accesses authentication code
-const auth = getAuth()
+const auth = firebaseAuth.getAuth()
 
 // Contains signed-in user's email
-var user_email = ""
+var user_email = null
 
 // Set session persistence for logging in
-setPersistence(auth, browserLocalPersistence)
+firebaseAuth.setPersistence(auth, firebaseAuth.browserLocalPersistence)
   .then(() => {
     console.log("Persistence has been set...")
     return signInWithEmailAndPassword(auth, email, password)
@@ -40,15 +39,17 @@ setPersistence(auth, browserLocalPersistence)
   })
 
 // Checks if the user is currently signed in
-onAuthStateChanged(auth, (user) => {
-  if (user) {
-    console.log("Returning user email")
-    user_email = auth.currentUser.email
-  } 
-  else {
-    console.log("Nothing will be returned")
-  }
+firebaseAuth.onAuthStateChanged(auth, (user) => {
+    if (user) {
+      console.log("User is currently logged in...")
+      user_email = auth.currentUser.email
+      return user_email
+    } 
+    else {
+      console.log("User is not logged in...")
+    }
 })
+
 
 // Retrieves all documents in 'user-info' collection
 const querySnapshot = await getDocs(collection(db, "user-info"))
@@ -57,7 +58,7 @@ const querySnapshot = await getDocs(collection(db, "user-info"))
 export async function createUser(emailId, password, confirmPassword){
   if(confirmPassword === password){
     try{
-      await createUserWithEmailAndPassword(auth, emailId, password)
+      await firebaseAuth.createUserWithEmailAndPassword(auth, emailId, password)
       return true
     } 
     catch(error){
@@ -77,7 +78,7 @@ export async function createUser(emailId, password, confirmPassword){
 // Logging in the user
 export async function userLogin(email, password){
   try{
-    await signInWithEmailAndPassword(auth, email, password)
+    await firebaseAuth.signInWithEmailAndPassword(auth, email, password)
     return true
   } 
   catch (error) {
@@ -88,11 +89,11 @@ export async function userLogin(email, password){
 
 // Get the currently signed-in user
 export function getSignedInUser(){
-  if(user_email == null){
-    return null
+  if(user_email != null){
+    return user_email
   }
   else{
-    return user_email
+    return null
   }
 }
 
@@ -100,8 +101,8 @@ export function getSignedInUser(){
 export async function logout(){
   try{
     // Calls method that signs out the user
-    await signOut(auth)
-    user_email = ""
+    await firebaseAuth.signOut(auth)
+    user_email = null
     return true
   }
   catch (error) {
@@ -116,7 +117,7 @@ export async function deleteUserAccount(){
 
   try{
     // Calls method that deletes user account
-    await deleteUser(user)
+    await firebaseAuth.deleteUser(user)
     return true
   }
   catch(error){

@@ -7,4 +7,5 @@ export const userStore = defineStore('user', {
     email: "",
     isLoggedIn: false,
   }),
+  persist: true,
 })

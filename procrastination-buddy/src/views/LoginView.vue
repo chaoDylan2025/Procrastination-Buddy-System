@@ -3,6 +3,7 @@
     import {useRouter} from 'vue-router'
     import router from '../router/index'
     import { ref, onMounted } from 'vue'
+
     import AuthenticationService from '../services/AuthenticationService'
 
     import { userStore } from "../stores/user";
@@ -26,6 +27,7 @@
     // Navigate to Home page if user is logged in
     function moveToHomePage(response){
          if(response == true){
+            user.isLoggedIn = true
             router.push('/')
          }
          else{

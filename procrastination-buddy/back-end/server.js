@@ -27,18 +27,17 @@ app.post('/login', async (req, res) => {
 
     // Call function
     const result = await userLogin(email, password)
-    console.log(result)
     res.send({
         status: result,
     })
 })
 
 // Get request for checking if user is currently signed in
-app.get('/Profile', (req, res) => {
+app.get('/LoggedIn', (req, res) => {
     // Call function
     const result = getSignedInUser()
     res.send({
-        status: result,
+        email: result
     })
 })
 
@@ -46,11 +45,11 @@ app.get('/Profile', (req, res) => {
 app.post('/Logout', async (req, res) => {
     const result = await logout()
     if(result === true){
-        res.status(200).send('Logout')
+        console.log("User has been logged out...")
+        res.send({
+            status: result
+        })  
     }
-    res.send({
-        status: result
-    })  
 })
 
 // Delete request for deleting user account
