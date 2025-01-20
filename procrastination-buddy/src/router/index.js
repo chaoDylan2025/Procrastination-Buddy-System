@@ -30,6 +30,11 @@ const router = createRouter({
       component: () => import('../views/SignUpView.vue'),
     },
     {
+      path: '/Tasks',
+      name: 'Tasks',
+      component: () => import('../views/Tasks.vue'),
+    },
+    {
       path: '/Profile',
       name: 'Profile',
       component: () => import('../views/Profile.vue'),
@@ -40,9 +45,9 @@ const router = createRouter({
       component: () => import('../views/MotivationPage.vue')
     },
     {
-      path: '/Tasks',
-      name: 'tasks',
-      component: () => import('../views/Tasks.vue')
+      path: '/Stats',
+      name: 'stats',
+      component: () => import('../views/Stats.vue')
     },
     {
       path: '/FocusList',

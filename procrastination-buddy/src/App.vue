@@ -15,6 +15,11 @@ const links = ref([
   { text: "Focus List", to: "/FocusList"},
 ]);
 
+const profile_tabs = ref([
+  {text: 'Task Statistics', to: "/Stats"},
+  {text: 'Profile Information', to: "/Profile"}
+])
+
 async function logUserOut(){
   try{
     const result = await AuthenticationService.logoutUser()
@@ -50,10 +55,28 @@ async function logUserOut(){
         </v-btn>
       </div>
 
-      <div class="ml-10" v-else>
-        <v-btn to="/Profile">
-          Profile
-        </v-btn>
+      <div class="ml-10">
+        <v-menu open-on-hover>
+          <template v-slot:activator="{ props }">
+            <v-btn v-bind="props">
+              Profile
+            </v-btn>
+          </template>
+
+          <v-list>
+            <v-list-item
+              v-for="(tab, index) in profile_tabs"
+              :key="index"
+            >
+              <v-list-item-title>
+                <v-btn :to="tab.to">
+                  {{ tab.text }}
+                </v-btn>
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+        
         <v-btn to="/" @click="logUserOut">
           Logout
         </v-btn>
