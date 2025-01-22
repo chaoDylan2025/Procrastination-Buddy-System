@@ -55,8 +55,9 @@ async function logUserOut(){
         </v-btn>
       </div>
 
-      <div class="ml-10">
-        <v-menu open-on-hover>
+      <div class="ml-10" v-else>
+        <v-menu open-on-hover open-delay="1000"
+        close-delay="1000">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props">
               Profile
@@ -69,7 +70,7 @@ async function logUserOut(){
               :key="index"
             >
               <v-list-item-title>
-                <v-btn :to="tab.to">
+                <v-btn size="small" :to="tab.to">
                   {{ tab.text }}
                 </v-btn>
               </v-list-item-title>
