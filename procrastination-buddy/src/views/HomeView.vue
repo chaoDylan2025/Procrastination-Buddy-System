@@ -1,19 +1,6 @@
 <script setup>
-import { ref } from 'vue'
+import { img_arr, getImageUrl } from '../code/image_functions'
 
-// Array of images
-var img_arr = ref([
-    "/images/IMG_7112.JPG",
-    "/images/IMG_7113.JPG", 
-    "/images/IMG_7117.WEBP", 
-    "/images/MotivationalQuote.png",
-    "/images/ProcrastinationQuote.png"
-])
-
-// Gets a new Image URL
-function getImageUrl(url) {
-  return new URL(`${url}`, import.meta.url).href
-}
 </script>
 
 <template>
