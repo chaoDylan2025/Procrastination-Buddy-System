@@ -1,39 +1,40 @@
 <script setup>
     import AuthenticationService from '../services/AuthenticationService'
-    import { ref, onMounted } from 'vue'
+    import {ref} from 'vue'
+    import Content from './Content.vue'
+    import StorageView from '../components/StorageView.vue';
 
-    // Contains current images
-    var current_images_arr = ref([])
+    // Opens Storage dialog modal
+    var open_storage_dialog_modal = ref(false)
 
-    // Accesses backend to get images from Cloud Storage bucket
-    async function getImages(){
-        await AuthenticationService.getImages().then((result) => {
-            current_images_arr.value = result.data.images_arr
-        })
-    } 
-
-    // Call this function everytime user reloads page
-    onMounted(() => {
-        getImages()
-    })
 </script>
 
 <template>
     <v-app>
-        <v-container class="mt-10">
-             <v-row>
-                <v-col 
-                    v-for="(image, i) in current_images_arr"
-                    :key="i"
-                    :value="image"
-                    width="100"
-                    height="100"
-                    cols="2"
-                >
-                    <v-img :src=image></v-img>
+        <v-container>
+             <!-- Displays two buttons that users can choose -->
+             <v-row class="ml-10">
+                <v-spacer></v-spacer>
+                <v-col class="mt-5">
+                    <v-btn @click="">Edit Content</v-btn>
                 </v-col>
+                <v-spacer></v-spacer>
+                <v-col class="mt-5">
+                    <v-btn @click="open_storage_dialog_modal = true">Storage</v-btn>
+                </v-col>
+                <v-spacer></v-spacer>
              </v-row>
+
+             <!-- Display Motivational Page Content -->
+             <v-row>
+                <Content />
+             </v-row>
+             <v-row></v-row>
         </v-container>
+
+        <StorageView :open_storage_view="open_storage_dialog_modal" @close="(state) => open_storage_dialog_modal = state"/>
+
+
     </v-app>
 
 </template>
