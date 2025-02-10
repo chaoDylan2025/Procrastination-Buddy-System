@@ -14,8 +14,8 @@ var image_layout_options = ["3 images per row", "4 images per row", "5 images pe
 <template>
     <v-dialog
     v-model="props.open_edit_dialog"
-    height="500"
-    width="500">
+    height="800"
+    width="1000">
         <v-card>
             <v-card-item>
                 <v-btn
@@ -59,7 +59,7 @@ var image_layout_options = ["3 images per row", "4 images per row", "5 images pe
             </v-container>
 
             <v-container>
-                <Content />
+                <Content :show_change_button="true"/>
             </v-container>
             
             
