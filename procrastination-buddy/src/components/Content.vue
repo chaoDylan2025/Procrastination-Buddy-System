@@ -2,10 +2,14 @@
     import AuthenticationService from '../services/AuthenticationService'
     import {ref} from 'vue'
     import { img_arr, getImageUrl } from '../code/image_functions'
+    import ChangeImage from './ChangeImage.vue'
 
     const props = defineProps({
         show_change_button: Boolean
     })
+
+    // Opens change image dialog
+    var open_change_image_dialog = ref(false) 
 
     // Contains current images
     var current_images_arr = ref(["/images/IMG_7112.JPG", "/images/IMG_7113.JPG", "/images/IMG_7117.WEBP", 
@@ -27,9 +31,9 @@
                         <v-row class="mb-5">
                             <v-img :src=getImageUrl(image) height="100"></v-img>
                         </v-row>
-                        <v-row>
+                        <v-row v-if="show_change_button == true">
                             <v-spacer></v-spacer>
-                            <v-btn>
+                            <v-btn @click="open_change_image_dialog = true">
                                 Change
                             </v-btn>
                             <v-spacer></v-spacer>
@@ -40,4 +44,5 @@
         </v-container>
     </v-app>
 
+    <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => open_change_image_dialog = state"/>
 </template>

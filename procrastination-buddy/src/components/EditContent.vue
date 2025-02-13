@@ -59,7 +59,7 @@ var image_layout_options = ["3 images per row", "4 images per row", "5 images pe
             </v-container>
 
             <v-container>
-                <Content :show_change_button="true"/>
+                <Content :show_change_button="props.open_edit_dialog"/>
             </v-container>
             
             
