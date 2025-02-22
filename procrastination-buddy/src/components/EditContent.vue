@@ -1,8 +1,12 @@
 <script setup>
 import Content from './Content.vue'
+import DeleteImages from './DeleteImages.vue'
+import { ref } from 'vue'
+
 const props = defineProps({
-    open_edit_dialog: Boolean
+    open_edit_dialog: Boolean,
 })
+
 const emit = defineEmits('close')
 function exitDialogModal(){
     emit('close', false)
@@ -10,6 +14,10 @@ function exitDialogModal(){
 
 // Contains options for changing image layout
 var image_layout_options = ["3 images per row", "4 images per row", "5 images per row", "6 images per row"]
+
+// Opens Delete Images dialog
+var open_delete_images_dialog = ref(false)
+
 </script>
 <template>
     <v-dialog
@@ -53,7 +61,7 @@ var image_layout_options = ["3 images per row", "4 images per row", "5 images pe
                         </v-list>
                     </v-menu>
                     <v-spacer></v-spacer>
-                    <v-btn size="small" @click="">Delete Images</v-btn>
+                    <v-btn size="small" @click="open_delete_images_dialog = true">Delete Images</v-btn>
                     <v-spacer></v-spacer>
                 </v-row>
             </v-container>
@@ -62,8 +70,10 @@ var image_layout_options = ["3 images per row", "4 images per row", "5 images pe
                 <Content :show_change_button="props.open_edit_dialog"/>
             </v-container>
             
+            <v-container v-show="open_delete_images_dialog">
+                <DeleteImages :open_dialog="open_delete_images_dialog" @close="(state) => open_delete_images_dialog = state"/>
+            </v-container>
             
         </v-card>
-        
     </v-dialog>
 </template>

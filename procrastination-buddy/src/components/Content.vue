@@ -4,7 +4,9 @@
     import { img_arr, getImageUrl } from '../code/image_functions'
     import ChangeImage from './ChangeImage.vue'
 
+    // Todo: Add a prop that shows checkboxes for each image
     const props = defineProps({
+        show_check_boxes: Boolean,
         show_change_button: Boolean
     })
 
@@ -19,7 +21,7 @@
 </script>
 
 <template>
-    <v-app>
+    <v-app class="pa-4">
         <v-container class="mt-10">
            <v-row>
             <v-col v-for="(image, i) in current_images_arr"
@@ -28,6 +30,9 @@
                     cols="2"
                 >
                     <v-col>
+                        <v-row justify="start" v-if="show_check_boxes == true">
+                            <v-checkbox></v-checkbox>
+                        </v-row>
                         <v-row class="mb-5">
                             <v-img :src=getImageUrl(image) height="100"></v-img>
                         </v-row>
