@@ -1,7 +1,7 @@
 <script setup>
-    import AuthenticationService from '../services/AuthenticationService'
+    import AuthenticationService from '../../services/AuthenticationService'
     import {ref} from 'vue'
-    import { img_arr, getImageUrl } from '../code/image_functions'
+    import { img_arr, getImageUrl } from '../../code/image_functions'
     import ChangeImage from './ChangeImage.vue'
 
     // Todo: Add a prop that shows checkboxes for each image

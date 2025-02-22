@@ -1,7 +1,7 @@
 <script setup>
-import AuthenticationService from '../services/AuthenticationService'
+import AuthenticationService from '../../services/AuthenticationService'
 import {ref} from 'vue'
-import { img_arr, getImageUrl } from '../code/image_functions'
+import { img_arr, getImageUrl } from '../../code/image_functions'
 
 const props = defineProps({
     open_change_image_dialog: Boolean

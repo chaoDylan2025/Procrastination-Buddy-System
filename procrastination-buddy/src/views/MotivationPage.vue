@@ -1,8 +1,8 @@
 <script setup>
     import AuthenticationService from '../services/AuthenticationService'
     import {ref} from 'vue'
-    import EditContent from '../components/EditContent.vue'
-    import Content from '../components/Content.vue'
+    import EditContent from '../components/Motivational-Page/EditContent.vue'
+    import Content from '../components/Motivational-Page/Content.vue'
 
     // Opens Edit Content dialog
     var open_edit_content_dialog = ref(false)

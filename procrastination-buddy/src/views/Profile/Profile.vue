@@ -1,9 +1,9 @@
 <script setup>
     import { RouterLink, RouterView } from 'vue-router'
     import { ref, onMounted } from 'vue'
-    import AuthenticationService from '../services/AuthenticationService'
-    import router from '../router/index'
-    import { userStore } from '../stores/user'
+    import AuthenticationService from '../../services/AuthenticationService'
+    import router from '../../router/index'
+    import { userStore } from '../../stores/user'
 
     // Importing components
     import ChangeEmail from '../components/ChangeEmail.vue'

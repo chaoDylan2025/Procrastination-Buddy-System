@@ -37,7 +37,7 @@ const router = createRouter({
     {
       path: '/Profile',
       name: 'Profile',
-      component: () => import('../views/Profile.vue'),
+      component: () => import('../views/Profile/Profile.vue'),
     },
     {
       path: '/MotivationPage',
