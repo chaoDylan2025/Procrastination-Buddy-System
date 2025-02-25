@@ -1,12 +1,12 @@
 <script setup>
     import { RouterLink, RouterView } from 'vue-router'
     import {useRouter} from 'vue-router'
-    import router from '../router/index'
+    import router from '../../router/index'
     import { ref, onMounted } from 'vue'
 
-    import AuthenticationService from '../services/AuthenticationService'
+    import AuthenticationService from '../../services/AuthenticationService'
 
-    import { userStore } from "../stores/user";
+    import { userStore } from "../../stores/user";
 
     const user = userStore()
 
