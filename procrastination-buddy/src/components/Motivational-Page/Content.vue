@@ -2,6 +2,7 @@
     import AuthenticationService from '../../services/AuthenticationService'
     import {ref, onMounted, watch} from 'vue'
     import ChangeImage from './ChangeImage.vue'
+    import Image from './Image.vue'
 
     const props = defineProps({
         show_check_boxes: Boolean,
@@ -11,6 +12,12 @@
 
     // Opens change image dialog
     var open_change_image_dialog = ref(false) 
+
+    // Opens dialog to view full image
+    var openImage = ref(false)
+
+    // Image to view
+    var imageToBeViewed = ref('')
 
     // Contains current images
     var current_images_arr = ref([])
@@ -90,7 +97,7 @@
                 >
                     <v-col>
                         <v-row class="align-center">
-                            <v-img :src=image.src height="150" cover @click=""></v-img>    
+                            <v-img :src=image.src height="150" cover @click="imageToBeViewed=image.src, openImage=true"></v-img>    
                         </v-row>
                         <v-row class="mt-5">
                             <v-spacer></v-spacer>
@@ -101,8 +108,9 @@
                     </v-col>
                 </v-col>
             </v-row>
+            <p> {{ imageToBeViewed }}</p>
+            <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => open_change_image_dialog = state"/>
+            <Image :image="imageToBeViewed" :open_image="openImage" @close="(state) => openImage = state"/>
         </v-container>
     </v-app>
-
-    <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => open_change_image_dialog = state"/>
 </template>
