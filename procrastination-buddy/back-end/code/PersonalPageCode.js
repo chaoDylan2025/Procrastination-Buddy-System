@@ -10,9 +10,8 @@ client
 
 const storage = new Storage(client)
 
-// To-do: Add default images to the array and replace any sensitive information with dotenv variables
-// Default Images for every users' personal motivational page
-var default_images = [
+// Default images for every users' personal motivational page
+export var default_images = [
   `${process.env.APPWRITE_API_ENDPOINT}/storage/buckets/${process.env.APPWRITE_BUCKETID}/files/67ba6f7d001720a03470/view?project=${process.env.APPWRITE_PROJECTID}&mode=admin`,
   `${process.env.APPWRITE_API_ENDPOINT}/storage/buckets/${process.env.APPWRITE_BUCKETID}/files/67ba6fb6000e8d47eff0/view?project=${process.env.APPWRITE_PROJECTID}&mode=admin`,
   `${process.env.APPWRITE_API_ENDPOINT}/storage/buckets/${process.env.APPWRITE_BUCKETID}/files/67ba6f570012e02c03a9/view?project=${process.env.APPWRITE_PROJECTID}&mode=admin`,
@@ -27,35 +26,31 @@ var default_images = [
   `${process.env.APPWRITE_API_ENDPOINT}/storage/buckets/${process.env.APPWRITE_BUCKETID}/files/67ba6fdf0024377f49ba/view?project=${process.env.APPWRITE_PROJECTID}&mode=admin`,
 ]
 
-// Contains image ids
-var images_arr = []
-// Contains file preview images
-export var images_src_arr = []
+// Contains every file id and source of all images
+export var images_arr = []
 
 // Collect all bucket images
 await storage.listFiles(
   process.env.APPWRITE_BUCKETID
 ).then((list) => {
-  getFileIDs(list.files)
-  getImageSrcs()
+  getAllImages(list.files)
 })
 
-// Get all file preview images
-function getImageSrcs(){
-  images_arr.forEach((e) => {
-    let result = storage.getFilePreview(process.env.APPWRITE_BUCKETID, e)
-    images_src_arr.push(result)
-  })
-}
-
-// Get all image file ids
-function getFileIDs(file_list){
-  file_list.forEach((e) => {
-    images_arr.push(e.$id)
+// Get all images from the Appwrite bucket
+function getAllImages(files){
+  files.forEach((e) => {
+    images_arr.push({file_id: e.$id, src: storage.getFilePreview(process.env.APPWRITE_BUCKETID, e.$id)})
   })
 }
 
 // Download an image from the Appwrite bucket
-function downloadImage(file_id){
-  storage.getFileDownload(process.env.APPWRITE_BUCKETID, file_id);
+export async function downloadImage(file_id){
+  try{
+    // Contains URL that allows download
+    const result = storage.getFileDownload(process.env.APPWRITE_BUCKETID, file_id)
+    return result
+  }
+  catch (error){
+    console.log(error)
+  } 
 }
