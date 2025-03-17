@@ -28,7 +28,7 @@ function exitDialogModal(){
             </v-card-item>
 
             <v-container>
-                <Content :show_download_button="props.open_download_images_dialog"/>
+                <Content :show_all_images="props.open_download_images_dialog" :show_download_button="props.open_download_images_dialog"/>
             </v-container>
         </v-card>
     </v-dialog>

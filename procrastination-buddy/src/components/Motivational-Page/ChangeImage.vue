@@ -1,17 +1,9 @@
 <script setup>
-import AuthenticationService from '../../services/AuthenticationService'
-import {ref} from 'vue'
-import { img_arr, getImageUrl } from '../../code/image_functions'
+import Content from './Content.vue'
 
 const props = defineProps({
     open_change_image_dialog: Boolean
 })
-
-// Contains current images
-var current_images_arr = ref(["/images/IMG_7112.JPG", "/images/IMG_7113.JPG", "/images/IMG_7117.WEBP", 
-"/images/MotivationalQuote.png","/images/ProcrastinationQuote.png", "../assets/images/einstein.png.webp",
-"../assets/images/getty_506910700_160576.webp", "../assets/images/IMG_7114.PNG", "../assets/images/IMG_7118.JPG",
-"../assets/images/IMG_7119.JPG", "../assets/images/MotivationalQuote2.png", "../assets/images/MotivationalQuote3.png"])
 
 const emit = defineEmits('close')
 function exitDialogModal(){
@@ -37,7 +29,7 @@ function exitDialogModal(){
                 </v-card-item>
 
                 <v-container>
-                    <Content :show_change_button="props.open_edit_dialog"/>
+                    <Content :show_change_button="props.open_change_image_dialog" :show_all_images="props.open_change_image_dialog"/>
                 </v-container> 
             </v-card>
         </v-dialog>

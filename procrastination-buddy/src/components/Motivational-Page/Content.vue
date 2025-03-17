@@ -7,6 +7,7 @@
     const props = defineProps({
         show_check_boxes: Boolean,
         show_change_button: Boolean,
+        show_all_images: Boolean,
         show_download_button: Boolean,
     })
 
@@ -64,11 +65,11 @@
     <v-app class="pa-6">
         <!-- Styling for not downloading images -->
         <v-container class="mt-10">
-           <v-row>
-            <v-col v-if="show_download_button != true" v-for="(image, i) in current_images_arr"
-                    :key="i"
-                    :value="image"
-                    cols="2"
+            <v-row>
+                <v-col v-if="!show_all_images" v-for="(image, i) in current_images_arr"
+                        :key="i"
+                        :value="image"
+                        cols="2"
                 >
                     <v-col>
                         <v-row class="align-center">
@@ -96,19 +97,28 @@
                     cols="2"
                 >
                     <v-col>
-                        <v-row class="align-center">
-                            <v-img :src=image.src height="150" cover @click="imageToBeViewed=image.src, openImage=true"></v-img>    
+                        <v-row class="align-center" >
+                            <!-- TO-DO: Create a function that highlights selected image with styling used below -->
+                            <v-img :src=image.src height="150" style="border:solid 1px red" cover @click="imageToBeViewed=image.src, openImage=true"></v-img>    
                         </v-row>
                         <v-row class="mt-5">
-                            <v-spacer></v-spacer>
-                                <v-btn @click="imageDownload(image.file_id)" prepend-icon="mdi-download" variant="plain" size="medium">
-                                </v-btn>
-                            <v-spacer></v-spacer>
+                            <v-container v-if="show_download_button">
+                                <v-spacer></v-spacer>
+                                    <v-btn @click="imageDownload(image.file_id)" prepend-icon="mdi-download" variant="plain" size="medium">
+                                    </v-btn>
+                                <v-spacer></v-spacer>
+                            </v-container>
+
+                            <v-container v-else-if="show_change_button">
+                                <v-spacer></v-spacer>
+                                <v-btn> Select </v-btn>
+                                <v-spacer></v-spacer>
+                            </v-container>
+                            
                         </v-row>
                     </v-col>
                 </v-col>
             </v-row>
-            <p> {{ imageToBeViewed }}</p>
             <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => open_change_image_dialog = state"/>
             <Image :image="imageToBeViewed" :open_image="openImage" @close="(state) => openImage = state"/>
         </v-container>
