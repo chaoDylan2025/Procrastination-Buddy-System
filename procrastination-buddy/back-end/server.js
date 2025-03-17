@@ -1,7 +1,6 @@
 import express from 'express'
 import cors from 'cors'
 import { createUser, userLogin, getSignedInUser, logout, deleteUserAccount } from './code/user.js'
-import { default_images, images_arr, downloadImage } from './code/PersonalPageCode.js'
 
 const app = express()
 
@@ -59,28 +58,6 @@ app.delete('/Profile', async (req, res) => {
     if(result === true){
         res.status(200).send('Deleted User Account')
     }  
-})
-
-// Get request for retrieving array of default images
-app.get('/GetDefaultImages', (req, res) => {
-    res.send({
-        default_images: default_images
-    })
-})
-
-// Get request for retrieving all of the images from Appwrite bucket
-app.get('/GetAllImages', (req, res) => {
-    res.send({
-        all_images: images_arr
-    })
-})
-
-// Post request for downloading images from Appwrite bucket
-app.post('/DownloadImages', async(req, res) => {
-    const { image } = req.body
-    await downloadImage(image).then(() => {
-        res.status(200).send("Downloaded image...")
-    })
 })
 
 app.listen(process.env.PORT || 3000)

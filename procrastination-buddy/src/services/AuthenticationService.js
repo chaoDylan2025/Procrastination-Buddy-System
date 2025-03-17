@@ -9,18 +9,6 @@ export default {
         return Api().post('login', credentials)
     },
 
-    getDefaultImages () {
-        return Api().get('GetDefaultImages')
-    },
-
-    getAllImages () {
-        return Api().get('GetAllImages')
-    },
-
-    downloadImages (image) {
-        return Api().post('DownloadImages', image)
-    },
-
     userIsLoggedIn () {
         return Api().get('LoggedIn')
     },
