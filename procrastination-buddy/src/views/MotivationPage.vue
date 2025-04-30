@@ -5,8 +5,6 @@ import Content from '../components/Motivational-Page/Content.vue'
 
 // Opens Edit Content dialog
 var open_edit_content_dialog = ref(false)
-// Opens Download Images dialog
-var open_download_images_dialog = ref(false)
 </script>
 
 <template>
@@ -24,7 +22,7 @@ var open_download_images_dialog = ref(false)
              <!-- Display Motivational Page Content -->
              <v-row>
                 <v-col>
-                    <Content />
+                    <Content :show_change_button="true"/>
                 </v-col>
                 
              </v-row>
