@@ -1,6 +1,7 @@
 <script setup>
     import AuthenticationService from '../../services/AuthenticationService'
-    import {ref, onMounted, watch} from 'vue'
+    import { ref, onMounted, watch } from 'vue'
+    import { motivational_imgs } from '../../code/image_functions'
     import ChangeImage from './ChangeImage.vue'
     import Image from './Image.vue'
 
@@ -47,17 +48,7 @@
     }
 
     onMounted(() => {
-        // Gets the default images of the personal motivational page
-        const request = AuthenticationService.getDefaultImages()
-        request.then((result) => {
-            current_images_arr.value = result.data.default_images
-        })
-
-        // Gets all of the images from the Appwrite bucket
-        const request2 = AuthenticationService.getAllImages()
-        request2.then((result) => {
-            appWriteImages.value = result.data.all_images
-        })
+        current_images_arr.value = motivational_imgs.value
     })
 </script>
 
