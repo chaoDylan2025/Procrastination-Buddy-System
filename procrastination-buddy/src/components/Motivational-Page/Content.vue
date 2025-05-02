@@ -1,55 +1,36 @@
 <script setup>
-    import AuthenticationService from '../../services/AuthenticationService'
-    import { ref, onMounted, watch } from 'vue'
-    import { motivational_imgs } from '../../code/image_functions'
-    import ChangeImage from './ChangeImage.vue'
-    import Image from './Image.vue'
+import AuthenticationService from '../../services/AuthenticationService'
+import { userStore } from '../../stores/user'
+import { ref, onMounted, watch } from 'vue'
+import { motivational_imgs } from '../../code/image_functions'
+import ChangeImage from './ChangeImage.vue'
+import Image from './Image.vue'
 
-    const props = defineProps({
-        show_check_boxes: Boolean,
-        show_change_button: Boolean,
-        show_all_images: Boolean,
-        show_download_button: Boolean,
-    })
+const props = defineProps({
+    show_check_boxes: Boolean,
+    show_change_button: Boolean,
+    show_all_images: Boolean,
+    show_download_button: Boolean,
+})
 
-    // Opens change image dialog
-    var open_change_image_dialog = ref(false) 
+// Pinia store
+const user = userStore()
 
-    // Opens dialog to view full image
-    var openImage = ref(false)
+// Opens change image dialog
+var open_change_image_dialog = ref(false) 
 
-    // Image to view
-    var imageToBeViewed = ref('')
+// Opens dialog to view full image
+var openImage = ref(false)
 
-    // Contains current images
-    var current_images_arr = ref([])
+// Image to view
+var imageToBeViewed = ref('')
 
-    // Contains all of the images from the Appwrite bucket
-    var appWriteImages = ref([])
+// Contains current images
+var current_images_arr = ref([])
 
-    // Download image from the Appwrite bucket
-    async function imageDownload(imageId){
-        try{
-            // Contains download URL
-            const result = await AuthenticationService.downloadImages({image: imageId})
-            
-            // Trigger download
-            const link = document.createElement('a');
-            link.href = result;
-            link.download = imageId;
-            document.body.appendChild(link)
-            link.click();
-            document.body.removeChild(link)
-
-        }
-        catch (error) {
-            console.log(error)
-        }
-    }
-
-    onMounted(() => {
-        current_images_arr.value = motivational_imgs.value
-    })
+onMounted(() => {
+    current_images_arr.value = motivational_imgs.value
+})
 </script>
 
 <template>
@@ -60,7 +41,7 @@
                 <v-col v-if="!show_all_images" v-for="(image, i) in current_images_arr"
                         :key="i"
                         :value="image"
-                        cols="2"
+                        :cols="user.imageLayout"
                 >
                     <v-col>
                         <v-row class="align-center">

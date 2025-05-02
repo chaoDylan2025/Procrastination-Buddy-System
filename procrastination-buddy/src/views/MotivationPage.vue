@@ -1,8 +1,15 @@
 <script setup>
+import { ref } from 'vue'
+import { changeImageLayout } from '../code/image_functions'
+import { userStore } from '../stores/user'
 import Content from '../components/Motivational-Page/Content.vue'
 
 // Contains options for changing image layout
-var image_layout_options = ["1 per row", "3 per row", "5 per row"]
+var image_layout_options = ["1 per row", "3 per row"]
+
+// Pinia store
+const user = userStore()
+
 </script>
 
 <template>
@@ -28,7 +35,7 @@ var image_layout_options = ["1 per row", "3 per row", "5 per row"]
                             v-for="(item, index) in image_layout_options"
                             :key="index"
                             :value="item"
-                            @click=""
+                            @click="user.imageLayout = changeImageLayout(image_layout_options[index])"
                             >
                                 <span class="text-caption text-center">
                                     {{ item }}

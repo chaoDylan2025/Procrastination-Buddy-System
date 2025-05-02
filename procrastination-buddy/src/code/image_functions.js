@@ -28,6 +28,15 @@ export var motivational_imgs = ref([
     getImageUrl("../assets/images/template-motivational-quote-positive-quote-success-quote-for-inspirational-self-motivation-can-be-used-for-greeting-card-typography-poster-free-vector.jpg"),
 ])
 
+export function changeImageLayout(layout){
+    if(layout == "1 per row"){
+        return 12
+    }
+    else if(layout == "3 per row"){
+        return 4
+    }
+}
+
 export function getImageUrl(url) {
     return new URL(`${url}`, import.meta.url).href
 }
