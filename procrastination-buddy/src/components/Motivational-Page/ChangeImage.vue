@@ -5,7 +5,7 @@ const props = defineProps({
     open_change_image_dialog: Boolean
 })
 
-const emit = defineEmits('close')
+const emit = defineEmits(['close'])
 function exitDialogModal(){
     emit('close', false)
 }
@@ -20,7 +20,7 @@ function exitDialogModal(){
             <v-card>
                 <v-card-item>
                     <v-btn
-                        @click="exitDialogModal"
+                        @click="exitDialogModal()"
                         icon="$close"
                         size="medium"
                         variant="text"
