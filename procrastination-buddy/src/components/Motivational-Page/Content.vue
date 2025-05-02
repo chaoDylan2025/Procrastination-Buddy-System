@@ -2,7 +2,7 @@
 import AuthenticationService from '../../services/AuthenticationService'
 import { userStore } from '../../stores/user'
 import { ref, onMounted, watch } from 'vue'
-import { motivational_imgs } from '../../code/image_functions'
+import { current_imgs, motivational_imgs } from '../../code/image_functions'
 import ChangeImage from './ChangeImage.vue'
 import Image from './Image.vue'
 
@@ -35,20 +35,20 @@ onMounted(() => {
 
 <template>
     <v-app class="pa-6">
-        <!-- Styling for not downloading images -->
+        <!-- Current selected images -->
         <v-container class="mt-10">
             <v-row>
-                <v-col v-if="!show_all_images" v-for="(image, i) in current_images_arr"
+                <v-col v-if="!show_all_images" v-for="(image, i) in current_imgs"
                         :key="i"
                         :value="image"
                         :cols="user.imageLayout"
                 >
                     <v-row>
-                        <v-img :src=image height="100px"></v-img>    
+                        <v-img :src=image height="175px"></v-img>    
                     </v-row>
                     <v-row v-if="show_change_button == true">
                         <v-spacer></v-spacer>
-                        <div v-if="show_change_button == true" class="mt-3">
+                        <div v-if="show_change_button == true" class="mt-5 mb-8">
                             <v-btn @click="open_change_image_dialog = true">
                                 Change
                             </v-btn>
@@ -57,27 +57,18 @@ onMounted(() => {
                     </v-row>
                 </v-col>
 
+                <!-- Displays all available images -->
                 <v-col v-if="show_all_images" v-for="(image, i) in current_images_arr"
                         :key="i"
                         :value="image"
-                        :cols="user.imageLayout"
+                        cols="12"
                 >
-                    <v-row>
-                        <v-img :src=image height="100px"></v-img>    
-                    </v-row>
-                    <v-row v-if="show_change_button == true">
-                        <v-spacer></v-spacer>
-                        <div v-if="show_change_button == true" class="mt-3">
-                            <v-btn @click="open_change_image_dialog = true">
-                                Change
-                            </v-btn>
-                        </div>
-                        <v-spacer></v-spacer>
+                    <v-row class="mb-12">
+                        <v-img :src=image height="175px"></v-img>    
                     </v-row>
                 </v-col>
                 <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => open_change_image_dialog = state"/>
                 <Image :image="imageToBeViewed" :open_image="openImage" @close="(state) => openImage = state"/>
-
             </v-row>
         </v-container>
     </v-app>

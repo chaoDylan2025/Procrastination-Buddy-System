@@ -9,6 +9,13 @@ export var img_arr = ref([
     "/images/ProcrastinationQuote.png",
 ])
 
+// Current images for debugging
+export var current_imgs = ref([
+    getImageUrl("../assets/images/HD-wallpaper-focus-motivational-quote-motivation-thumbnail.jpg"), 
+    getImageUrl("../assets/images/churchhill-quote.png"),
+    getImageUrl("../assets/images/istockphoto-1758363728-612x612.jpg")
+])
+
 // Available motivational images
 export var motivational_imgs = ref([
     getImageUrl("../assets/images/canva-motivational-quote-about-patience-instagram-post-UJQOlc4w32w.jpg"),
