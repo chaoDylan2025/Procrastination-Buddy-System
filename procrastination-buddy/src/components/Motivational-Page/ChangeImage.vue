@@ -1,4 +1,5 @@
 <script setup>
+import { current_selected_img } from '../../code/image_functions.js'
 import Content from './Content.vue'
 
 const props = defineProps({
@@ -16,11 +17,11 @@ function exitDialogModal(){
         <v-dialog
         v-model="props.open_change_image_dialog"
         height="800"
-        width="1000">
+        width="800">
             <v-card>
                 <v-card-item>
                     <v-btn
-                        @click="exitDialogModal()"
+                        @click="current_selected_img = -1, exitDialogModal()"
                         icon="$close"
                         size="medium"
                         variant="text"

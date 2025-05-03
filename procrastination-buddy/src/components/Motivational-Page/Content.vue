@@ -2,7 +2,7 @@
 import AuthenticationService from '../../services/AuthenticationService'
 import { userStore } from '../../stores/user'
 import { ref, onMounted, watch } from 'vue'
-import { current_imgs, motivational_imgs } from '../../code/image_functions'
+import { current_imgs, current_selected_img, motivational_imgs } from '../../code/image_functions'
 import ChangeImage from './ChangeImage.vue'
 import Image from './Image.vue'
 
@@ -43,8 +43,8 @@ onMounted(() => {
                         :value="image"
                         :cols="user.imageLayout"
                 >
-                    <v-row>
-                        <v-img :src=image height="175px"></v-img>    
+                    <v-row class="justify-center">
+                        <img :src=image height="200px"></img>    
                     </v-row>
                     <v-row v-if="show_change_button == true">
                         <v-spacer></v-spacer>
@@ -63,8 +63,15 @@ onMounted(() => {
                         :value="image"
                         cols="12"
                 >
-                    <v-row class="mb-12">
-                        <v-img :src=image height="175px"></v-img>    
+                    <v-row class="justify-center mb-12">
+                        <img :src=image height="200px" :class="current_selected_img == i ? 'selected' : ''" @click="current_selected_img = i"></img>    
+                    </v-row>
+                    <v-row class="mt-5 mb-8">
+                        <v-spacer></v-spacer>
+                        <v-btn size="x-small" @click="imageToBeViewed = image, openImage = true">
+                            View
+                        </v-btn>
+                        <v-spacer></v-spacer>
                     </v-row>
                 </v-col>
                 <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => open_change_image_dialog = state"/>
@@ -73,3 +80,11 @@ onMounted(() => {
         </v-container>
     </v-app>
 </template>
+
+<style scoped>
+.selected {
+  outline: 3px solid #2196F3;
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+</style>

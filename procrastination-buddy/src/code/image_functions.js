@@ -16,6 +16,9 @@ export var current_imgs = ref([
     getImageUrl("../assets/images/istockphoto-1758363728-612x612.jpg")
 ])
 
+// Index of currently selected image
+export var current_selected_img = ref(-1)
+
 // Available motivational images
 export var motivational_imgs = ref([
     getImageUrl("../assets/images/canva-motivational-quote-about-patience-instagram-post-UJQOlc4w32w.jpg"),
