@@ -20,13 +20,24 @@ function exitDialogModal(){
         width="800">
             <v-card>
                 <v-card-item>
-                    <v-btn
-                        @click="current_selected_img = -1, exitDialogModal()"
-                        icon="$close"
-                        size="medium"
-                        variant="text"
-                        >
-                        </v-btn>
+                    <v-col class="d-flex justify-space-between">
+                        <div>
+                            <v-btn
+                            @click="current_selected_img = -1, exitDialogModal()"
+                            icon="$close"
+                            size="medium"
+                            variant="text"
+                            >
+                            </v-btn>
+                        </div>
+                        <div>
+                            <v-btn>
+                                <span>
+                                    Confirm
+                                </span>
+                            </v-btn>
+                        </div>
+                    </v-col>    
                 </v-card-item>
 
                 <v-container>
@@ -35,5 +46,4 @@ function exitDialogModal(){
             </v-card>
         </v-dialog>
     </v-app>
-
 </template>

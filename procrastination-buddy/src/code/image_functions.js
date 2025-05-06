@@ -16,6 +16,8 @@ export var current_imgs = ref([
     getImageUrl("../assets/images/istockphoto-1758363728-612x612.jpg")
 ])
 
+// Displays 'Confirm' button if an image has been selected
+export var display_confirm_btn = ref(false)
 // Index of currently selected image
 export var current_selected_img = ref(-1)
 

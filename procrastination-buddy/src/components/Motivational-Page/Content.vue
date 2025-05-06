@@ -28,6 +28,9 @@ var imageToBeViewed = ref('')
 // Contains current images
 var current_images_arr = ref([])
 
+// Index of current image to change
+var change_current_image = ref(-1)
+
 onMounted(() => {
     current_images_arr.value = motivational_imgs.value
 })
@@ -49,7 +52,7 @@ onMounted(() => {
                     <v-row v-if="show_change_button == true">
                         <v-spacer></v-spacer>
                         <div v-if="show_change_button == true" class="mt-5 mb-8">
-                            <v-btn @click="open_change_image_dialog = true">
+                            <v-btn @click="change_current_image = i, open_change_image_dialog = true">
                                 Change
                             </v-btn>
                         </div>
@@ -74,7 +77,10 @@ onMounted(() => {
                         <v-spacer></v-spacer>
                     </v-row>
                 </v-col>
-                <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => open_change_image_dialog = state"/>
+                <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => {
+                    change_current_image = -1
+                    open_change_image_dialog = state
+                }"/>
                 <Image :image="imageToBeViewed" :open_image="openImage" @close="(state) => openImage = state"/>
             </v-row>
         </v-container>

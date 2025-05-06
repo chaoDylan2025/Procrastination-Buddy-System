@@ -1,6 +1,6 @@
 <script setup>
 import { ref } from 'vue'
-import { changeImageLayout } from '../code/image_functions'
+import { changeImageLayout, current_imgs } from '../code/image_functions'
 import { userStore } from '../stores/user'
 import Content from '../components/Motivational-Page/Content.vue'
 
@@ -17,7 +17,11 @@ const user = userStore()
         <v-container>
              <!-- Displays option to change image layout -->
              <v-row>
-                <v-col></v-col>
+                <v-col class="mt-5 text-center">
+                    <v-btn size="small">
+                        <span> Cancel </span>
+                    </v-btn>
+                </v-col>
                 <v-col class="mt-5 text-center">
                     <v-menu open-on-hover>
                         <template v-slot:activator="{ props }">
@@ -44,7 +48,11 @@ const user = userStore()
                         </v-list>
                     </v-menu>
                 </v-col>
-                <v-col></v-col>
+                <v-col class="mt-5 text-center">
+                    <v-btn size="small">
+                        <span> Save </span>
+                    </v-btn>
+                </v-col>
              </v-row>
 
              <!-- Display Motivational Page Content -->
