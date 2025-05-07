@@ -1,5 +1,5 @@
 <script setup>
-import { current_selected_img } from '../../code/image_functions.js'
+import { current_selected_img, display_confirm_btn } from '../../code/image_functions.js'
 import Content from './Content.vue'
 
 const props = defineProps({
@@ -7,6 +7,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['close'])
+
 function exitDialogModal(){
     emit('close', false)
 }
@@ -23,14 +24,14 @@ function exitDialogModal(){
                     <v-col class="d-flex justify-space-between">
                         <div>
                             <v-btn
-                            @click="current_selected_img = -1, exitDialogModal()"
+                            @click="current_selected_img = -1, display_confirm_btn = false, exitDialogModal()"
                             icon="$close"
                             size="medium"
                             variant="text"
                             >
                             </v-btn>
                         </div>
-                        <div>
+                        <div v-if="display_confirm_btn">
                             <v-btn>
                                 <span>
                                     Confirm

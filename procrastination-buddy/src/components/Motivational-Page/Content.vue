@@ -2,7 +2,7 @@
 import AuthenticationService from '../../services/AuthenticationService'
 import { userStore } from '../../stores/user'
 import { ref, onMounted, watch } from 'vue'
-import { current_imgs, current_selected_img, motivational_imgs } from '../../code/image_functions'
+import { current_imgs, current_selected_img, display_confirm_btn, motivational_imgs } from '../../code/image_functions'
 import ChangeImage from './ChangeImage.vue'
 import Image from './Image.vue'
 
@@ -67,7 +67,7 @@ onMounted(() => {
                         cols="12"
                 >
                     <v-row class="justify-center mb-12">
-                        <img :src=image height="200px" :class="current_selected_img == i ? 'selected' : ''" @click="current_selected_img = i"></img>    
+                        <img :src=image height="200px" :class="current_selected_img == i ? 'selected' : ''" @click="current_selected_img = i, display_confirm_btn = true"></img>    
                     </v-row>
                     <v-row class="mt-5 mb-8">
                         <v-spacer></v-spacer>
