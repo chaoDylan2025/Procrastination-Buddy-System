@@ -11,9 +11,9 @@ export var img_arr = ref([
 
 // Current images for debugging
 export var current_imgs = ref([
-    getImageUrl("../assets/images/HD-wallpaper-focus-motivational-quote-motivation-thumbnail.jpg"), 
-    getImageUrl("../assets/images/churchhill-quote.png"),
-    getImageUrl("../assets/images/istockphoto-1758363728-612x612.jpg")
+    {image: getImageUrl("../assets/images/HD-wallpaper-focus-motivational-quote-motivation-thumbnail.jpg"), selected: false, styling: ""}, 
+    {image: getImageUrl("../assets/images/churchhill-quote.png"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/istockphoto-1758363728-612x612.jpg"), selected: false, styling: ""}
 ])
 
 // Displays 'Confirm' button if an image has been selected
@@ -22,24 +22,25 @@ export var display_confirm_btn = ref(false)
 export var change_image = ref(-1)
 // Index of currently selected image
 export var current_selected_img = ref(-1)
+export var selected_img_index = ref(-1)
 
 // Available motivational images
 export var motivational_imgs = ref([
-    getImageUrl("../assets/images/canva-motivational-quote-about-patience-instagram-post-UJQOlc4w32w.jpg"),
-    getImageUrl("../assets/images/churchhill-quote.png"),
-    getImageUrl("../assets/images/d62a5d6bfa8e76f3dd36f9a51570f372.jpg"),
-    getImageUrl("../assets/images/easy-things-hard-1024x576.jpg.webp"),
-    getImageUrl("../assets/images/HD-wallpaper-focus-motivational-quote-motivation-thumbnail.jpg"),
-    getImageUrl("../assets/images/IMG_7114.PNG"),
-    getImageUrl("../assets/images/IMG_7118.JPG"),
-    getImageUrl("../assets/images/IMG_7119.JPG"),
-    getImageUrl("../assets/images/istockphoto-1392896428-612x612.jpg"),
-    getImageUrl("../assets/images/istockphoto-1411837419-612x612.jpg"),
-    getImageUrl("../assets/images/istockphoto-1758363728-612x612.jpg"),
-    getImageUrl("../assets/images/istockphoto-1772150832-612x612.jpg"),
-    getImageUrl("../assets/images/Luxafor-motivational-quote-image.jpg.webp"),
-    getImageUrl("../assets/images/MotivationalQuote3.png"),
-    getImageUrl("../assets/images/template-motivational-quote-positive-quote-success-quote-for-inspirational-self-motivation-can-be-used-for-greeting-card-typography-poster-free-vector.jpg"),
+    {image: getImageUrl("../assets/images/canva-motivational-quote-about-patience-instagram-post-UJQOlc4w32w.jpg"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/churchhill-quote.png"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/d62a5d6bfa8e76f3dd36f9a51570f372.jpg"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/easy-things-hard-1024x576.jpg.webp"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/HD-wallpaper-focus-motivational-quote-motivation-thumbnail.jpg"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/IMG_7114.PNG"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/IMG_7118.JPG"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/IMG_7119.JPG"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/istockphoto-1392896428-612x612.jpg"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/istockphoto-1411837419-612x612.jpg"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/istockphoto-1758363728-612x612.jpg"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/istockphoto-1772150832-612x612.jpg"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/Luxafor-motivational-quote-image.jpg.webp"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/MotivationalQuote3.png"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/template-motivational-quote-positive-quote-success-quote-for-inspirational-self-motivation-can-be-used-for-greeting-card-typography-poster-free-vector.jpg"), selected: false, styling: ""},
 ])
 
 export function changeImageLayout(layout){

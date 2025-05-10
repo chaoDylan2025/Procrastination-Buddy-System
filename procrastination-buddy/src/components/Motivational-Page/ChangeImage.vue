@@ -11,6 +11,8 @@ const emit = defineEmits(['close'])
 function exitDialogModal(confirmed){
     // Replaces the current image with the new selected image
     if(confirmed){
+        motivational_imgs.value[current_selected_img.value].selected = false
+        motivational_imgs.value[current_selected_img.value].styling = ""
         current_imgs.value[change_image.value] = motivational_imgs.value[current_selected_img.value]
     }
     current_selected_img.value = -1
