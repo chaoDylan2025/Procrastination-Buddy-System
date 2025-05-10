@@ -2,7 +2,7 @@
 import AuthenticationService from '../../services/AuthenticationService'
 import { userStore } from '../../stores/user'
 import { ref, onMounted, watch } from 'vue'
-import { current_imgs, current_selected_img, display_confirm_btn, motivational_imgs } from '../../code/image_functions'
+import { current_imgs, change_image, current_selected_img, display_confirm_btn, motivational_imgs } from '../../code/image_functions'
 import ChangeImage from './ChangeImage.vue'
 import Image from './Image.vue'
 
@@ -28,9 +28,6 @@ var imageToBeViewed = ref('')
 // Contains current images
 var current_images_arr = ref([])
 
-// Index of current image to change
-var change_current_image = ref(-1)
-
 onMounted(() => {
     current_images_arr.value = motivational_imgs.value
 })
@@ -52,7 +49,7 @@ onMounted(() => {
                     <v-row v-if="show_change_button == true">
                         <v-spacer></v-spacer>
                         <div v-if="show_change_button == true" class="mt-5 mb-8">
-                            <v-btn @click="change_current_image = i, open_change_image_dialog = true">
+                            <v-btn @click="change_image = i, open_change_image_dialog = true">
                                 Change
                             </v-btn>
                         </div>
@@ -78,7 +75,7 @@ onMounted(() => {
                     </v-row>
                 </v-col>
                 <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => {
-                    change_current_image = -1
+                    change_image = -1
                     open_change_image_dialog = state
                 }"/>
                 <Image :image="imageToBeViewed" :open_image="openImage" @close="(state) => openImage = state"/>

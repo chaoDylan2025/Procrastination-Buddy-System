@@ -1,5 +1,5 @@
 <script setup>
-import { current_selected_img, display_confirm_btn } from '../../code/image_functions.js'
+import { current_imgs, current_selected_img, change_image, display_confirm_btn, motivational_imgs } from '../../code/image_functions.js'
 import Content from './Content.vue'
 
 const props = defineProps({
@@ -8,7 +8,13 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 
-function exitDialogModal(){
+function exitDialogModal(confirmed){
+    // Replaces the current image with the new selected image
+    if(confirmed){
+        current_imgs.value[change_image.value] = motivational_imgs.value[current_selected_img.value]
+    }
+    current_selected_img.value = -1
+    display_confirm_btn.value = false
     emit('close', false)
 }
 </script>
@@ -24,7 +30,7 @@ function exitDialogModal(){
                     <v-col class="d-flex justify-space-between">
                         <div>
                             <v-btn
-                            @click="current_selected_img = -1, display_confirm_btn = false, exitDialogModal()"
+                            @click="exitDialogModal(false)"
                             icon="$close"
                             size="medium"
                             variant="text"
@@ -32,7 +38,7 @@ function exitDialogModal(){
                             </v-btn>
                         </div>
                         <div v-if="display_confirm_btn">
-                            <v-btn>
+                            <v-btn @click="exitDialogModal(true)">
                                 <span>
                                     Confirm
                                 </span>

@@ -18,6 +18,8 @@ export var current_imgs = ref([
 
 // Displays 'Confirm' button if an image has been selected
 export var display_confirm_btn = ref(false)
+// Index of image to change
+export var change_image = ref(-1)
 // Index of currently selected image
 export var current_selected_img = ref(-1)
 
