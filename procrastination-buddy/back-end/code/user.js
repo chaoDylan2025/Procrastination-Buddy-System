@@ -1,9 +1,8 @@
 import * as firebaseAuth from "firebase/auth"
-import { addDoc, collection, doc, getDocs, setDoc } from "firebase/firestore"
-import { db, auth } from "../firebase_setup.js"
+import { auth } from "../firebase_setup.js"
 
 // Contains signed-in user's email
-var user_email = null
+export var user_email = null
 
 // Set session persistence for logging in
 firebaseAuth.setPersistence(auth, firebaseAuth.browserLocalPersistence)
@@ -21,16 +20,12 @@ firebaseAuth.onAuthStateChanged(auth, (user) => {
     if (user) {
       console.log("User is currently logged in...")
       user_email = auth.currentUser.email
-      return user_email
+      console.log("User email: ", user_email)
     } 
     else {
       console.log("User is not logged in...")
     }
 })
-
-
-// Retrieves all documents in 'user-info' collection
-const querySnapshot = await getDocs(collection(db, "user-info"))
 
 // Creates a user account
 export async function createUser(emailId, password, confirmPassword){

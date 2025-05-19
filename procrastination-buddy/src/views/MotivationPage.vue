@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from 'vue'
-import { changeImageLayout, current_imgs } from '../code/image_functions'
+import { onMounted, ref } from 'vue'
+import AuthenticationService from '../services/AuthenticationService'
+import { changeImageLayout, current_imgs, default_imgs } from '../code/image_functions'
 import { userStore } from '../stores/user'
 import Content from '../components/Motivational-Page/Content.vue'
 
@@ -9,6 +10,20 @@ var image_layout_options = ["1 per row", "3 per row"]
 
 // Pinia store
 const user = userStore()
+
+// Gets the image layout and images from current user
+async function getImagesAndLayout(){
+    let result = await AuthenticationService.imagesAndLayOut()
+    let image_layout = result.data.layout
+    let images = result.data.images
+    if(images == ""){
+        console.log("Current images are missing")
+    }
+}
+
+onMounted(() => {
+    getImagesAndLayout()
+})
 
 </script>
 

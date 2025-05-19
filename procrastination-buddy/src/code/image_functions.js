@@ -15,6 +15,12 @@ export var current_imgs = ref([
     {image: getImageUrl("../assets/images/churchhill-quote.png"), selected: false, styling: ""},
     {image: getImageUrl("../assets/images/istockphoto-1758363728-612x612.jpg"), selected: false, styling: ""}
 ])
+// Default images to provide for users with no images
+export var default_imgs = ref([
+    {image: getImageUrl("../assets/images/canva-motivational-quote-about-patience-instagram-post-UJQOlc4w32w.jpg"), selected: false, styling: ""}, 
+    {image: getImageUrl("../assets/images/istockphoto-1392896428-612x612.jpg"), selected: false, styling: ""},
+    {image: getImageUrl("../assets/images/istockphoto-1758363728-612x612.jpg"), selected: false, styling: ""}
+])
 
 // Displays 'Confirm' button if an image has been selected
 export var display_confirm_btn = ref(false)

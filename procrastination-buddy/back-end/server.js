@@ -1,6 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { createUser, userLogin, getSignedInUser, logout, deleteUserAccount } from './code/user.js'
+import { getImagesAndLayout } from './code/motivational_page.js'
 
 const app = express()
 
@@ -58,6 +59,12 @@ app.delete('/Profile', async (req, res) => {
     if(result === true){
         res.status(200).send('Deleted User Account')
     }  
+})
+
+// Get request for getting current motivational images of user
+app.get('/MotivationalImages', async (req, res) => {
+    const result = await getImagesAndLayout()
+    res.send(result)
 })
 
 app.listen(process.env.PORT || 3000)
