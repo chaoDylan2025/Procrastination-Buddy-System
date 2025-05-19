@@ -18,7 +18,16 @@ async function getImagesAndLayout(){
     let images = result.data.images
     if(images == ""){
         console.log("Current images are missing")
+        await setDefaultImages()
     }
+}
+
+async function setDefaultImages(){
+    await AuthenticationService.settingDefaultImages({images: default_imgs.value}).then((result) => {
+        if(result.data.status){
+            return true
+        }
+    })
 }
 
 onMounted(() => {

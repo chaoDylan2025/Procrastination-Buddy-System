@@ -18,5 +18,8 @@ export default {
     },
     imagesAndLayOut () {
         return Api().get('MotivationalImages')
+    },
+    settingDefaultImages (images) {
+        return Api().post('DefaultImages', images)
     }
 }

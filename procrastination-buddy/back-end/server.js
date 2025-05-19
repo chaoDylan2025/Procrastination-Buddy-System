@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { createUser, userLogin, getSignedInUser, logout, deleteUserAccount } from './code/user.js'
-import { getImagesAndLayout } from './code/motivational_page.js'
+import { getImagesAndLayout, setDefaultImages } from './code/motivational_page.js'
 
 const app = express()
 
@@ -65,6 +65,15 @@ app.delete('/Profile', async (req, res) => {
 app.get('/MotivationalImages', async (req, res) => {
     const result = await getImagesAndLayout()
     res.send(result)
+})
+
+// Post request for setting default images for user with no images
+app.post('/DefaultImages', async (req, res) => {
+    const { images } = req.body
+    const result = await setDefaultImages(images)
+    res.send({
+        status: result
+    })
 })
 
 app.listen(process.env.PORT || 3000)
