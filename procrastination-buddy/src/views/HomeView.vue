@@ -1,11 +1,38 @@
 <script setup>
-import { img_arr, getImageUrl } from '../code/image_functions'
+import { ref, onMounted } from 'vue'
+import Content from '../components/Motivational-Page/Content.vue'
+import { img_arr, getImageUrl, current_imgs } from '../code/image_functions'
+import AuthenticationService from '../services/AuthenticationService'
+import { userStore } from "../stores/user"
+
+const user = userStore()
+
+var displayImages = ref(false)
+
+async function isLoggedIn(){
+    let result = await AuthenticationService.userIsLoggedIn()
+    return result.data.email
+}
+
+// Gets the image layout and images from current user
+async function getImagesAndLayout(){
+    let result = await AuthenticationService.imagesAndLayOut()
+    return result.data.images
+}
+
+onMounted(async() => {
+    user.email = await isLoggedIn()
+    await getImagesAndLayout().then((result) => {
+        current_imgs.value = result
+        displayImages.value = true
+    })
+})
 
 </script>
 
 <template>
     <v-container>
-        <v-container>
+        <v-container v-if="user.email == null">
             <v-row>
                 <v-col></v-col>
                 <v-col>
@@ -24,20 +51,32 @@ import { img_arr, getImageUrl } from '../code/image_functions'
                 </v-col>
                 <v-col></v-col>
             </v-row>
-        </v-container>
 
-        <v-carousel
+            <v-carousel
             show-arrows="hover"
             cycle="1"
             hide-delimiter-background
-        >
-            <v-carousel-item
-                v-for="(image, i) in img_arr"
-                :key="i"
-                :src="`${getImageUrl(image)}`"
             >
-            </v-carousel-item>
+                <v-carousel-item
+                    v-for="(image, i) in img_arr"
+                    :key="i"
+                    :src="`${getImageUrl(image)}`"
+                >
+                </v-carousel-item>
+            </v-carousel>
+        </v-container>
 
-        </v-carousel>
+        <v-container v-else-if="displayImages && user.email != null">
+            <v-row>
+                <v-col></v-col>
+                <v-col>
+                    <p class="text-h5 text-center mt-5"> You are signed in! </p>
+                </v-col>
+                <v-col></v-col>
+            </v-row>
+            <v-row>
+                <Content :show_change_button="false" :show_all_images="false"/>
+            </v-row>
+        </v-container>
     </v-container>
 </template>

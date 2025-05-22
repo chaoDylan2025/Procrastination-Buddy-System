@@ -1,7 +1,7 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import AuthenticationService from '../services/AuthenticationService'
-import { changeImageLayout, current_imgs, default_imgs } from '../code/image_functions'
+import { changeImageLayout, default_imgs } from '../code/image_functions'
 import { userStore } from '../stores/user'
 import Content from '../components/Motivational-Page/Content.vue'
 
