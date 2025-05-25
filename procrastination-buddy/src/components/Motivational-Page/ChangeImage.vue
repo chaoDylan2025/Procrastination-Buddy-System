@@ -1,5 +1,5 @@
 <script setup>
-import { current_imgs, current_selected_img, change_image, display_confirm_btn, motivational_imgs } from '../../code/image_functions.js'
+import { current_imgs, current_selected_img, change_image, display_confirm_btn, motivational_imgs } from '../../frontend-code/personal-motivational-page/image_functions.js'
 import Content from './Content.vue'
 
 const props = defineProps({
