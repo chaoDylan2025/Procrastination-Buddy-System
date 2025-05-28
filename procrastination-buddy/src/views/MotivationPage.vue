@@ -12,6 +12,22 @@ var image_layout_options = ["1 per row", "3 per row"]
 // Pinia store
 const user = userStore()
 
+function cancelButton(){
+    resetData()
+    removeButtons()
+}
+
+function removeButtons(){
+    let tempArr = is_images_and_layout_updated.value.map((result) => result = false)
+    is_images_and_layout_updated.value = tempArr
+    condition_for_displaying_buttons.value = false
+}
+
+function resetData(){
+    current_imgs.value = original_user_motivational_images.value.map(image => ({...image}))
+    current_img_layout.value = original_user_image_layout.value
+    user.imageLayout = original_user_image_layout.value
+}
 function setCurrentData(result){
     current_imgs.value = result.images
     current_img_layout.value = result.layout
@@ -44,7 +60,7 @@ onMounted(async() => {
              <!-- Displays option to change image layout -->
              <v-row>
                 <v-col class="mt-5 text-center">
-                    <v-btn size="small" v-if="condition_for_displaying_buttons">
+                    <v-btn @click="cancelButton()" size="small" v-if="condition_for_displaying_buttons">
                         <span> Cancel </span>
                     </v-btn>
                 </v-col>

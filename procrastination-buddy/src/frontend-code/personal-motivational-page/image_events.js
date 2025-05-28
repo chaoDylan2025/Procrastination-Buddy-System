@@ -1,8 +1,8 @@
-import { ref, shallowRef } from 'vue'
+import { ref } from 'vue'
 import { change_image, current_selected_img, display_confirm_btn, motivational_imgs, selected_img_index, imageToBeViewed } from './image_functions.js'
 
 // Current motivational images
-export var original_user_motivational_images = shallowRef([])
+export var original_user_motivational_images = ref([])
 // Current image layout
 export var original_user_image_layout = ref(12)
 // Confirms if images and image layout have been updated or not
