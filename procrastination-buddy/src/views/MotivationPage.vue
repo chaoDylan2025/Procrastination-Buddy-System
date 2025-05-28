@@ -1,6 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue'
 import { changeImageLayout, getImagesAndLayout, current_imgs, current_img_layout } from '../frontend-code/personal-motivational-page/image_functions'
+import { is_images_and_layout_updated, condition_for_displaying_buttons, checkUpdatedStatus, 
+         original_user_motivational_images, original_user_image_layout } from '../frontend-code/personal-motivational-page/image_events'
 import { userStore } from '../stores/user'
 import Content from '../components/Motivational-Page/Content.vue'
 
@@ -10,20 +12,10 @@ var image_layout_options = ["1 per row", "3 per row"]
 // Pinia store
 const user = userStore()
 
-// Current motivational images
-var original_user_motivational_images = ref([])
-// Current image layout
-var original_user_image_layout = ref(12)
-
-// Confirms if images and image layout have been updated or not
-var is_images_and_layout_updated = ref([false, false])
-// Displays cancel and confirm buttons
-var condition_for_displaying_buttons = ref(false)
-
 function setCurrentData(result){
     current_imgs.value = result.images
     current_img_layout.value = result.layout
-    original_user_motivational_images.value = result.images
+    original_user_motivational_images.value = [...result.images]
     original_user_image_layout.value = result.layout == "1 per row" ? 12 : 4
     user.imageLayout = original_user_image_layout.value
 }
@@ -40,20 +32,10 @@ function updateImageLayout(image_layout){
     checkUpdatedStatus()
 }
 
-function checkUpdatedStatus(){
-    if(is_images_and_layout_updated.value[0] || is_images_and_layout_updated.value[1]){
-        condition_for_displaying_buttons.value = true
-    }
-    else{
-        condition_for_displaying_buttons.value = false
-    }
-}
-
 onMounted(async() => {
     let result = await getImagesAndLayout()
     setCurrentData(result)
 })
-
 </script>
 
 <template>

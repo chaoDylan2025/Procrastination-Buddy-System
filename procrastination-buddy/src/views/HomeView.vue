@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import Content from '../components/Motivational-Page/Content.vue'
-import { img_arr, getImageUrl, current_imgs } from '../code/image_functions'
+import { img_arr, getImageUrl, current_imgs } from '../frontend-code/personal-motivational-page/image_functions'
 import AuthenticationService from '../services/AuthenticationService'
 import { userStore } from "../stores/user"
 
@@ -70,7 +70,7 @@ onMounted(async() => {
             <v-row>
                 <v-col></v-col>
                 <v-col>
-                    <p class="text-h5 text-center mt-5"> You are signed in! </p>
+                    <p class="text-h5 text-center mt-5"> Hello! Here are some images to help motivate you :) </p>
                 </v-col>
                 <v-col></v-col>
             </v-row>

@@ -1,5 +1,6 @@
 <script setup>
 import { current_imgs, current_selected_img, change_image, display_confirm_btn, motivational_imgs } from '../../frontend-code/personal-motivational-page/image_functions.js'
+import { is_images_and_layout_updated, condition_for_displaying_buttons, checkUpdatedStatus, original_user_motivational_images } from '../../frontend-code/personal-motivational-page/image_events.js'
 import Content from './Content.vue'
 
 const props = defineProps({
@@ -8,6 +9,23 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 
+function is_images_different(){
+    let num_imgs_different = 0
+
+    for(let i = 0; i < current_imgs.value.length; i++){
+        if(current_imgs.value[i].image != original_user_motivational_images.value[i].image){
+            num_imgs_different ++
+        }
+    }
+    if(num_imgs_different >= 1){
+        is_images_and_layout_updated.value[0] = true
+    }
+    else{
+        is_images_and_layout_updated.value[0] = false
+    }
+    checkUpdatedStatus()
+}
+
 function exitDialogModal(confirmed){
     // Replaces the current image with the new selected image
     if(confirmed){
@@ -15,6 +33,7 @@ function exitDialogModal(confirmed){
         motivational_imgs.value[current_selected_img.value].styling = ""
         current_imgs.value[change_image.value] = motivational_imgs.value[current_selected_img.value]
     }
+    is_images_different()
     current_selected_img.value = -1
     display_confirm_btn.value = false
     emit('close', false)
