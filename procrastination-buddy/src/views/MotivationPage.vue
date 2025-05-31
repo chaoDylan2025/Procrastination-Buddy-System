@@ -2,7 +2,7 @@
 import { onMounted, ref } from 'vue'
 import { changeImageLayout, getImagesAndLayout, current_imgs, current_img_layout } from '../frontend-code/personal-motivational-page/image_functions'
 import { is_images_and_layout_updated, condition_for_displaying_buttons, checkUpdatedStatus, 
-         original_user_motivational_images, original_user_image_layout } from '../frontend-code/personal-motivational-page/image_events'
+         original_user_motivational_images, original_user_image_layout, setImagesAndLayout } from '../frontend-code/personal-motivational-page/image_events'
 import { userStore } from '../stores/user'
 import Content from '../components/Motivational-Page/Content.vue'
 
@@ -15,6 +15,21 @@ const user = userStore()
 function cancelButton(){
     resetData()
     removeButtons()
+}
+
+async function saveButton(){
+    try{
+        await setImagesAndLayout().then(async(result) => {
+            if(result){
+                removeButtons()
+                let result = await getImagesAndLayout()
+                setCurrentData(result)
+            }
+        })
+    }
+    catch (error) {
+        console.log(error)
+    }
 }
 
 function removeButtons(){
@@ -32,7 +47,7 @@ function setCurrentData(result){
     current_imgs.value = result.images
     current_img_layout.value = result.layout
     original_user_motivational_images.value = [...result.images]
-    original_user_image_layout.value = result.layout == "1 per row" ? 12 : 4
+    original_user_image_layout.value = result.layout
     user.imageLayout = original_user_image_layout.value
 }
 
@@ -91,7 +106,7 @@ onMounted(async() => {
                     </v-menu>
                 </v-col>
                 <v-col class="mt-5 text-center">
-                    <v-btn size="small" v-if="condition_for_displaying_buttons">
+                    <v-btn @click="saveButton()" size="small" v-if="condition_for_displaying_buttons">
                         <span> Save </span>
                     </v-btn>
                 </v-col>

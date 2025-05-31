@@ -1,5 +1,6 @@
 import { ref } from 'vue'
-import { change_image, current_selected_img, display_confirm_btn, motivational_imgs, selected_img_index, imageToBeViewed } from './image_functions.js'
+import AuthenticationService from '../../services/AuthenticationService'
+import { change_image, current_selected_img, display_confirm_btn, motivational_imgs, selected_img_index, imageToBeViewed, current_imgs, current_img_layout } from './image_functions.js'
 
 // Current motivational images
 export var original_user_motivational_images = ref([])
@@ -56,4 +57,9 @@ export function checkUpdatedStatus(){
     else{
         condition_for_displaying_buttons.value = false
     }
+}
+
+export async function setImagesAndLayout(){
+    const result = await AuthenticationService.settingImagesAndImageLayout({image_layout: current_img_layout.value, images: current_imgs.value})
+    return result.data.status
 }

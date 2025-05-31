@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { createUser, userLogin, getSignedInUser, logout, deleteUserAccount } from './code/user.js'
-import { getImagesAndLayout, setDefaultImages } from './code/motivational_page.js'
+import { getImagesAndLayout, setDefaultImages, updateImagesAndImageLayout } from './code/motivational_page.js'
 
 const app = express()
 
@@ -71,6 +71,15 @@ app.get('/MotivationalImages', async (req, res) => {
 app.post('/DefaultImages', async (req, res) => {
     const { images } = req.body
     const result = await setDefaultImages(images)
+    res.send({
+        status: result
+    })
+})
+
+// Post request for setting updated images and image layout for user
+app.post('/UpdateImagesAndLayout', async (req, res) => {
+    const { image_layout, images } = req.body
+    const result = await updateImagesAndImageLayout(image_layout, images)
     res.send({
         status: result
     })
