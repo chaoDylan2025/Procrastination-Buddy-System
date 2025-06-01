@@ -23,23 +23,25 @@ export function viewButtonEvnt(image, openImage){
 }
 
 export function displayConfirmButtonEvnt(index, selected_img){
-    current_selected_img.value = index
+    const prev_index = selected_img_index.value
+    const prev_img = motivational_imgs.value[prev_index]
     // Unselects the image that user just clicked
     if(selected_img.selected){
         unselect_image(selected_img)
+        selected_img_index.value = -1
         display_confirm_btn.value = false
     }
     else{
+        // Unselect previously selected image (if any)
+        if(prev_index != -1 && prev_img != selected_img){
+            unselect_image(prev_img)
+        }
         selected_img.selected = true
-        display_confirm_btn.value = true
         selected_img.styling = "selected"
+        selected_img_index.value = index
+        current_selected_img.value = index
+        display_confirm_btn.value = true
     }
-
-    // Unselects the previous selected image
-    if(selected_img_index.value != -1){
-        unselect_image(motivational_imgs.value[selected_img_index.value])
-    }
-    selected_img_index.value = index
 }
 
 export function unselect_image(selected_img){

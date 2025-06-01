@@ -32,9 +32,11 @@ function exitDialogModal(confirmed){
         current_imgs.value[change_image.value] = motivational_imgs.value[current_selected_img.value]
     }
     is_images_different()
-    unselect_image(motivational_imgs.value[current_selected_img.value])
-    current_selected_img.value = -1
-    display_confirm_btn.value = false
+    if(current_selected_img.value != -1){
+        unselect_image(motivational_imgs.value[current_selected_img.value])
+        current_selected_img.value = -1
+        display_confirm_btn.value = false
+    }
     emit('close', false)
 }
 </script>
