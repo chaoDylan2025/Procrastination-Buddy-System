@@ -1,4 +1,4 @@
-import { addDoc, doc, getDoc, updateDoc } from "firebase/firestore"
+import { doc, getDoc, updateDoc } from "firebase/firestore"
 import { db } from "../firebase_setup.js"
 import { user_email } from "./user.js"
 
@@ -24,7 +24,7 @@ export async function setDefaultImages(images){
     return false
 }
 
-export async function updateImagesAndImageLayout(image_layout, images){
+export async function updateImagesAndLayout(image_layout, images){
     if (user_email != null){
         docRef = doc(db, "users", user_email, "personal-motivational-page", "current_images")
         docSnap = await updateDoc(docRef, {
