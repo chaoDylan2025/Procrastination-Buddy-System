@@ -2,7 +2,7 @@
     import { RouterLink, RouterView } from 'vue-router'
     import {useRouter} from 'vue-router'
     import { ref } from 'vue'
-    import AuthenticationService from '../services/AuthenticationService'
+    import AuthenticationService from '../../services/AuthenticationService'
 
     const router = useRouter()
 

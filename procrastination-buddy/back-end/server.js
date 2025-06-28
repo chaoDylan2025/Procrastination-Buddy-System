@@ -1,7 +1,7 @@
 import express from 'express'
 import cors from 'cors'
 import { createUser, userLogin, getSignedInUser, logout, deleteUserAccount } from './code/user.js'
-import { default_images, images_arr, downloadImage } from './code/PersonalPageCode.js'
+import { getImagesAndLayout, setDefaultImages, updateImagesAndLayout } from './code/motivational_page.js'
 
 const app = express()
 
@@ -61,25 +61,27 @@ app.delete('/Profile', async (req, res) => {
     }  
 })
 
-// Get request for retrieving array of default images
-app.get('/GetDefaultImages', (req, res) => {
+// Get request for getting current motivational images of user
+app.get('/MotivationalImages', async (req, res) => {
+    const result = await getImagesAndLayout()
+    res.send(result)
+})
+
+// Post request for setting default images for user with no images
+app.post('/DefaultImages', async (req, res) => {
+    const { images } = req.body
+    const result = await setDefaultImages(images)
     res.send({
-        default_images: default_images
+        status: result
     })
 })
 
-// Get request for retrieving all of the images from Appwrite bucket
-app.get('/GetAllImages', (req, res) => {
+// Post request for setting updated images and image layout for user
+app.post('/UpdateImagesAndLayout', async (req, res) => {
+    const { image_layout, images } = req.body
+    const result = await updateImagesAndLayout(image_layout, images)
     res.send({
-        all_images: images_arr
-    })
-})
-
-// Post request for downloading images from Appwrite bucket
-app.post('/DownloadImages', async(req, res) => {
-    const { image } = req.body
-    await downloadImage(image).then(() => {
-        res.status(200).send("Downloaded image...")
+        status: result
     })
 })
 

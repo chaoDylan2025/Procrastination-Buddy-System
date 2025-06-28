@@ -9,23 +9,20 @@ export default {
         return Api().post('login', credentials)
     },
 
-    getDefaultImages () {
-        return Api().get('GetDefaultImages')
-    },
-
-    getAllImages () {
-        return Api().get('GetAllImages')
-    },
-
-    downloadImages (image) {
-        return Api().post('DownloadImages', image)
-    },
-
     userIsLoggedIn () {
         return Api().get('LoggedIn')
     },
 
     logoutUser () {
         return Api().post('logout')
+    },
+    imagesAndLayOut () {
+        return Api().get('MotivationalImages')
+    },
+    settingDefaultImages (images) {
+        return Api().post('DefaultImages', images)
+    },
+    settingImagesAndImageLayout (images_and_layout){
+        return Api().post('UpdateImagesAndLayout', images_and_layout)
     }
 }
