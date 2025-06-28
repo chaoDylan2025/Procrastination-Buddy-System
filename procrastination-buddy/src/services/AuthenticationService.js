@@ -15,5 +15,14 @@ export default {
 
     logoutUser () {
         return Api().post('logout')
+    },
+    imagesAndLayOut () {
+        return Api().get('MotivationalImages')
+    },
+    settingDefaultImages (images) {
+        return Api().post('DefaultImages', images)
+    },
+    settingImagesAndImageLayout (images_and_layout){
+        return Api().post('UpdateImagesAndLayout', images_and_layout)
     }
 }
