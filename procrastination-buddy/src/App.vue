@@ -11,7 +11,6 @@ const showWelcomeMsg = ref(true)
 const links = ref([
   { text: "About", to: "/about"},
   { text: "Motivation Page", to: "/MotivationPage"},
-  { text: "Tasks", to: "/Tasks"},
   { text: "Focus List", to: "/FocusList"},
 ]);
 
