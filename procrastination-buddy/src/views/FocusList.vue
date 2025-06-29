@@ -39,17 +39,17 @@
     <v-app>
         <v-container v-if="user.isLoggedIn == true">
             <v-row class="mt-10">
-                <v-col></v-col>
+                <v-col cols="4"></v-col>
                 <!-- Contains buttons that will each show a different dialog window -->
-                <v-col cols="10">
+                <v-col cols="4">
                     <!-- Buttons are only shown if user is logged in -->
-                    <div>
-                        <v-btn class="mr-4" @click="dialog = true"> Edit List </v-btn>
-                        <v-btn class="mr-4" @click="dialog2 = true"> Log Number of Sites Visited </v-btn>
+                    <div class="d-flex justify-space-evenly">
+                        <v-btn class="rounded-pill" size="small" @click="dialog = true"> Edit List </v-btn>
+                        <v-btn class="rounded-pill" size="small" @click="dialog2 = true"> Log Sites Visited </v-btn>
                     </div>
 
                     <div>
-                        <v-list>
+                        <v-list class="mt-5">
                             <v-list-item
                                 v-for="(item, i) in test_arr"
                                 :key="i"
@@ -62,7 +62,7 @@
                         </v-list>
                     </div>
                 </v-col>
-                <v-col></v-col>
+                <v-col cols="4"></v-col>
             </v-row>
         </v-container>
         
