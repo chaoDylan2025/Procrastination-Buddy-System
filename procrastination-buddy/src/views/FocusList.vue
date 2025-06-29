@@ -43,17 +43,26 @@
                 <!-- Contains buttons that will each show a different dialog window -->
                 <v-col cols="4">
                     <!-- Buttons are only shown if user is logged in -->
-                    <div class="d-flex justify-space-evenly">
-                        <v-btn class="rounded-pill" size="small" @click="dialog = true"> Edit List </v-btn>
+                    <div class="d-flex flex-column">
                         <v-btn class="rounded-pill" size="small" @click="dialog2 = true"> Log Sites Visited </v-btn>
+                        <v-btn class="rounded-pill mt-4" size="small" @click="dialog = true"> Edit List </v-btn>
                     </div>
 
                     <div>
                         <v-list class="mt-5">
+                            <div class="mt-4">
+                                <span class="text-center"> 
+                                    <h3>
+                                        Current Focus List: 
+                                    </h3>
+                                </span>
+                            </div>
+                            
                             <v-list-item
                                 v-for="(item, i) in test_arr"
                                 :key="i"
                                 :value="item"
+                                class="text-center"
                                 color="primary"
                                 variant="plain"
                             >
@@ -81,11 +90,12 @@
                 <v-container>
                     <v-row>
                         <v-list>
-                        <v-list-subheader>Restricted Websites</v-list-subheader>
+                            <v-list-subheader>Restricted Websites</v-list-subheader>
                             <v-list-item
                                 v-for="(item, i) in test_arr"
                                 :key="i"
                                 :value="item"
+                                style="text-align: center;"
                                 color="primary"
                                 variant="plain"
                             >
