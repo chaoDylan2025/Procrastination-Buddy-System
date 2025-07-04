@@ -44,7 +44,7 @@ function exitDialogModal(){
                     <div>
                         <v-btn class="mr-5" @click="delete_website(i)" density="compact" icon="mdi-delete"></v-btn>
                     </div>
-                    <div> {{ item }} </div>
+                    <div> {{ item.link }} </div>
                 </div>
 
                 <!-- Users can press this button to add another restricted website to their list -->
@@ -65,6 +65,8 @@ function exitDialogModal(){
         </v-dialog>
 
         <!-- Dialog for inserting a new restricted website into the list -->
-        <InsertWebsite :open_make_new_list_dialog="open_new_list_dialog" :current_web_list="props.current_web_list" @close="insertNewWebsite"/>
+         <v-container>
+            <InsertWebsite :open_make_new_list_dialog="open_new_list_dialog" :current_web_list="props.current_web_list" @close="insertNewWebsite"/>
+         </v-container>
     </v-app>
 </template>

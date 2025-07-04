@@ -1,6 +1,7 @@
 <script setup>
 import AuthenticationService from '../services/AuthenticationService';  
 import EditList from '../components/Focus-List/EditList.vue';
+import LogSites from '../components/Focus-List/LogSites.vue';
 import { userStore } from '../stores/user'
 import { ref, onMounted } from 'vue'
 
@@ -9,10 +10,10 @@ const user = userStore()
 
 // Reactive variables
 const edit_list_dialog = ref(false)
-const dialog2 = ref(false)
+const log_sites_dialog = ref(false)
 
 //Test Array
-var test_arr = ref(["https://www.youtube.com", "https://www.crunchyroll.com", "https://www.reddit.com/?rdt=33094"])
+var test_arr = ref([{link: "https://www.youtube.com", num_visted: 0}, {link: "https://www.crunchyroll.com", num_visted: 0}, {link: "https://www.reddit.com/?rdt=33094", num_visted: 0}])
 </script>
 
 <template>
@@ -24,7 +25,7 @@ var test_arr = ref(["https://www.youtube.com", "https://www.crunchyroll.com", "h
                 <v-col cols="4">
                     <!-- Buttons are only shown if user is logged in -->
                     <div class="d-flex flex-column">
-                        <v-btn class="rounded-pill" size="small" @click="dialog2 = true"> Log Sites Visited </v-btn>
+                        <v-btn class="rounded-pill" size="small" @click="log_sites_dialog = true"> Log Sites Visited </v-btn>
                         <v-btn class="rounded-pill mt-4" size="small" @click="edit_list_dialog = true"> Edit List </v-btn>
                     </div>
 
@@ -46,7 +47,7 @@ var test_arr = ref(["https://www.youtube.com", "https://www.crunchyroll.com", "h
                                 color="primary"
                                 variant="plain"
                             >
-                                <v-list-item-title v-text="item"></v-list-item-title>
+                                <v-list-item-title v-text="item.link"></v-list-item-title>
                             </v-list-item>
                         </v-list>
                     </div>
@@ -58,61 +59,13 @@ var test_arr = ref(["https://www.youtube.com", "https://www.crunchyroll.com", "h
         <v-container v-else>
             <h2 class="text-center"> Please login to your account </h2>
         </v-container>
-
+        
         <v-container>
             <EditList :open_edit_list_dialog="edit_list_dialog" :current_web_list="test_arr" @close="(state) => edit_list_dialog=state"/>
         </v-container>
 
-        <!-- Dialog for when user clicks on 'Log Number Of Sites Visited' --> 
-        <v-dialog v-model="dialog2"
-            width="500">
-            <v-card
-            width="500"
-            title="Log number of times you visited each website"
-            >
-                <v-container>
-                    <v-row>
-                        <v-list>
-                        <v-list-subheader>Restricted Websites</v-list-subheader>
-                            <v-list-item
-                                v-for="(item, i) in test_arr"
-                                :key="i"
-                                :value="item"
-                                color="primary"
-                                variant="plain"
-                            >
-                                <template v-slot:prepend>
-                                    <v-text-field>
-                                        <template v-slot:prepend>
-                                            <v-icon>
-                                                mdi-minus
-                                            </v-icon>
-                                        </template>
-
-                                        <template v-slot:append>
-                                            <v-icon>
-                                                mdi-plus
-                                            </v-icon>
-                                        </template>
-                                    </v-text-field>
-                                </template>
-                                <v-list-item-title v-text="item" class="ml-2"></v-list-item-title>
-                            </v-list-item>
-                        </v-list>
-                    </v-row>
-                </v-container>
-                <v-card-actions>
-                    <v-btn
-                    text="Back"
-                    @click="">
-                    </v-btn> 
-
-                    <v-btn
-                    text="Confirm"
-                    @click="">
-                    </v-btn> 
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+        <v-continer>
+            <LogSites :open_log_sites_dialog="log_sites_dialog" :current_web_list="test_arr" @close="(state) => log_sites_dialog=state"/>
+        </v-continer>   
     </v-app>
 </template>
