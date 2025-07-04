@@ -13,7 +13,15 @@ const edit_list_dialog = ref(false)
 const log_sites_dialog = ref(false)
 
 //Test Array
-var test_arr = ref([{link: "https://www.youtube.com", num_visted: 0}, {link: "https://www.crunchyroll.com", num_visted: 0}, {link: "https://www.reddit.com/?rdt=33094", num_visted: 0}])
+//var test_arr = ref([{link: "https://www.youtube.com", num_visted: 0}, {link: "https://www.crunchyroll.com", num_visted: 0}, {link: "https://www.reddit.com/?rdt=33094", num_visted: 0}])
+
+// Actual array from database
+var list_of_sites = ref([])
+
+onMounted(async () => {
+    let result = await AuthenticationService.restrictedWebsitesList();
+    list_of_sites.value = result.data.list
+})
 </script>
 
 <template>
@@ -39,16 +47,23 @@ var test_arr = ref([{link: "https://www.youtube.com", num_visted: 0}, {link: "ht
                                 </span>
                             </div>
 
-                            <v-list-item
+                            <v-container v-if="list_of_sites.length != 0">
+                                <v-list-item
                                 v-for="(item, i) in test_arr"
                                 :key="i"
                                 :value="item"
                                 class="text-center"
                                 color="primary"
                                 variant="plain"
-                            >
-                                <v-list-item-title v-text="item.link"></v-list-item-title>
-                            </v-list-item>
+                                >
+                                    <v-list-item-title v-text="item.link"></v-list-item-title>
+                                </v-list-item>
+
+                            </v-container>
+
+                            <v-container>
+                                <p> Please insert a restricted website to your list </p>
+                            </v-container>
                         </v-list>
                     </div>
                 </v-col>
@@ -61,11 +76,11 @@ var test_arr = ref([{link: "https://www.youtube.com", num_visted: 0}, {link: "ht
         </v-container>
         
         <v-container>
-            <EditList :open_edit_list_dialog="edit_list_dialog" :current_web_list="test_arr" @close="(state) => edit_list_dialog=state"/>
+            <EditList :open_edit_list_dialog="edit_list_dialog" :current_web_list="list_of_sites" @close="(state) => edit_list_dialog=state"/>
         </v-container>
 
         <v-continer>
-            <LogSites :open_log_sites_dialog="log_sites_dialog" :current_web_list="test_arr" @close="(state) => log_sites_dialog=state"/>
+            <LogSites :open_log_sites_dialog="log_sites_dialog" :current_web_list="list_of_sites" @close="(state) => log_sites_dialog=state"/>
         </v-continer>   
     </v-app>
 </template>
