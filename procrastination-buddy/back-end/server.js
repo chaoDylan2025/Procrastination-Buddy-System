@@ -2,6 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import { createUser, userLogin, getSignedInUser, logout, deleteUserAccount } from './code/user.js'
 import { getImagesAndLayout, setDefaultImages, updateImagesAndLayout } from './code/motivational_page.js'
+import { getRestrictedSitesList, setRestrictedSiteList } from './code/focus_list_page.js'
 
 const app = express()
 
@@ -80,6 +81,21 @@ app.post('/DefaultImages', async (req, res) => {
 app.post('/UpdateImagesAndLayout', async (req, res) => {
     const { image_layout, images } = req.body
     const result = await updateImagesAndLayout(image_layout, images)
+    res.send({
+        status: result
+    })
+})
+
+// Get request for getting the user's current restricted websites list
+app.get('/RestrictedSitesList', async (req, res) => {
+    const result = await getRestrictedSitesList()
+    res.send(result)
+})
+
+// Post request for updating user's current restricted websites list
+app.post('/UpdateRestrictedSitesList', async (req, res) => {
+    const { website } = req.body
+    const result = await setRestrictedSiteList(website)
     res.send({
         status: result
     })
