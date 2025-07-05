@@ -18,6 +18,20 @@ const log_sites_dialog = ref(false)
 // Actual array from database
 var list_of_sites = ref([])
 
+// Current message to display
+var msgs_to_display = ["Please insert a restricted website in your list", "Must have at least one restricted website in your list"]
+var current_msg = ref(msgs_to_display[0])
+
+// Opens the dialog for logging sites if current list is not empty
+function openLogSitesDialog(){
+    if(list_of_sites.value.length == 0){
+        current_msg.value = msgs_to_display[1]
+    }
+    else{
+        log_sites_dialog.value = true
+    }
+}
+
 onMounted(async () => {
     let result = await AuthenticationService.restrictedWebsitesList();
     list_of_sites.value = result.data.list
@@ -33,7 +47,7 @@ onMounted(async () => {
                 <v-col cols="4">
                     <!-- Buttons are only shown if user is logged in -->
                     <div class="d-flex flex-column">
-                        <v-btn class="rounded-pill" size="small" @click="log_sites_dialog = true"> Log Sites Visited </v-btn>
+                        <v-btn class="rounded-pill" size="small" @click="openLogSitesDialog()"> Log Sites Visited </v-btn>
                         <v-btn class="rounded-pill mt-4" size="small" @click="edit_list_dialog = true"> Edit List </v-btn>
                     </div>
 
@@ -58,11 +72,10 @@ onMounted(async () => {
                                 >
                                     <v-list-item-title v-text="item.link"></v-list-item-title>
                                 </v-list-item>
-
                             </v-container>
 
-                            <v-container>
-                                <p> Please insert a restricted website to your list </p>
+                            <v-container v-else>
+                                <p> {{ current_msg }} </p>
                             </v-container>
                         </v-list>
                     </div>
