@@ -28,7 +28,7 @@ export default {
     restrictedWebsitesList(){
         return Api().get('RestrictedSitesList')
     },
-    settingRestrictedWebsitesList(){
-        return Api().post('UpdateRestrictedSitesList')
+    settingRestrictedWebsitesList(restricted_sites_list){
+        return Api().post('UpdateRestrictedSitesList', restricted_sites_list)
     }
 }

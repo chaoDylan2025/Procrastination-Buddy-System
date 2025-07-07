@@ -19,13 +19,13 @@ function delete_website(index){
 // Inserts new website in current restricted websites list
 function insertNewWebsite(state, website){
     if(website != ""){
-        props.current_web_list.push(website);
+        props.current_web_list.push({link: website, num_visited: 0});
     }
     open_new_list_dialog.value = state
 }
 
-function exitDialogModal(){
-    emit('close', false)
+function exitEditListDialog(writeData=false){
+    emit('close', false, writeData)
 }
 </script>
 
@@ -59,11 +59,11 @@ function exitDialogModal(){
                 <v-card-actions class="mt-4 d-flex justify-space-between">
                     <v-btn
                     text="Back"
-                    @click="exitDialogModal()">
+                    @click="exitEditListDialog(false)">
                     </v-btn> 
                     <v-btn
                     text="Save"
-                    @click="exitDialogModal()">
+                    @click="exitEditListDialog(true)">
                     </v-btn> 
                 </v-card-actions>
             </v-card>

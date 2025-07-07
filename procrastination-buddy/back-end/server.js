@@ -94,8 +94,9 @@ app.get('/RestrictedSitesList', async (req, res) => {
 
 // Post request for updating user's current restricted websites list
 app.post('/UpdateRestrictedSitesList', async (req, res) => {
-    const { website } = req.body
-    const result = await setRestrictedSiteList(website)
+    console.log(req.body)
+    const website = req.body
+    const result = await setRestrictedSiteList({list: website})
     res.send({
         status: result
     })

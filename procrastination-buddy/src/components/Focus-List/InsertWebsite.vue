@@ -37,12 +37,12 @@ function exitDialogModal(new_restricted_wesbite=""){
                 <v-card-actions>
                     <v-btn
                     text="Back"
-                    @click="exitDialogModal()">
+                    @click="exitDialogModal(), new_restricted_wesbite=''">
                     </v-btn> 
 
                     <v-btn
                     text="Confirm"
-                    @click="exitDialogModal(new_restricted_wesbite)">
+                    @click="exitDialogModal(new_restricted_wesbite), new_restricted_wesbite=''">
                     </v-btn> 
                 </v-card-actions>
             </v-card>
