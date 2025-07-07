@@ -49,6 +49,10 @@ function exitEditListDialog(state, writeData){
 function exitLogSitesDialog(state, writeData){
     if(writeData){
         updateRestrictedSitesList()
+        previous_list_of_sites = JSON.stringify(list_of_sites.value)
+    }
+    else{
+        list_of_sites.value = JSON.parse(previous_list_of_sites)
     }
 
     log_sites_dialog.value = state

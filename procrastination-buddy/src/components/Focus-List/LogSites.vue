@@ -8,8 +8,8 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 
-function exitDialogModal(){
-    emit('close', false)
+function exitLogSitesDialogModal(writeData=false){
+    emit('close', false, writeData)
 }
 </script>
 
@@ -26,30 +26,30 @@ function exitDialogModal(){
                     <div class="d-flex" v-for="(item, i) in props.current_web_list">
                         <!-- Decrement button -->
                         <v-col class="d-flex justify-center align-self-center">
-                            <v-btn size="small" icon="mdi-minus" variant="plain"></v-btn>
+                            <v-btn @click="item.num_visited != 0 ? item.num_visited -= 1 : 0" size="small" icon="mdi-minus" variant="plain"></v-btn>
                         </v-col>
 
                         <v-col>
                            <div> {{ item.link }} </div>
-                            <v-text-field :label="item.num_visted"></v-text-field>
+                           <v-text-field :model-value="item.num_visited"></v-text-field>
                         </v-col>
 
                         <!-- Increment button -->
                         <v-col class="d-flex justify-center align-self-center">
-                            <v-btn size="small" icon="mdi-plus" variant="plain"></v-btn>
+                            <v-btn @click="item.num_visited += 1" size="small" icon="mdi-plus" variant="plain"></v-btn>
                         </v-col>
                     </div>
                 </v-container>
                 
-                <v-card-actions>
+                <v-card-actions class="d-flex justify-space-between">
                     <v-btn
                     text="Back"
-                    @click="exitDialogModal()">
+                    @click="exitLogSitesDialogModal(false)">
                     </v-btn> 
 
                     <v-btn
                     text="Confirm"
-                    @click="exitDialogModal()">
+                    @click="exitLogSitesDialogModal(true)">
                     </v-btn> 
                 </v-card-actions>
             </v-card>
