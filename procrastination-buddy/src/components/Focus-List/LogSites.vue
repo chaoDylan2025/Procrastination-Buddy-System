@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue'
 
 const props = defineProps({
     open_log_sites_dialog: Boolean,

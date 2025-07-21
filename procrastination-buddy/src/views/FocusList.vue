@@ -12,9 +12,6 @@ const user = userStore()
 const edit_list_dialog = ref(false)
 const log_sites_dialog = ref(false)
 
-//Test Array
-//var test_arr = ref([{link: "https://www.youtube.com", num_visted: 0}, {link: "https://www.crunchyroll.com", num_visted: 0}, {link: "https://www.reddit.com/?rdt=33094", num_visted: 0}])
-
 // Actual array from database
 var list_of_sites = ref([])
 var previous_list_of_sites = ""
@@ -80,6 +77,7 @@ onMounted(async () => {
 
 <template>
     <v-app>
+        <!-- Display if user is logged in -->
         <v-container v-if="user.isLoggedIn == true">
             <v-row class="mt-10">
                 <v-col cols="4"></v-col>
@@ -92,6 +90,7 @@ onMounted(async () => {
                     </div>
 
                     <div>
+                        <!-- Displays the current focus list -->
                         <v-list class="mt-5">
                             <div class="mt-4">
                                 <span class="text-center"> 
@@ -110,7 +109,7 @@ onMounted(async () => {
                                 variant="plain"
                                 >
                                     <v-container class="d-flex text-center align-center justify-space-between">
-                                        <v-list-item-title class="align-center" @mouseover="console.log(item.link)" v-text="item.link"></v-list-item-title>
+                                        <v-list-item-title class="align-center" v-text="item.link"></v-list-item-title>
                                         <v-list-item> {{ item.num_visited }} Visits </v-list-item>
                                     </v-container>
                                 </v-list-item>
