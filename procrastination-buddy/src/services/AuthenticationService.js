@@ -24,5 +24,11 @@ export default {
     },
     settingImagesAndImageLayout (images_and_layout){
         return Api().post('UpdateImagesAndLayout', images_and_layout)
+    },
+    restrictedWebsitesList(){
+        return Api().get('RestrictedSitesList')
+    },
+    settingRestrictedWebsitesList(restricted_sites_list){
+        return Api().post('UpdateRestrictedSitesList', restricted_sites_list)
     }
 }

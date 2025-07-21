@@ -1,202 +1,140 @@
 <script setup>
-    import AuthenticationService from '../services/AuthenticationService';  
-    import { userStore } from '../stores/user'
-    import { ref, onMounted } from 'vue'
+import AuthenticationService from '../services/AuthenticationService';  
+import EditList from '../components/Focus-List/EditList.vue';
+import LogSites from '../components/Focus-List/LogSites.vue';
+import { userStore } from '../stores/user'
+import { ref, onMounted } from 'vue'
 
-    // Pinia store for user information
-    const user = userStore()
-    
-    // Reactive variables
-    const dialog = ref(false)
-    const dialog2 = ref(false)
-    const dialog3 = ref(false)
-    const new_list_dialog = ref(false)
-    
+// Pinia store for user information
+const user = userStore()
 
-    var arr_of_tasks = ref([])
-    var new_restricted_wesbite = ref("")
+// Reactive variables
+const edit_list_dialog = ref(false)
+const log_sites_dialog = ref(false)
 
-    //Test Array
-    var test_arr = ref(["https://www.youtube.com", "https://www.crunchyroll.com", "https://www.reddit.com/?rdt=33094"])
+// Actual array from database
+var list_of_sites = ref([])
+var previous_list_of_sites = ""
 
-    function dialog_confirm(){
-        dialog.value = false
+// Current message to display
+var msgs_to_display = ["Please insert a restricted website in your list", "Must have at least one restricted website in your list"]
+var current_msg = ref(msgs_to_display[0])
+
+// Opens the dialog for logging sites if current list is not empty
+function openLogSitesDialog(){
+    if(list_of_sites.value.length == 0){
+        current_msg.value = msgs_to_display[1]
     }
-    // Inserts new website in the list
-    function new_list_dialog_confirm(website){
-        test_arr.value.push(website)
-        new_list_dialog.value = false
+    else{
+        log_sites_dialog.value = true
+    }
+}
+
+// Closes the dialogs
+function exitEditListDialog(state, writeData){
+    if(writeData){
+        updateRestrictedSitesList()
+        previous_list_of_sites = JSON.stringify(list_of_sites.value)
+    }
+    else{
+        list_of_sites.value = JSON.parse(previous_list_of_sites)
     }
 
-    // Deletes website in the list
-    function delete_website(index){
-        test_arr.value.splice(index, 1)
-        console.log(test_arr)
+    edit_list_dialog.value = state
+}
+
+function exitLogSitesDialog(state, writeData){
+    if(writeData){
+        updateRestrictedSitesList()
+        previous_list_of_sites = JSON.stringify(list_of_sites.value)
     }
+    else{
+        list_of_sites.value = JSON.parse(previous_list_of_sites)
+    }
+
+    log_sites_dialog.value = state
+}
+
+// Adds the updated restricted websites list to the database
+async function updateRestrictedSitesList(){
+    console.log(list_of_sites.value)
+    await AuthenticationService.settingRestrictedWebsitesList(list_of_sites.value).then((result) => {
+        if(result.data.status){
+            return true
+        }
+        else{
+            console.log("Something went wrong...")
+        }
+    })
+}
+
+onMounted(async () => {
+    let result = await AuthenticationService.restrictedWebsitesList();
+    list_of_sites.value = result.data.list
+    previous_list_of_sites = JSON.stringify(list_of_sites.value)
+})
 </script>
 
 <template>
     <v-app>
+        <!-- Display if user is logged in -->
         <v-container v-if="user.isLoggedIn == true">
             <v-row class="mt-10">
-                <v-col></v-col>
+                <v-col cols="4"></v-col>
                 <!-- Contains buttons that will each show a different dialog window -->
-                <v-col cols="10">
+                <v-col cols="4">
                     <!-- Buttons are only shown if user is logged in -->
-                    <div>
-                        <v-btn class="mr-4" @click="dialog = true"> Edit List </v-btn>
-                        <v-btn class="mr-4" @click="dialog2 = true"> Log Number of Sites Visited </v-btn>
+                    <div class="d-flex flex-column">
+                        <v-btn class="rounded-pill" size="small" @click="openLogSitesDialog()"> Log Sites Visited </v-btn>
+                        <v-btn class="rounded-pill mt-4" size="small" @click="edit_list_dialog = true"> Edit List </v-btn>
                     </div>
 
                     <div>
-                        <v-list>
-                            <v-list-item
-                                v-for="(item, i) in test_arr"
+                        <!-- Displays the current focus list -->
+                        <v-list class="mt-5">
+                            <div class="mt-4">
+                                <span class="text-center"> 
+                                    <h3>
+                                        Current Focus List: 
+                                    </h3>
+                                </span>
+                            </div>
+
+                            <v-container v-if="list_of_sites.length != 0">
+                                <v-list-item
+                                v-for="(item, i) in list_of_sites"
                                 :key="i"
                                 :value="item"
                                 color="primary"
                                 variant="plain"
-                            >
-                                <v-list-item-title v-text="item"></v-list-item-title>
-                            </v-list-item>
+                                >
+                                    <v-container class="d-flex text-center align-center justify-space-between">
+                                        <v-list-item-title class="align-center" v-text="item.link"></v-list-item-title>
+                                        <v-list-item> {{ item.num_visited }} Visits </v-list-item>
+                                    </v-container>
+                                </v-list-item>
+                            </v-container>
+
+                            <v-container v-else>
+                                <p> {{ current_msg }} </p>
+                            </v-container>
                         </v-list>
                     </div>
                 </v-col>
-                <v-col></v-col>
+                <v-col cols="4"></v-col>
             </v-row>
         </v-container>
         
         <v-container v-else>
             <h2 class="text-center"> Please login to your account </h2>
         </v-container>
+        
+        <v-container>
+            <EditList :open_edit_list_dialog="edit_list_dialog" :current_web_list="list_of_sites" @close="exitEditListDialog"/>
+        </v-container>
 
-        <!-- Dialog for when user clicks on 'Edit List' -->
-        <v-dialog v-model="dialog"
-            width="500">
-            <v-card
-            width="500"
-            title="Edit your current list of websites"
-            >
-                <!-- Contains current list of websites that a user can edit and delete -->
-                <v-container>
-                    <v-row>
-                        <v-list>
-                        <v-list-subheader>Restricted Websites</v-list-subheader>
-                            <v-list-item
-                                v-for="(item, i) in test_arr"
-                                :key="i"
-                                :value="item"
-                                color="primary"
-                                variant="plain"
-                            >
-                                <template v-slot:prepend>
-                                    <v-btn @click="delete_website(i)" density="compact" icon="mdi-delete"></v-btn>
-                                </template>
-                                <v-list-item-title v-text="item"></v-list-item-title>
-                            </v-list-item>
-                        </v-list>
-                    </v-row>
-                    
-                    <v-row>
-                        <v-col></v-col>
-                        <v-btn @click="new_list_dialog = true" density="compact" icon="mdi-plus"></v-btn>
-                        <v-col></v-col>
-                    </v-row>
-                </v-container>
-
-                <!-- Gives users the option to exit dialog -->
-                <v-card-actions>
-                    <v-btn
-                    text="Back"
-                    @click="dialog = false">
-                    </v-btn> 
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-
-
-        <!-- Dialog for user to enter a new site -->
-        <v-dialog v-model="new_list_dialog"
-            width="500">
-            <v-card
-            width="500"
-            title="Enter a new site that you do not want to access"
-            >
-                <v-container>
-                    <!-- Asks user to enter new restricted website -->
-                    <v-text-field
-                    v-model="new_restricted_wesbite"
-                    hide-details="auto"
-                    label="Website"
-                    clearable
-                    ></v-text-field>
-                </v-container>
-
-                <v-card-actions>
-                    <v-btn
-                    text="Back"
-                    @click="new_list_dialog = false">
-                    </v-btn> 
-
-                    <v-btn
-                    text="Confirm"
-                    @click="new_list_dialog_confirm(new_restricted_wesbite)">
-                    </v-btn> 
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
-
-
-        <!-- Dialog for when user clicks on 'Log Number Of Sites Visited' --> 
-        <v-dialog v-model="dialog2"
-            width="500">
-            <v-card
-            width="500"
-            title="Log number of times you visited each website"
-            >
-                <v-container>
-                    <v-row>
-                        <v-list>
-                        <v-list-subheader>Restricted Websites</v-list-subheader>
-                            <v-list-item
-                                v-for="(item, i) in test_arr"
-                                :key="i"
-                                :value="item"
-                                color="primary"
-                                variant="plain"
-                            >
-                                <template v-slot:prepend>
-                                    <v-text-field>
-                                        <template v-slot:prepend>
-                                            <v-icon>
-                                                mdi-minus
-                                            </v-icon>
-                                        </template>
-
-                                        <template v-slot:append>
-                                            <v-icon>
-                                                mdi-plus
-                                            </v-icon>
-                                        </template>
-                                    </v-text-field>
-                                </template>
-                                <v-list-item-title v-text="item" class="ml-2"></v-list-item-title>
-                            </v-list-item>
-                        </v-list>
-                    </v-row>
-                </v-container>
-                <v-card-actions>
-                    <v-btn
-                    text="Back"
-                    @click="dialog2 = false">
-                    </v-btn> 
-
-                    <v-btn
-                    text="Confirm"
-                    @click="dialog2 = false">
-                    </v-btn> 
-                </v-card-actions>
-            </v-card>
-        </v-dialog>
+        <v-continer>
+            <LogSites :open_log_sites_dialog="log_sites_dialog" :current_web_list="list_of_sites" @close="exitLogSitesDialog"/>
+        </v-continer>   
     </v-app>
 </template>
