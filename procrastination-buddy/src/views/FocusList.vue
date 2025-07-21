@@ -106,11 +106,13 @@ onMounted(async () => {
                                 v-for="(item, i) in list_of_sites"
                                 :key="i"
                                 :value="item"
-                                class="text-center"
                                 color="primary"
                                 variant="plain"
                                 >
-                                    <v-list-item-title v-text="item.link"></v-list-item-title>
+                                    <v-container class="d-flex text-center align-center justify-space-between">
+                                        <v-list-item-title class="align-center" @mouseover="console.log(item.link)" v-text="item.link"></v-list-item-title>
+                                        <v-list-item> {{ item.num_visited }} Visits </v-list-item>
+                                    </v-container>
                                 </v-list-item>
                             </v-container>
 
