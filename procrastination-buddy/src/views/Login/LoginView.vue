@@ -67,6 +67,11 @@
                 </v-btn>
             </v-row>
 
+            <v-row class="mt-10" justify="center" no-gutters>
+                <v-btn to="/Password-reset">
+                    Reset Password
+                </v-btn>
+            </v-row>
         </v-container>
     </div>
 </template>
