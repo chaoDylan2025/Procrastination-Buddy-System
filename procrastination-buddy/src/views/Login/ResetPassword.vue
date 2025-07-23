@@ -9,6 +9,27 @@
     const user_email = ref("")
     const errorMsg = ref("")
 
+    function sendPasswordResetEmail(){
+        if(user_email != ""){
+            errorMsg.value = ""
+            AuthenticationService.sendPasswordResetEmail({email: user_email.value}).then((result) => {
+                moveToLoginPage(result.data.status)
+            })
+        }
+        else{
+            errorMsg.value = "Please enter an email"
+        }
+    }
+
+    // Navigate to Login page if password reset email has been sent
+    function moveToLoginPage(response){
+         if(response == true){
+            router.push('/login')
+         }
+         else{
+            errorMsg.value = response
+         }
+    }
 </script>
 
 <template>
@@ -16,7 +37,7 @@
         <div class="mt-5">
             <h3 class="text-center"> Password Reset </h3>
             <h4 class="mt-4 mb-4 text-center"> Enter your email address to be sent a link for resetting your password </h4>
-            <div id="error-msg">
+            <div class="mt-4 mb-4 text-center" id="error-msg">
                 {{ errorMsg }}
             </div>
 
@@ -30,7 +51,7 @@
                     <v-btn to="/login" class="mx-8">
                         Back
                     </v-btn>
-                    <v-btn @click="" class="mx-8">
+                    <v-btn @click="sendPasswordResetEmail()" class="mx-8">
                         Confirm
                     </v-btn>
                 </v-row>

@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { createUser, userLogin, getSignedInUser, logout, deleteUserAccount } from './code/user.js'
+import { createUser, userLogin, getSignedInUser, logout, sendPasswordResetEmail, deleteUserAccount } from './code/user.js'
 import { getImagesAndLayout, setDefaultImages, updateImagesAndLayout } from './code/motivational_page.js'
 import { getRestrictedSitesList, setRestrictedSiteList } from './code/focus_list_page.js'
 
@@ -42,6 +42,18 @@ app.get('/LoggedIn', (req, res) => {
         email: result
     })
 })
+
+// Post request for sending password reset email to the user
+app.post('/PasswordReset', (req, res) => {
+    const { email } = req.body
+
+    sendPasswordResetEmail(email) // Call function
+
+    res.send({
+        status: true
+    })
+})
+
 
 // Post request for logging user out
 app.post('/Logout', async (req, res) => {
