@@ -15,20 +15,6 @@
     var open_delete_account_dialog = ref(false)
 
     const user = userStore()
-
-    async function logUserOut(){
-        try{
-            const result = await AuthenticationService.logoutUser()
-            if(result.data.status == true){
-                user.isLoggedIn = false
-                router.push('/')
-            }
-        }
-        catch (error){
-            console.error(error)
-        }
-    }
-
 </script>
 
 <template>
@@ -93,14 +79,6 @@
             <v-col></v-col>
             <v-col>
                 <v-btn class="ml-16" @click="open_delete_account_dialog = true"> Delete Account </v-btn>
-            </v-col>
-            <v-col></v-col>
-        </v-row>
-
-        <v-row class="mt-10">
-            <v-col></v-col>
-            <v-col>
-                <v-btn class="ml-16" @click="logUserOut"> Logout </v-btn>
             </v-col>
             <v-col></v-col>
         </v-row>
