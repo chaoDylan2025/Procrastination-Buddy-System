@@ -6,10 +6,12 @@
     import { userStore } from '../../stores/user'
 
     // Importing components
+    import ChangeName from '../../components/Profile/ChangeName.vue'
     import ChangeEmail from '../../components/Profile/ChangeEmail.vue'
     import ChangePassword from '../../components/Profile/ChangePassword.vue'
     import DeleteAccount from '../../components/Profile/DeleteAccount.vue'
 
+    var open_name_change_dialog = ref(false)
     var open_email_change_dialog = ref(false)
     var open_change_password_dialog = ref(false)
     var open_delete_account_dialog = ref(false)
@@ -38,7 +40,7 @@
                            </div> 
                         </v-col>
                         <v-col>
-                            <v-btn class="ml-16" size="x-small" @click="open_email_change_dialog = true"> Update </v-btn>
+                            <v-btn class="ml-16" size="x-small" @click="open_name_change_dialog = true"> Change </v-btn>
                         </v-col>
                     </v-row>
                 </v-row>
@@ -59,7 +61,7 @@
                            </div> 
                         </v-col>
                         <v-col>
-                            <v-btn class="ml-16" size="x-small" @click="open_email_change_dialog = true"> Update </v-btn>
+                            <v-btn class="ml-16" size="x-small" @click="open_email_change_dialog = true"> Change </v-btn>
                         </v-col>
                     </v-row>
                 </v-row>
@@ -84,8 +86,10 @@
         </v-row>
     </v-container>
 
-    <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" />
-    <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" />
-    <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"/>
-
+    <v-container>
+        <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="(state) => open_name_change_dialog = state"/>
+        <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" />
+        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" />
+        <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"/>
+    </v-container>
 </template>
