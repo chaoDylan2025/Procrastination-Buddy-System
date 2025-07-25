@@ -97,3 +97,15 @@ export async function deleteUserAccount(){
     console.log(error)
   }
 }
+
+// Send password reset email to user
+export function sendPasswordResetEmail(email){
+  firebaseAuth.sendPasswordResetEmail(auth, email)
+  .then(() => {
+    console.log("Password reset email has been sent!")
+  })
+  .catch((error) => {
+    const errorCode = error.code
+    const errorMessage = error.message
+  })
+}
