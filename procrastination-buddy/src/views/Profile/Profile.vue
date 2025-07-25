@@ -6,9 +6,9 @@
     import { userStore } from '../../stores/user'
 
     // Importing components
-    import ChangeEmail from '../components/ChangeEmail.vue'
-    import ChangePassword from '../components/ChangePassword.vue'
-    import DeleteAccount from '../components/DeleteAccount.vue'
+    import ChangeEmail from '../../components/Profile/ChangeEmail.vue'
+    import ChangePassword from '../../components/Profile/ChangePassword.vue'
+    import DeleteAccount from '../../components/Profile/DeleteAccount.vue'
 
     var open_email_change_dialog = ref(false)
     var open_change_password_dialog = ref(false)
@@ -36,6 +36,27 @@
         <v-row class="mt-10">
             <v-col></v-col>
             <v-col>
+                <v-row class="mb-4">
+                    <v-row>
+                        <v-col>
+                            <div class="text-h6 font-weight-black">
+                                Name:
+                            </div>
+                        </v-col>
+                    </v-row>
+               
+                    <v-row>
+                        <v-col cols="auto">
+                           <div style="width: auto;">
+                                {{user.email}}
+                           </div> 
+                        </v-col>
+                        <v-col>
+                            <v-btn class="ml-16" size="x-small" @click="open_email_change_dialog = true"> Update </v-btn>
+                        </v-col>
+                    </v-row>
+                </v-row>
+
                 <v-row>
                     <v-row>
                         <v-col>
@@ -47,11 +68,9 @@
                
                     <v-row>
                         <v-col cols="auto">
-                           <div style="background-color: aquamarine; width: auto;">
+                           <div style="width: auto;">
                                 {{user.email}}
-                           </div>
-                                
-                            
+                           </div> 
                         </v-col>
                         <v-col>
                             <v-btn class="ml-16" size="x-small" @click="open_email_change_dialog = true"> Update </v-btn>
