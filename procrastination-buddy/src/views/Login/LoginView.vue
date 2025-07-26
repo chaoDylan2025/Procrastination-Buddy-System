@@ -20,13 +20,15 @@
             email: user_email.value,
             password: user_password.value
         }).then((result) => {
-            moveToHomePage(result.data.status)
+            moveToHomePage(result.data)
         })
     }
 
     // Navigate to Home page if user is logged in
     function moveToHomePage(response){
-         if(response == true){
+         if(response.status == true){
+            user.email = response.email
+            user.name = response.name
             user.isLoggedIn = true
             router.push('/')
          }

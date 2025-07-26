@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { createUser, userLogin, getSignedInUser, logout, sendPasswordResetEmail, deleteUserAccount } from './code/user.js'
+import { createUser, userLogin, getSignedInUser, logout, sendPasswordResetEmail, updateDisplayedName, deleteUserAccount } from './code/user.js'
 import { getImagesAndLayout, setDefaultImages, updateImagesAndLayout } from './code/motivational_page.js'
 import { getRestrictedSitesList, setRestrictedSiteList } from './code/focus_list_page.js'
 
@@ -29,8 +29,11 @@ app.post('/login', async (req, res) => {
 
     // Call function
     const result = await userLogin(email, password)
+
     res.send({
-        status: result,
+        status: result.loggedIn,
+        email: result.email,
+        name: result.name
     })
 })
 
@@ -48,6 +51,17 @@ app.post('/PasswordReset', (req, res) => {
     const { email } = req.body
 
     sendPasswordResetEmail(email) // Call function
+
+    res.send({
+        status: true
+    })
+})
+
+// Post request for changing name of user's profile
+app.post('/ChangeName', (req, res) => {
+    const { name } = req.body
+
+    updateDisplayedName(name) // Call function
 
     res.send({
         status: true

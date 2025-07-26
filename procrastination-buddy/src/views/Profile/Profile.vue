@@ -16,7 +16,22 @@
     var open_change_password_dialog = ref(false)
     var open_delete_account_dialog = ref(false)
 
+    var current_name_displayed = ref("")
+
     const user = userStore()
+
+    current_name_displayed.value = user.name == "" ? "Please enter a proper name" : user.name
+
+    function changeUserName(status, name){
+        if(name != ""){
+            AuthenticationService.updateName({name: name}).then((result) => {
+                if(result){
+                    user.name = name, current_name_displayed.value = user.name
+                    open_name_change_dialog.value = status
+                }
+            })
+        }
+    }
 </script>
 
 <template>
@@ -36,7 +51,7 @@
                     <v-row>
                         <v-col cols="auto">
                            <div style="width: auto;">
-                                {{user.email}}
+                                {{current_name_displayed}}
                            </div> 
                         </v-col>
                         <v-col>
@@ -87,7 +102,8 @@
     </v-container>
 
     <v-container>
-        <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="(state) => open_name_change_dialog = state"/>
+        <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="(state) => open_name_change_dialog = state" 
+            @update="changeUserName"/>
         <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" />
         <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" />
         <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"/>

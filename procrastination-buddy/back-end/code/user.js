@@ -50,9 +50,19 @@ export async function createUser(emailId, password, confirmPassword){
 
 // Logging in the user
 export async function userLogin(email, password){
+  let displayName = ""
+  let user_email = ""
+
   try{
-    await firebaseAuth.signInWithEmailAndPassword(auth, email, password)
-    return true
+    await firebaseAuth.signInWithEmailAndPassword(auth, email, password).then(() => {
+      let user = auth.currentUser
+
+      displayName = user.displayName == null ? "" : user.displayName
+      user_email = user.email
+
+      console.log(`disiplayName: ${displayName} and email: ${email}`)
+    })
+    return {loggedIn: true, email: user_email, name: displayName}
   } 
   catch (error) {
     const errorMessage = error.message
@@ -107,5 +117,12 @@ export function sendPasswordResetEmail(email){
   .catch((error) => {
     const errorCode = error.code
     const errorMessage = error.message
+  })
+}
+
+// Update user's displayed name
+export function updateDisplayedName(name){
+  firebaseAuth.updateProfile(auth.currentUser, {displayName: name}).then(() => {
+    console.log("Displayed name has been updated!")
   })
 }
