@@ -32,6 +32,16 @@
             })
         }
     }
+
+    function changePassword(status, current_password, new_password, reenter_new_password){
+        if(reenter_new_password != new_password){
+            console.log("New passwords do not match...")
+        }
+        else{
+            console.log("Passwords match...")
+        }
+        open_change_password_dialog.value = status
+    }
 </script>
 
 <template>
@@ -105,7 +115,8 @@
         <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="(state) => open_name_change_dialog = state" 
             @update="changeUserName"/>
         <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" />
-        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" />
+        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" 
+            @change="changePassword"/>
         <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"/>
     </v-container>
 </template>
