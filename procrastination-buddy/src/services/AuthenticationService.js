@@ -16,6 +16,9 @@ export default {
     sendPasswordResetEmail(email){
         return Api().post('PasswordReset', email)
     },
+    changePassword(credentials){
+        return Api().post('ChangePassword', credentials)
+    },
     updateName(name){
         return Api().post('ChangeName', name)
     },

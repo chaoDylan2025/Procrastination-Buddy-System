@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { createUser, userLogin, getSignedInUser, logout, sendPasswordResetEmail, updateDisplayedName, deleteUserAccount } from './code/user.js'
+import { createUser, userLogin, getSignedInUser, logout, sendPasswordResetEmail, updateDisplayedName, changePassword, deleteUserAccount } from './code/user.js'
 import { getImagesAndLayout, setDefaultImages, updateImagesAndLayout } from './code/motivational_page.js'
 import { getRestrictedSitesList, setRestrictedSiteList } from './code/focus_list_page.js'
 
@@ -51,6 +51,17 @@ app.post('/PasswordReset', (req, res) => {
     const { email } = req.body
 
     sendPasswordResetEmail(email) // Call function
+
+    res.send({
+        status: true
+    })
+})
+
+// Post request for changing password
+app.post('/ChangePassword', (req, res) => {
+    const { email, current_password, new_password } = req.body
+
+    changePassword(email, current_password, new_password) // Call function
 
     res.send({
         status: true

@@ -22,6 +22,7 @@
 
     current_name_displayed.value = user.name == "" ? "Please enter a proper name" : user.name
 
+    // Change the current user's displayed name
     function changeUserName(status, name){
         if(name != ""){
             AuthenticationService.updateName({name: name}).then((result) => {
@@ -33,14 +34,20 @@
         }
     }
 
+    // Change the user's current password
     function changePassword(status, current_password, new_password, reenter_new_password){
         if(reenter_new_password != new_password){
             console.log("New passwords do not match...")
         }
         else{
-            console.log("Passwords match...")
+            let credentials = {email: user.email, current_password: current_password, new_password: new_password}
+
+            AuthenticationService.changePassword(credentials).then((result) => {
+                if(result){
+                    open_change_password_dialog.value = status
+                }
+            })
         }
-        open_change_password_dialog.value = status
     }
 </script>
 
