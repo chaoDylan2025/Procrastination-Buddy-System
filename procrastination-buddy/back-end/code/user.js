@@ -120,6 +120,23 @@ export function sendPasswordResetEmail(email){
   })
 }
 
+// Changes user password if current password is entered correctly
+export function changePassword(email, current_password, new_password){
+  let authCredentials = firebaseAuth.EmailAuthProvider
+  authCredentials = authCredentials.credential(email, current_password)
+
+  let current_user = auth.currentUser
+
+  firebaseAuth.reauthenticateWithCredential(current_user, authCredentials).then(() => {
+    firebaseAuth.updatePassword(current_user, new_password).then(() => {
+      console.log("Password has been successfully changed...")
+    })
+  })
+  .catch((error) => {
+    console.log("Error: ", error)
+  })
+}
+
 // Update user's displayed name
 export function updateDisplayedName(name){
   firebaseAuth.updateProfile(auth.currentUser, {displayName: name}).then(() => {

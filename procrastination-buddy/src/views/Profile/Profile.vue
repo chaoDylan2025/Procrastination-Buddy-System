@@ -22,12 +22,29 @@
 
     current_name_displayed.value = user.name == "" ? "Please enter a proper name" : user.name
 
+    // Change the current user's displayed name
     function changeUserName(status, name){
         if(name != ""){
             AuthenticationService.updateName({name: name}).then((result) => {
                 if(result){
                     user.name = name, current_name_displayed.value = user.name
                     open_name_change_dialog.value = status
+                }
+            })
+        }
+    }
+
+    // Change the user's current password
+    function changePassword(status, current_password, new_password, reenter_new_password){
+        if(reenter_new_password != new_password){
+            console.log("New passwords do not match...")
+        }
+        else{
+            let credentials = {email: user.email, current_password: current_password, new_password: new_password}
+
+            AuthenticationService.changePassword(credentials).then((result) => {
+                if(result){
+                    open_change_password_dialog.value = status
                 }
             })
         }
@@ -105,7 +122,8 @@
         <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="(state) => open_name_change_dialog = state" 
             @update="changeUserName"/>
         <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" />
-        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" />
+        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" 
+            @change="changePassword"/>
         <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"/>
     </v-container>
 </template>
