@@ -137,6 +137,13 @@ export function changePassword(email, current_password, new_password){
   })
 }
 
+// Change user email once user has verified email
+export function changeEmail(email){
+  firebaseAuth.verifyBeforeUpdateEmail(auth.currentUser, email).then(() => {
+    console.log("New email has been verified...")
+  })
+}
+
 // Update user's displayed name
 export function updateDisplayedName(name){
   firebaseAuth.updateProfile(auth.currentUser, {displayName: name}).then(() => {

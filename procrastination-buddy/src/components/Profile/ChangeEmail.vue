@@ -7,10 +7,14 @@ const props = defineProps({
 
 var new_email_address = ref("")
 
-const emit = defineEmits('close')
+const emit = defineEmits(['close', 'change'])
 
 function exitDialogModal(){
     emit('close', false)
+}
+
+function changeEmail(){
+    emit('change', false, new_email_address.value)
 }
 </script>
 
@@ -33,8 +37,8 @@ function exitDialogModal(){
                     </v-responsive>
                 </v-row>
                 <v-card-actions>
-                    <v-btn @click="exitDialogModal(false)">Back</v-btn>
-                    <v-btn>Confirm</v-btn> 
+                    <v-btn @click="exitDialogModal()">Back</v-btn>
+                    <v-btn @click="changeEmail()">Confirm</v-btn> 
                 </v-card-actions>
             </v-card>
         </v-dialog>

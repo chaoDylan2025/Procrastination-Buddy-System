@@ -49,6 +49,16 @@
             })
         }
     }
+
+    // Change the user's email address
+    function changeEmail(status, email){
+        AuthenticationService.changeEmail({email: email}).then((result) => {
+            if(result.data.status){
+                open_email_change_dialog.value = status
+                alert("A confirmation link has been sent to your new email. Please verify to complete the change.")
+            }
+        })
+    }
 </script>
 
 <template>
@@ -121,7 +131,8 @@
     <v-container>
         <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="(state) => open_name_change_dialog = state" 
             @update="changeUserName"/>
-        <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" />
+        <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" 
+            @change="changeEmail"/>
         <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" 
             @change="changePassword"/>
         <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"/>

@@ -22,6 +22,9 @@ export default {
     updateName(name){
         return Api().post('ChangeName', name)
     },
+    changeEmail(email){
+        return Api().post('ChangeEmail', email)
+    },
     imagesAndLayOut () {
         return Api().get('MotivationalImages')
     },
