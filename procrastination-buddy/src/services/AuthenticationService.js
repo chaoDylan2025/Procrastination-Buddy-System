@@ -2,42 +2,42 @@ import Api from './Api'
 
 export default {
     createUser (credentials) {
-        return Api().post('SignUp', credentials)
+        return Api().post('signup', credentials)
     },
     loginUser (credentials){
         return Api().post('login', credentials)
     },
     userIsLoggedIn () {
-        return Api().get('LoggedIn')
+        return Api().get('logged-in')
     },
     logoutUser () {
         return Api().post('logout')
     },
     sendPasswordResetEmail(email){
-        return Api().post('PasswordReset', email)
+        return Api().post('password-reset', email)
     },
     changePassword(credentials){
-        return Api().post('ChangePassword', credentials)
+        return Api().post('change-password', credentials)
     },
     updateName(name){
-        return Api().post('ChangeName', name)
+        return Api().post('change-name', name)
     },
     changeEmail(email){
-        return Api().post('ChangeEmail', email)
+        return Api().post('change-email', email)
     },
     imagesAndLayOut () {
-        return Api().get('MotivationalImages')
+        return Api().get('motivational-images')
     },
     settingDefaultImages (images) {
-        return Api().post('DefaultImages', images)
+        return Api().post('default-images', images)
     },
     settingImagesAndImageLayout (images_and_layout){
-        return Api().post('UpdateImagesAndLayout', images_and_layout)
+        return Api().post('update-images-and-layout', images_and_layout)
     },
     restrictedWebsitesList(){
-        return Api().get('RestrictedSitesList')
+        return Api().get('restricted-sites-list')
     },
     settingRestrictedWebsitesList(restricted_sites_list){
-        return Api().post('UpdateRestrictedSitesList', restricted_sites_list)
+        return Api().post('update-restricted-sites-list', restricted_sites_list)
     }
 }
