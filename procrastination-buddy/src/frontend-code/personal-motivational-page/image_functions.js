@@ -68,7 +68,7 @@ export function getImageUrl(url) {
 
 // Gets the image layout and images from current user
 export async function getImagesAndLayout(){
-    let result = await AuthenticationService.imagesAndLayOut()
+    let result = await AuthenticationService.updateImagesAndLayout()
     let images = result.data.images
     if(images == ""){
         console.log("Current images are missing")
