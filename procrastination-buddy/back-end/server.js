@@ -10,24 +10,25 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// Post request for creating a new account
+/**
+ * Post request for creating a new account
+ */
 app.post('/SignUp', async (req, res) => {
-    // Sets values for email, password, and confirm password
+    // Sets values for email, password, and password to confirm
     const { email, password, confirm_password } = req.body
-
-    // Calls function
     const result = await createUser(email, password, confirm_password)
+
     res.send({
         status: result
     })
 })
 
-// Post request for logging in
+/**
+ * Post request for logging in
+ */
 app.post('/login', async (req, res) => {
     // Sets values for email and password
     const { email, password } = req.body
-
-    // Call function
     const result = await login(email, password)
 
     res.send({
@@ -37,53 +38,63 @@ app.post('/login', async (req, res) => {
     })
 })
 
-// Get request for checking if user is currently signed in
+/**
+ * Get request for checking if user is currently signed in
+ */
 app.get('/LoggedIn', (req, res) => {
-    // Call function
     const result = getUser()
+
     res.send({
         email: result
     })
 })
 
-// Post request for sending password reset email to the user
+/**
+ * Post request for sending password reset email to the user
+ */
 app.post('/PasswordReset', (req, res) => {
     const { email } = req.body
 
-    sendPasswordResetEmail(email) // Call function
+    sendPasswordResetEmail(email)
 
     res.send({
         status: true
     })
 })
 
-// Post request for changing password
+/**
+ * Post request for changing password
+ */
 app.post('/ChangePassword', (req, res) => {
     const { email, current_password, new_password } = req.body
 
-    changePassword(email, current_password, new_password) // Call function
+    changePassword(email, current_password, new_password)
 
     res.send({
         status: true
     })
 })
 
-// Post request for changing email
+/**
+ * Post request for changing email
+ */
 app.post('/ChangeEmail', (req, res) => {
     const { email } = req.body
 
-    changeEmail(email) // Call function
+    changeEmail(email)
 
     res.send({
         status: true
     })
 })
 
-// Post request for changing name of user's profile
+/**
+ * Post request for changing name of user's profile
+ */
 app.post('/ChangeName', (req, res) => {
     const { name } = req.body
 
-    updateDisplayedName(name) // Call function
+    updateDisplayedName(name)
 
     res.send({
         status: true
@@ -91,9 +102,12 @@ app.post('/ChangeName', (req, res) => {
 })
 
 
-// Post request for logging user out
+/**
+ * Post request for logging user out
+ */
 app.post('/Logout', async (req, res) => {
     const result = await logout()
+
     if(result === true){
         console.log("User has been logged out...")
         res.send({
@@ -102,49 +116,65 @@ app.post('/Logout', async (req, res) => {
     }
 })
 
-// Delete request for deleting user account
+/**
+ * Delete request for deleting user account
+ */
 app.delete('/Profile', async (req, res) => {
     const result = await deleteUserAccount()
+
     if(result === true){
         res.status(200).send('Deleted User Account')
     }  
 })
 
-// Get request for getting current motivational images of user
+/**
+ * Get request for getting current motivational images of user
+ */
 app.get('/MotivationalImages', async (req, res) => {
     const result = await getImagesAndLayout()
+
     res.send(result)
 })
 
-// Post request for setting default images for user with no images
+/**
+ * Post request for setting default images for user with no images
+ */
 app.post('/DefaultImages', async (req, res) => {
     const { images } = req.body
     const result = await setDefaultImages(images)
+
     res.send({
         status: result
     })
 })
 
-// Post request for setting updated images and image layout for user
+/**
+ * Post request for setting updated images and image layout for current user
+ */
 app.post('/UpdateImagesAndLayout', async (req, res) => {
     const { image_layout, images } = req.body
     const result = await updateImagesAndLayout(image_layout, images)
+
     res.send({
         status: result
     })
 })
 
-// Get request for getting the user's current restricted websites list
+/**
+ * Get request for getting the user's current restricted websites list
+ */
 app.get('/RestrictedSitesList', async (req, res) => {
     const result = await getRestrictedSitesList()
     res.send(result)
 })
 
-// Post request for updating user's current restricted websites list
-app.post('/UpdateRestrictedSitesList', async (req, res) => {
-    console.log(req.body)
+/**
+ * Post request for updating user's current restricted websites list
+ */
+app.post('/UpdateRestrictedSitesList', async (req, res) => {    
     const website = req.body
     const result = await setRestrictedSiteList({list: website})
+    
     res.send({
         status: result
     })
