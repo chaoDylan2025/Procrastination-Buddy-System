@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { createUser, userLogin, getSignedInUser, logout, sendPasswordResetEmail, updateDisplayedName, changePassword, changeEmail, deleteUserAccount } from './code/user.js'
+import { createUser, login, getUser, logout, sendPasswordResetEmail, updateDisplayedName, changePassword, changeEmail, deleteUserAccount } from './code/user.js'
 import { getImagesAndLayout, setDefaultImages, updateImagesAndLayout } from './code/motivational_page.js'
 import { getRestrictedSitesList, setRestrictedSiteList } from './code/focus_list_page.js'
 
@@ -28,7 +28,7 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body
 
     // Call function
-    const result = await userLogin(email, password)
+    const result = await login(email, password)
 
     res.send({
         status: result.loggedIn,
@@ -40,7 +40,7 @@ app.post('/login', async (req, res) => {
 // Get request for checking if user is currently signed in
 app.get('/LoggedIn', (req, res) => {
     // Call function
-    const result = getSignedInUser()
+    const result = getUser()
     res.send({
         email: result
     })
