@@ -25,7 +25,7 @@ export default {
     sendPasswordResetEmail(email){
         return Api().post('password-reset', email)
     },
-    imagesAndLayOut () {
+    updateImagesAndLayout () {
         return Api().get('motivational-images')
     },
     settingDefaultImages (images) {
