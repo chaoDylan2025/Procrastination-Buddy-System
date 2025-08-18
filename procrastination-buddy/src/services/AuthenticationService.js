@@ -13,17 +13,17 @@ export default {
     logoutUser () {
         return Api().post('logout')
     },
-    sendPasswordResetEmail(email){
-        return Api().post('password-reset', email)
-    },
-    changePassword(credentials){
-        return Api().post('change-password', credentials)
-    },
     updateName(name){
         return Api().post('change-name', name)
     },
     changeEmail(email){
         return Api().post('change-email', email)
+    },
+    changePassword(credentials){
+        return Api().post('change-password', credentials)
+    },
+    sendPasswordResetEmail(email){
+        return Api().post('password-reset', email)
     },
     imagesAndLayOut () {
         return Api().get('motivational-images')
