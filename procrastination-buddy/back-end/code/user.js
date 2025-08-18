@@ -27,12 +27,19 @@ firebaseAuth.onAuthStateChanged(auth, (user) => {
     }
 })
 
-// Creates a user account
-export async function createUser(emailId, password, confirmPassword){
-  if(confirmPassword === password){
+/**
+ * Creates a user account
+ * 
+ * @param emailId - User's email 
+ * @param password - New user's password
+ * @param confirm_password - Confirms new user's password before creating account
+ */
+export async function createUser(emailId, password, confirm_password){
+  if(confirm_password === password){
     try{
-      await firebaseAuth.createUserWithEmailAndPassword(auth, emailId, password)
-      return true
+      await firebaseAuth.createUserWithEmailAndPassword(auth, emailId, password).then(() => {
+        return true
+      })
     } 
     catch(error){
       const errorMessage = error.message
@@ -42,27 +49,32 @@ export async function createUser(emailId, password, confirmPassword){
 
   else{
     // Return error message if confirmation password does not match password
-    if(confirmPassword !== password){
+    if(confirm_password !== password){
       return "Password and confirmation password do not match!"
     }
   }
 }
 
-// Logging in the user
-export async function userLogin(email, password){
-  let displayName = ""
+/**
+ * Logging in the user
+ * 
+ * @param email - Entered email
+ * @param password - Entered password
+ */
+export async function login(email, password){
+  let display_name = ""
   let user_email = ""
 
   try{
     await firebaseAuth.signInWithEmailAndPassword(auth, email, password).then(() => {
       let user = auth.currentUser
 
-      displayName = user.displayName == null ? "" : user.displayName
+      display_name = user.displayName == null ? "" : user.displayName
       user_email = user.email
 
-      console.log(`disiplayName: ${displayName} and email: ${email}`)
+      console.log(`disiplayName: ${display_name} and email: ${email}`)
     })
-    return {loggedIn: true, email: user_email, name: displayName}
+    return {loggedIn: true, email: user_email, name: display_name}
   } 
   catch (error) {
     const errorMessage = error.message
@@ -70,8 +82,10 @@ export async function userLogin(email, password){
   }
 }
 
-// Get the currently signed-in user
-export function getSignedInUser(){
+/**
+ * Get the current signed-in user
+ */
+export function getUser(){
   if(user_email != null){
     return user_email
   }
@@ -80,7 +94,9 @@ export function getSignedInUser(){
   }
 }
 
-// Logging the user out
+/**
+ * Log user out
+ */
 export async function logout(){
   try{
     // Calls method that signs out the user
@@ -93,7 +109,9 @@ export async function logout(){
   }
 }
 
-// Delete user account
+/**
+ * Delete account
+ */
 export async function deleteUserAccount(){
   // Gets the current user
   const user = auth.currentUser
@@ -108,7 +126,11 @@ export async function deleteUserAccount(){
   }
 }
 
-// Send password reset email to user
+/**
+ * Send reset password email to user
+ * 
+ * @param email - Current user's email
+ */
 export function sendPasswordResetEmail(email){
   firebaseAuth.sendPasswordResetEmail(auth, email)
   .then(() => {
@@ -120,7 +142,13 @@ export function sendPasswordResetEmail(email){
   })
 }
 
-// Changes user password if current password is entered correctly
+/**
+ * Changes user password if current password is entered correctly
+ * 
+ * @param email - Current user's email 
+ * @param current_password - Current user's password 
+ * @param new_password - New password for account
+ */
 export function changePassword(email, current_password, new_password){
   let authCredentials = firebaseAuth.EmailAuthProvider
   authCredentials = authCredentials.credential(email, current_password)
@@ -137,14 +165,22 @@ export function changePassword(email, current_password, new_password){
   })
 }
 
-// Change user email once user has verified email
+/**
+ * Change user email once user has verified email
+ * 
+ * @param email - New email for current user
+ */
 export function changeEmail(email){
   firebaseAuth.verifyBeforeUpdateEmail(auth.currentUser, email).then(() => {
     console.log("New email has been verified...")
   })
 }
 
-// Update user's displayed name
+/**
+ * Update user's displayed name
+ * 
+ * @param name - New display name for current user 
+ */
 export function updateDisplayedName(name){
   firebaseAuth.updateProfile(auth.currentUser, {displayName: name}).then(() => {
     console.log("Displayed name has been updated!")
