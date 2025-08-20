@@ -7,6 +7,11 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 
+/**
+ * Exits the dialog and inserts logged visits to the list
+ * 
+ * @param writeData - Updates or does not update current user's restricted websites list
+ */
 function exitLogSitesDialogModal(writeData=false){
     emit('close', false, writeData)
 }
@@ -14,7 +19,6 @@ function exitLogSitesDialogModal(writeData=false){
 
 <template>
     <v-app>
-        <!-- Dialog for when user clicks on 'Log Number Of Sites Visited' --> 
         <v-dialog v-model="props.open_log_sites_dialog" width="500">
             <v-card
             width="500"

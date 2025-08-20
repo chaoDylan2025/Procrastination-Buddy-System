@@ -5,22 +5,22 @@ import LogSites from '../components/Focus-List/LogSites.vue';
 import { userStore } from '../stores/user'
 import { ref, onMounted } from 'vue'
 
-// Pinia store for user information
-const user = userStore()
+const user = userStore() // Pinia store for user information
 
-// Reactive variables
 const edit_list_dialog = ref(false)
 const log_sites_dialog = ref(false)
 
-// Actual array from database
-var list_of_sites = ref([])
+var list_of_sites = ref([]) // Actual array from database
+
 var previous_list_of_sites = ""
 
 // Current message to display
 var msgs_to_display = ["Please insert a restricted website in your list", "Must have at least one restricted website in your list"]
 var current_msg = ref(msgs_to_display[0])
 
-// Opens the dialog for logging sites if current list is not empty
+/**
+ * Opens the dialog for logging sites if current list is not empty
+ */
 function openLogSitesDialog(){
     if(list_of_sites.value.length == 0){
         current_msg.value = msgs_to_display[1]
@@ -30,7 +30,12 @@ function openLogSitesDialog(){
     }
 }
 
-// Closes the dialogs
+/**
+ * Closes the Edit List dialog
+ * 
+ * @param state - Closes the dialog
+ * @param writeData - Updates or does not update current user's restricted websites list
+ */
 function exitEditListDialog(state, writeData){
     if(writeData){
         updateRestrictedSitesList()
@@ -43,6 +48,12 @@ function exitEditListDialog(state, writeData){
     edit_list_dialog.value = state
 }
 
+/**
+ * Closes the Log Sites dialog
+ * 
+ * @param state - Closes the dialog
+ * @param writeData - Updates or does not update current user's restricted websites list
+ */
 function exitLogSitesDialog(state, writeData){
     if(writeData){
         updateRestrictedSitesList()
@@ -55,7 +66,9 @@ function exitLogSitesDialog(state, writeData){
     log_sites_dialog.value = state
 }
 
-// Adds the updated restricted websites list to the database
+/**
+ * Adds the updated restricted websites list to the database
+ */
 async function updateRestrictedSitesList(){
     console.log(list_of_sites.value)
     await AuthenticationService.settingRestrictedWebsitesList(list_of_sites.value).then((result) => {
@@ -68,6 +81,7 @@ async function updateRestrictedSitesList(){
     })
 }
 
+// Gets the current user's restricted websites list
 onMounted(async () => {
     let result = await AuthenticationService.restrictedWebsitesList();
     list_of_sites.value = result.data.list

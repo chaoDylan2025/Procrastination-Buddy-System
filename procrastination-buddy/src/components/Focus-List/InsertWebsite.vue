@@ -10,7 +10,11 @@ const emit = defineEmits(['close'])
 
 var new_restricted_wesbite = ref("")
 
-// Exits the dialog to add a new restricted website to the list
+/**
+ * Exits the dialog to add a new restricted website to the list
+ * 
+ * @param new_restricted_wesbite - New restricted website to insert into the list 
+ */
 function exitDialogModal(new_restricted_wesbite=""){
     emit('close', false, new_restricted_wesbite)
 }

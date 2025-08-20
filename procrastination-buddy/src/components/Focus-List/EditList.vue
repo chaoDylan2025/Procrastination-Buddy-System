@@ -11,12 +11,21 @@ const emit = defineEmits(['close'])
 
 var open_new_list_dialog = ref(false)
 
-// Deletes website in the list
+/**
+ * Deletes website in the list
+ * 
+ * @param index - Position of selected website to delete
+ */
 function delete_website(index){
     props.current_web_list.splice(index, 1)
 }
 
-// Inserts new website in current restricted websites list
+/**
+ * Inserts new website in current restricted websites list
+ * 
+ * @param state - Opens or closes dialog
+ * @param website - Restricted website to insert into list
+ */
 function insertNewWebsite(state, website){
     if(website != ""){
         props.current_web_list.push({link: website, num_visited: 0});
@@ -24,14 +33,19 @@ function insertNewWebsite(state, website){
     open_new_list_dialog.value = state
 }
 
-function exitEditListDialog(writeData=false){
+/**
+ * Exits the Edit List dialog
+ * 
+ * @param writeData - Updates or does not update current user's restricted websites list
+ */
+function exitEditListDialog(writeData){
     emit('close', false, writeData)
 }
 </script>
 
 <template>
     <v-app>
-        <!-- Dialog for when user clicks on 'Edit List' button -->
+        <!-- Display dialog when user clicks on 'Edit List' button -->
         <v-dialog v-model="props.open_edit_list_dialog" width="500">
             <v-card
             width="500"
