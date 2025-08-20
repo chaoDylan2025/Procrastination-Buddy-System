@@ -16,7 +16,7 @@ async function isLoggedIn(){
 
 // Gets the image layout and images from current user
 async function getImagesAndLayout(){
-    let result = await AuthenticationService.imagesAndLayOut()
+    let result = await AuthenticationService.updateImagesAndLayout()
     return result.data.images
 }
 
