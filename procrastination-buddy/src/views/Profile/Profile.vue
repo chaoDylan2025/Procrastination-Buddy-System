@@ -1,64 +1,79 @@
 <script setup>
-    import { RouterLink, RouterView } from 'vue-router'
-    import { ref, onMounted } from 'vue'
-    import AuthenticationService from '../../services/AuthenticationService'
-    import router from '../../router/index'
-    import { userStore } from '../../stores/user'
+import { ref, onMounted } from 'vue'
+import AuthenticationService from '../../services/AuthenticationService'
+import { userStore } from '../../stores/user'
 
-    // Importing components
-    import ChangeName from '../../components/Profile/ChangeName.vue'
-    import ChangeEmail from '../../components/Profile/ChangeEmail.vue'
-    import ChangePassword from '../../components/Profile/ChangePassword.vue'
-    import DeleteAccount from '../../components/Profile/DeleteAccount.vue'
+// Importing components
+import ChangeName from '../../components/Profile/ChangeName.vue'
+import ChangeEmail from '../../components/Profile/ChangeEmail.vue'
+import ChangePassword from '../../components/Profile/ChangePassword.vue'
+import DeleteAccount from '../../components/Profile/DeleteAccount.vue'
 
-    var open_name_change_dialog = ref(false)
-    var open_email_change_dialog = ref(false)
-    var open_change_password_dialog = ref(false)
-    var open_delete_account_dialog = ref(false)
+var open_name_change_dialog = ref(false)
+var open_email_change_dialog = ref(false)
+var open_change_password_dialog = ref(false)
+var open_delete_account_dialog = ref(false)
 
-    var current_name_displayed = ref("")
+var current_name_displayed = ref("")
 
-    const user = userStore()
+const user = userStore()
 
-    current_name_displayed.value = user.name == "" ? "Please enter a proper name" : user.name
+current_name_displayed.value = user.name == "" ? "Please enter a proper name" : user.name
 
-    // Change the current user's displayed name
-    function changeUserName(status, name){
-        if(name != ""){
-            AuthenticationService.updateName({name: name}).then((result) => {
-                if(result){
-                    user.name = name, current_name_displayed.value = user.name
-                    open_name_change_dialog.value = status
-                }
-            })
-        }
-    }
-
-    // Change the user's current password
-    function changePassword(status, current_password, new_password, reenter_new_password){
-        if(reenter_new_password != new_password){
-            console.log("New passwords do not match...")
-        }
-        else{
-            let credentials = {email: user.email, current_password: current_password, new_password: new_password}
-
-            AuthenticationService.changePassword(credentials).then((result) => {
-                if(result){
-                    open_change_password_dialog.value = status
-                }
-            })
-        }
-    }
-
-    // Change the user's email address
-    function changeEmail(status, email){
-        AuthenticationService.changeEmail({email: email}).then((result) => {
-            if(result.data.status){
-                open_email_change_dialog.value = status
-                alert("A confirmation link has been sent to your new email. Please verify to complete the change.")
+/**
+ * Change the current user's displayed name
+ * 
+ * @param status - Closes the dialog for changing display name
+ * @param name - New display name
+ */
+function changeUserName(status, name){
+    if(name != ""){
+        AuthenticationService.updateName({name: name}).then((result) => {
+            if(result){
+                user.name = name, current_name_displayed.value = user.name
+                open_name_change_dialog.value = status
             }
         })
     }
+}
+
+/**
+ * Change the user's current password
+ * 
+ * @param status - Closes the dialog for changing password
+ * @param current_password - Current user's original password
+ * @param new_password - New password for current user
+ * @param reenter_new_password - Confirms new password to change to for current user
+ */
+function changePassword(status, current_password, new_password, reenter_new_password){
+    if(reenter_new_password != new_password){
+        console.log("New passwords do not match...")
+    }
+    else{
+        let credentials = {email: user.email, current_password: current_password, new_password: new_password}
+
+        AuthenticationService.changePassword(credentials).then((result) => {
+            if(result){
+                open_change_password_dialog.value = status
+            }
+        })
+    }
+}
+
+/**
+ * Change the user's email address
+ * 
+ * @param status - Closes the dialog for changing current user's email
+ * @param email - New email address for current user
+ */
+function changeEmail(status, email){
+    AuthenticationService.changeEmail({email: email}).then((result) => {
+        if(result.data.status){
+            open_email_change_dialog.value = status
+            alert("A confirmation link has been sent to your new email. Please verify to complete the change.")
+        }
+    })
+}
 </script>
 
 <template>

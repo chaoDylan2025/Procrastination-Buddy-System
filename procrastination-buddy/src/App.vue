@@ -1,6 +1,5 @@
 <script setup>
 import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
 import { userStore } from "./stores/user";
 import AuthenticationService from './services/AuthenticationService'
 
@@ -19,6 +18,9 @@ const profile_tabs = ref([
   {text: 'Profile Information', to: "/Profile"}
 ])
 
+/**
+ * Logout the current user
+ */
 async function logUserOut(){
   try{
     const result = await AuthenticationService.logoutUser()
@@ -42,6 +44,7 @@ async function logUserOut(){
           </v-btn>
         </v-app-bar-title>
       </div>
+
       <div class="mx-10">
         <v-btn @click="showWelcomeMsg = false" v-for="link in links" :key="link.text" :to="link.to">
           {{ link.text }}
@@ -89,5 +92,4 @@ async function logUserOut(){
       </router-view>
     </v-main>
   </v-app>
-
 </template>

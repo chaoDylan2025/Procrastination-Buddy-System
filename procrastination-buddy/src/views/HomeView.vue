@@ -9,12 +9,17 @@ const user = userStore()
 
 var displayImages = ref(false)
 
+/**
+ * Checks if current user is logged in
+ */
 async function isLoggedIn(){
     let result = await AuthenticationService.userIsLoggedIn()
     return result.data.email
 }
 
-// Gets the image layout and images from current user
+/**
+ * Gets the image layout and images from current user
+ */
 async function getImagesAndLayout(){
     let result = await AuthenticationService.updateImagesAndLayout()
     return result.data.images
@@ -27,7 +32,6 @@ onMounted(async() => {
         displayImages.value = true
     })
 })
-
 </script>
 
 <template>
