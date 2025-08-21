@@ -6,13 +6,11 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      // route level code-splitting
       component: () => import('../views/HomeView.vue'),
     },
     {
       path: '/about',
       name: 'about',
-      // route level code-splitting
       component: () => import('../views/AboutView.vue'),
     },
     {

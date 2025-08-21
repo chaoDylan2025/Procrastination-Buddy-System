@@ -1,35 +1,41 @@
 <script setup>
-    import {useRouter} from 'vue-router'
-    import { ref } from 'vue'
-    import AuthenticationService from '../../services/AuthenticationService'
+import {useRouter} from 'vue-router'
+import { ref } from 'vue'
+import AuthenticationService from '../../services/AuthenticationService'
 
-    const router = useRouter()
+const router = useRouter()
 
-    // Reactive elements
-    const user_email = ref("")
-    const errorMsg = ref("")
+const user_email = ref("")
+const errorMsg = ref("")
 
-    function sendPasswordResetEmail(){
-        if(user_email != ""){
-            errorMsg.value = ""
-            AuthenticationService.sendPasswordResetEmail({email: user_email.value}).then((result) => {
-                moveToLoginPage(result.data.status)
-            })
-        }
-        else{
-            errorMsg.value = "Please enter an email"
-        }
+/**
+ * Sends an email to current user for resetting their password
+ */
+function sendPasswordResetEmail(){
+    if(user_email != ""){
+        errorMsg.value = ""
+        AuthenticationService.sendPasswordResetEmail({email: user_email.value}).then((result) => {
+            moveToLoginPage(result.data.status)
+        })
     }
-
-    // Navigate to Login page if password reset email has been sent
-    function moveToLoginPage(response){
-         if(response == true){
-            router.push('/login')
-         }
-         else{
-            errorMsg.value = response
-         }
+    else{
+        errorMsg.value = "Please enter an email"
     }
+}
+
+/**
+ * Navigate to Login page if password reset email has been sent
+ * 
+ * @param result - Data from ExpressJS server  
+ */
+function moveToLoginPage(result){
+    if(response == true){
+        router.push('/login')
+    }
+    else{
+        errorMsg.value = response
+    }
+}
 </script>
 
 <template>
@@ -63,34 +69,32 @@
 </template>
 
 <style lang="css" scoped>
-    label{
-        display: block;
+label{
+    display: block;
+}
+
+input[type='submit'], label {
+    margin-top: 15px;
+}
+
+#sign-up{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+#sign-up-buttons{
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    button{
+        margin-right: 25px;
+        margin-left: 25px;
     }
+}
 
-    input[type='submit'], label {
-        margin-top: 15px;
-    }
-
-    #sign-up{
-        margin-top: 15px;
-        display: flex;
-        justify-content: center;
-    }
-
-    #sign-up-buttons{
-        margin-top: 15px;
-        display: flex;
-        justify-content: center;
-        button{
-            margin-right: 25px;
-            margin-left: 25px;
-        }
-    }
-
-    h3{
-        display: flex;
-        justify-content: center;
-    }
-
-
+h3{
+    display: flex;
+    justify-content: center;
+}
 </style>

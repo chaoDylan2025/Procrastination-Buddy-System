@@ -1,51 +1,55 @@
 <script setup>
-    import { RouterLink, RouterView } from 'vue-router'
-    import {useRouter} from 'vue-router'
-    import router from '../../router/index'
-    import { ref, onMounted } from 'vue'
+import router from '../../router/index'
+import { ref, onMounted } from 'vue'
+import AuthenticationService from '../../services/AuthenticationService'
+import { userStore } from "../../stores/user";
 
-    import AuthenticationService from '../../services/AuthenticationService'
+const user = userStore()
 
-    import { userStore } from "../../stores/user";
+const user_email = ref("")
+const user_password = ref("")
+const errorMsg = ref("")
 
-    const user = userStore()
+/**
+ * Registers user in database
+ */
+async function logUser(){
+    await AuthenticationService.loginUser({
+        email: user_email.value,
+        password: user_password.value
+    }).then((result) => {
+        moveToHomePage(result.data)
+    })
+}
 
-    const user_email = ref("")
-    const user_password = ref("")
-    const errorMsg = ref("")
-
-    // Registers user in database
-    async function logUser(){
-        await AuthenticationService.loginUser({
-            email: user_email.value,
-            password: user_password.value
-        }).then((result) => {
-            moveToHomePage(result.data)
-        })
+/**
+ * Navigate to Home Page if user is logged in
+ * 
+ * @param result - Data from ExpressJS server
+ */
+function moveToHomePage(result){
+    if(result.status == true){
+        user.email = result.email
+        user.name = result.name
+        user.isLoggedIn = true
+        router.push('/')
     }
-
-    // Navigate to Home page if user is logged in
-    function moveToHomePage(response){
-         if(response.status == true){
-            user.email = response.email
-            user.name = response.name
-            user.isLoggedIn = true
-            router.push('/')
-         }
-         else{
-            errorMsg.value = response
-         }
+    else{
+        errorMsg.value = result
     }
+}
 </script>
 
 <template>
     <div class="mt-5">
+        <!-- Login error message -->
         <div>
             {{ errorMsg }}
         </div>
+
         <h3 class="text-center"> Login </h3>
-        
         <br>
+
         <v-responsive class="mx-auto" max-width="500">
             <p>Email:</p>
             <v-text-field type="email" v-model="user_email"></v-text-field>
