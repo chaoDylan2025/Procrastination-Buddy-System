@@ -14,10 +14,16 @@ var showCurrentPassword = ref(false)
 var showNewPassword = ref(false)
 var showReenteredPassword = ref(false)
 
+/**
+ * Exits the dialog for changing current user's password
+ */
 function exitDialogModal(){
     emit('close', false)
 }
 
+/**
+ * Changes the current user's password
+ */
 function changePassword(){
     emit('change', false, current_password.value, new_password.value, reenter_new_password.value)
 }
@@ -32,6 +38,8 @@ function changePassword(){
         >
             <v-card>
                 <v-card-title class="text-h5 font-weight-black"> Change your current password </v-card-title>
+
+                <!-- Enter current password -->
                 <v-row class="mt-5 ml-5 mr-5">
                     <v-responsive
                             class="mx-auto"
@@ -46,6 +54,7 @@ function changePassword(){
                     </v-responsive>
                 </v-row>
 
+                <!-- Enter new password -->
                 <v-row class="mt-5 ml-5 mr-5">
                     <v-responsive
                             class="mx-auto"
@@ -60,6 +69,7 @@ function changePassword(){
                     </v-responsive>
                 </v-row>
 
+                <!-- Reenter new password -->
                 <v-row class="mt-5 ml-5 mr-5">
                     <v-responsive
                             class="mx-auto"

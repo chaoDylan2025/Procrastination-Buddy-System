@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+
 const props = defineProps({
     open_name_change_dialog: Boolean,
     current_name: String
@@ -9,11 +10,18 @@ let current_entered_name = ref(props.current_name)
 
 const emit = defineEmits(['close', 'update'])
 
+/**
+ * Exits the dialog for changing display name
+ */
 function exitDialogModal(){
     emit('close', false)
 }
-function exitAndUpdate(name){
-    emit('update', false, name)
+
+/**
+ * Exits the dialog and changes the current user's display name
+ */
+function exitAndUpdate(){
+    emit('update', false, current_entered_name.value)
 }
 </script>
 
@@ -27,15 +35,18 @@ function exitAndUpdate(name){
             <v-card>
                 <v-spacer></v-spacer>
                 <h2 class="mt-8 text-center"> Change Name </h2>
+
+                <!-- Textfield where current user enters a new display name -->
                 <v-row class="mt-4">
                     <v-responsive class="mx-auto">
                         <v-text-field v-model="current_entered_name" class="pa-10" label="Enter new name"></v-text-field>
                     </v-responsive>
                 </v-row>
+
                 <v-card-actions class="mb-4 d-flex justify-space-around">
-                    <v-btn class="ml-auto" @click="exitDialogModal(false)">Back</v-btn>
+                    <v-btn class="ml-auto" @click="exitDialogModal()">Back</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn class="mr-auto" @click="exitAndUpdate(current_entered_name)">Confirm</v-btn> 
+                    <v-btn class="mr-auto" @click="exitAndUpdate()">Confirm</v-btn> 
                 </v-card-actions>
                 <v-spacer></v-spacer>
             </v-card>
