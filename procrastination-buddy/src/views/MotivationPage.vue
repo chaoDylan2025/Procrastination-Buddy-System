@@ -1,8 +1,8 @@
 <script setup>
 import { onMounted, ref } from 'vue'
-import { changeImageLayout, getImagesAndLayout, current_imgs, current_img_layout } from '../frontend-code/personal-motivational-page/image_functions'
+import { changeImageLayout, getImagesAndLayout, current_imgs, current_img_layout } from '../frontend-code/image_functions'
 import { is_images_and_layout_updated, condition_for_displaying_buttons, checkUpdatedStatus, 
-         original_user_motivational_images, original_user_image_layout, setImagesAndLayout } from '../frontend-code/personal-motivational-page/image_events'
+         original_user_motivational_images, original_user_image_layout, setImagesAndLayout } from '../frontend-code/image_events'
 import { userStore } from '../stores/user'
 import Content from '../components/Motivational-Page/Content.vue'
 

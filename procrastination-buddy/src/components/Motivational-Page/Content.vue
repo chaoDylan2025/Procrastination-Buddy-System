@@ -1,8 +1,8 @@
 <script setup>
 import { userStore } from '../../stores/user'
 import { ref, onMounted, computed, watch } from 'vue'
-import { current_imgs, motivational_imgs, imageToBeViewed } from '../../frontend-code/personal-motivational-page/image_functions.js'
-import { changeButtonEvnt, viewButtonEvnt, displayConfirmButtonEvnt, closeImageChangingDialog } from '../../frontend-code/personal-motivational-page/image_events.js'
+import { current_imgs, motivational_imgs, imageToBeViewed } from '../../frontend-code/image_functions.js'
+import { changeButtonEvnt, viewButtonEvnt, displayConfirmButtonEvnt, closeImageChangingDialog } from '../../frontend-code/image_events.js'
 import ChangeImage from './ChangeImage.vue'
 import Image from './Image.vue'
 

@@ -1,6 +1,6 @@
 <script setup>
-import { current_imgs, current_selected_img, change_image, display_confirm_btn, motivational_imgs } from '../../frontend-code/personal-motivational-page/image_functions.js'
-import { is_images_and_layout_updated, checkUpdatedStatus, original_user_motivational_images, unselect_image } from '../../frontend-code/personal-motivational-page/image_events.js'
+import { current_imgs, current_selected_img, change_image, display_confirm_btn, motivational_imgs } from '../../frontend-code/image_functions.js'
+import { is_images_and_layout_updated, checkUpdatedStatus, original_user_motivational_images, unselect_image } from '../../frontend-code/image_events.js'
 import Content from './Content.vue'
 
 const props = defineProps({

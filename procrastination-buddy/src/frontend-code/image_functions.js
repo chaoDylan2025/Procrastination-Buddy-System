@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import AuthenticationService from '../../services/AuthenticationService'
+import AuthenticationService from '../services/AuthenticationService'
 
 // Image array used for carousel
 export var img_arr = ref([

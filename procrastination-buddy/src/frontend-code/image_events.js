@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import AuthenticationService from '../../services/AuthenticationService'
+import AuthenticationService from '../services/AuthenticationService'
 import { change_image, current_selected_img, display_confirm_btn, motivational_imgs, selected_img_index, imageToBeViewed, current_imgs, current_img_layout } from './image_functions.js'
 
 // Current motivational images

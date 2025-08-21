@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import Content from '../components/Motivational-Page/Content.vue'
-import { img_arr, getImageUrl, current_imgs } from '../frontend-code/personal-motivational-page/image_functions'
+import { img_arr, getImageUrl, current_imgs } from '../frontend-code/image_functions'
 import AuthenticationService from '../services/AuthenticationService'
 import { userStore } from "../stores/user"
 
