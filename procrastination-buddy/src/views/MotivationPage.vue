@@ -6,17 +6,21 @@ import { is_images_and_layout_updated, condition_for_displaying_buttons, checkUp
 import { userStore } from '../stores/user'
 import Content from '../components/Motivational-Page/Content.vue'
 
-// Contains options for changing image layout
-var image_layout_options = ["1 per row", "3 per row"]
+var image_layout_options = ["1 per row", "3 per row"] // Contains options for changing image layout
 
-// Pinia store
 const user = userStore()
 
+/**
+ * Cancel button functionality
+ */
 function cancelButton(){
     resetData()
     removeButtons()
 }
 
+/**
+ * Save button functionality
+ */
 async function saveButton(){
     try{
         await setImagesAndLayout().then(async(result) => {
@@ -32,17 +36,29 @@ async function saveButton(){
     }
 }
 
+/**
+ * Remove display of buttons
+ */
 function removeButtons(){
     let tempArr = is_images_and_layout_updated.value.map((result) => result = false)
     is_images_and_layout_updated.value = tempArr
     condition_for_displaying_buttons.value = false
 }
 
+/**
+ * Get the current user's original motivational images and image layout
+ */
 function resetData(){
     current_imgs.value = original_user_motivational_images.value.map(image => ({...image}))
     current_img_layout.value = original_user_image_layout.value
     user.imageLayout = original_user_image_layout.value
 }
+
+/**
+ * Set the current user's motivational images and image layout
+ * 
+ * @param result - Motivational images and image layout
+ */
 function setCurrentData(result){
     current_imgs.value = result.images
     current_img_layout.value = result.layout
@@ -51,15 +67,22 @@ function setCurrentData(result){
     user.imageLayout = original_user_image_layout.value
 }
 
+/**
+ * Change the current user's image layout
+ * 
+ * @param image_layout - Current user's image layout
+ */
 function updateImageLayout(image_layout){
     current_img_layout.value = changeImageLayout(image_layout)
     user.imageLayout = current_img_layout.value
+
     if(original_user_image_layout.value != current_img_layout.value){
         is_images_and_layout_updated.value[1] = true;
     }
     else{
         is_images_and_layout_updated.value[1] = false;
     }
+    
     checkUpdatedStatus()
 }
 

@@ -16,6 +16,7 @@ export var default_imgs = ref([
     {image: getImageUrl("../../assets/images/istockphoto-1392896428-612x612.jpg"), selected: false, styling: ""},
     {image: getImageUrl("../../assets/images/istockphoto-1758363728-612x612.jpg"), selected: false, styling: ""}
 ])
+
 // Available motivational images
 export var motivational_imgs = ref([
     {image: getImageUrl("../../assets/images/canva-motivational-quote-about-patience-instagram-post-UJQOlc4w32w.jpg"), selected: false, styling: ""},
@@ -46,13 +47,18 @@ export var display_confirm_btn = ref(false)
 // Index of image to change
 export var change_image = ref(-1)
 
-// Index of currently selected image
+// Index of current selected image
 export var current_selected_img = ref(-1)
 export var selected_img_index = ref(-1)
 
 // Image to view
 export var imageToBeViewed = ref('')
 
+/**
+ * Changes the current user's image layout
+ * 
+ * @param layout -  Selected image layout
+ */
 export function changeImageLayout(layout){
     if(layout == "1 per row"){
         return 12
@@ -62,21 +68,33 @@ export function changeImageLayout(layout){
     }
 }
 
+/**
+ * Creates a new image url for properly displaying image
+ * 
+ * @param url - Current image path
+ */
 export function getImageUrl(url) {
     return new URL(`${url}`, import.meta.url).href
 }
 
-// Gets the image layout and images from current user
+/**
+ * Gets the image layout and images from current user
+ */
 export async function getImagesAndLayout(){
     let result = await AuthenticationService.updateImagesAndLayout()
     let images = result.data.images
+
     if(images == ""){
         console.log("Current images are missing")
         await setDefaultImages()
     }
+
     return result.data
 }
 
+/**
+ * Sets the default motivational images for new user
+ */
 async function setDefaultImages(){
     await AuthenticationService.settingDefaultImages({images: default_imgs.value}).then((result) => {
         if(result.data.status){

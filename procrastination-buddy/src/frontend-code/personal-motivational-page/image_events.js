@@ -17,14 +17,27 @@ export function changeButtonEvnt(index, open_change_image_dialog){
     return open_change_image_dialog == false ? true : false
 }
 
+/**
+ * Functionality for View Button
+ * 
+ * @param image - Selected image
+ * @param openImage -  Opens selected image
+ */
 export function viewButtonEvnt(image, openImage){
     imageToBeViewed.value = image
     return openImage == false ? true : false
 }
 
+/**
+ * Functionality for Confirm Button
+ * 
+ * @param index - Index of selected image 
+ * @param selected_img - Selected motivational image
+ */
 export function displayConfirmButtonEvnt(index, selected_img){
     const prev_index = selected_img_index.value
     const prev_img = motivational_imgs.value[prev_index]
+
     // Unselects the image that user just clicked
     if(selected_img.selected){
         unselect_image(selected_img)
@@ -44,18 +57,27 @@ export function displayConfirmButtonEvnt(index, selected_img){
     }
 }
 
+/**
+ * Unselects the selected motivational image
+ * 
+ * @param selected_img - Selected motivational image 
+ */
 export function unselect_image(selected_img){
     selected_img.selected = false
     selected_img.styling = ""
 }
 
-// Close event for the Image Changing dialog
-export function closeImageChangingDialog(state){
+/**
+ * Close event for the Image Changing dialog
+ */
+export function closeImageChangingDialog(){
     change_image.value = -1
     return false
 }
 
-// Displays buttons based on modifications made to images or/and layout
+/**
+ * Displays buttons based on modifications made to images or/and layout
+ */
 export function checkUpdatedStatus(){
     if(is_images_and_layout_updated.value[0] || is_images_and_layout_updated.value[1]){
         condition_for_displaying_buttons.value = true
@@ -65,6 +87,9 @@ export function checkUpdatedStatus(){
     }
 }
 
+/**
+ * Sets the new motivational images and image layout for current user
+ */
 export async function setImagesAndLayout(){
     const result = await AuthenticationService.settingImagesAndImageLayout({image_layout: current_img_layout.value, images: current_imgs.value})
     return result.data.status

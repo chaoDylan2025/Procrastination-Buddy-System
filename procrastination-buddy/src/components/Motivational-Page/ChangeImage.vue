@@ -9,6 +9,11 @@ const props = defineProps({
 
 const emit = defineEmits(['close'])
 
+/**
+ * Checks if any motivational images have been changed
+ * 
+ * If any images have been changed, display update button
+ */
 function is_images_different(){
     let num_imgs_different = 0
 
@@ -26,8 +31,12 @@ function is_images_different(){
     checkUpdatedStatus()
 }
 
+/**
+ * Exit dialog for changing images
+ * 
+ * @param confirmed - Replaces the current image with the new selected image
+ */
 function exitDialogModal(confirmed){
-    // Replaces the current image with the new selected image
     if(confirmed){
         current_imgs.value[change_image.value] = motivational_imgs.value[current_selected_img.value]
     }

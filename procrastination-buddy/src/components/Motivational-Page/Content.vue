@@ -13,15 +13,10 @@ const props = defineProps({
     show_download_button: Boolean,
 })
 
-// Pinia store
 const user = userStore()
 
-// Opens change image dialog
 var open_change_image_dialog = ref(false) 
-
-// Opens dialog to view full image
 var openImage = ref(false)
-
 </script>
 
 <template>
