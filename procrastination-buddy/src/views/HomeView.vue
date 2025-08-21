@@ -45,7 +45,7 @@ onMounted(async() => {
                 <v-col></v-col>
             </v-row>
 
-            <v-row>
+            <v-row class="mb-2">
                 <v-col></v-col>
                 <v-col cols="5">
                     <p class="text-center"> Want to get started with using Procastination Buddy?</p>
