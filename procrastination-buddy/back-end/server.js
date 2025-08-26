@@ -16,10 +16,12 @@ app.use(cors())
 app.post('/signup', async (req, res) => {
     // Sets values for email, password, and password to confirm
     const { email, password, confirm_password } = req.body
-    const result = await createUser(email, password, confirm_password)
 
+    const result = await createUser(email, password, confirm_password)    
+    
     res.send({
-        status: result
+        status: result,
+        email: email
     })
 })
 
@@ -140,8 +142,8 @@ app.get('/motivational-images', async (req, res) => {
  * Post request for setting default images for user with no images
  */
 app.post('/default-images', async (req, res) => {
-    const { images } = req.body
-    const result = await setDefaultImages(images)
+    const { email, images } = req.body
+    const result = await setDefaultImages(email, images)
 
     res.send({
         status: result

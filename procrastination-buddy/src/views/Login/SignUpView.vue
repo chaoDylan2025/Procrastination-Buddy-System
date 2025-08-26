@@ -2,6 +2,7 @@
 import {useRouter} from 'vue-router'
 import { ref } from 'vue'
 import AuthenticationService from '../../services/AuthenticationService'
+import { setDefaultImages } from '../../frontend-code/image_functions'
 
 const router = useRouter()
 
@@ -19,7 +20,7 @@ async function createUser(){
         password: user_password.value,
         confirm_password: confirmPassWord.value
     }).then((result) => {
-        moveToLoginPage(result.data.status)
+        moveToLoginPage(result.data)
     })
 }
 
@@ -28,13 +29,15 @@ async function createUser(){
  * 
  * @param response - Data from ExpressJS server
  */
-function moveToLoginPage(response){
-        if(response == true){
-        router.push('/login')
-        }
-        else{
+async function moveToLoginPage(response){
+    if(response.status == true){
+        await setDefaultImages(response.email).then(() => {
+            router.push('/login')
+        })
+    }
+    else{
         errorMsg.value = response
-        }
+    }
 }
 </script>
 

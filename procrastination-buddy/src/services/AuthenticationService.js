@@ -28,8 +28,8 @@ export default {
     updateImagesAndLayout () {
         return Api().get('motivational-images')
     },
-    settingDefaultImages (images) {
-        return Api().post('default-images', images)
+    settingDefaultImages (email, images) {
+        return Api().post('default-images', email, images)
     },
     settingImagesAndImageLayout (images_and_layout){
         return Api().post('update-images-and-layout', images_and_layout)

@@ -94,9 +94,11 @@ export async function getImagesAndLayout(){
 
 /**
  * Sets the default motivational images for new user
+ * 
+ * @param email - Current user's email address
  */
-async function setDefaultImages(){
-    await AuthenticationService.settingDefaultImages({images: default_imgs.value}).then((result) => {
+export async function setDefaultImages(email){
+    await AuthenticationService.settingDefaultImages(email, {images: default_imgs.value}).then((result) => {
         if(result.data.status){
             return true
         }

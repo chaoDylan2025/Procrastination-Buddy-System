@@ -1,4 +1,4 @@
-import { doc, getDoc, updateDoc } from "firebase/firestore"
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore"
 import { db } from "../firebase_setup.js"
 import { user_email } from "./user.js"
 
@@ -22,15 +22,10 @@ export async function getImagesAndLayout(){
  * 
  * @param images - Default motivational images 
  */
-export async function setDefaultImages(images){
-    if (user_email != null){
-        docRef = doc(db, "users", user_email, "personal-motivational-page", "current_images")
-        docSnap = await updateDoc(docRef, {
-            images: images
-        })
+export async function setDefaultImages(email, images){
+    await setDoc(doc(db, "users", email, "personal-motivational-page", "current_images"), {image_layout: 4, images: images}).then(() => {
         return true
-    }
-    return false
+    })
 }
 
 /**
