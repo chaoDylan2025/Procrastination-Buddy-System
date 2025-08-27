@@ -78,7 +78,7 @@ export async function assignDataToUser(emailId){
  * @param emailId - Current user's email address
  */
 export async function createFocusListCollection(emailId){
-  await setDoc(doc(db, "users", emailId, "focus-list", "restricted_sites"), {})
+  await setDoc(doc(db, "users", emailId, "focus-list", "restricted_sites"), {list: []})
 }
 
 
