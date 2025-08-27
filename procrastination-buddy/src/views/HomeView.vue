@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import Content from '../components/Motivational-Page/Content.vue'
-import { img_arr, getImageUrl, current_imgs } from '../frontend-code/image_functions'
+import { img_arr, current_imgs } from '../frontend-code/image_functions'
 import AuthenticationService from '../services/AuthenticationService'
 import { userStore } from "../stores/user"
 
@@ -64,7 +64,7 @@ onMounted(async() => {
                 <v-carousel-item
                     v-for="(image, i) in img_arr"
                     :key="i"
-                    :src="`${getImageUrl(image)}`"
+                    :src="`${image}`"
                 >
                 </v-carousel-item>
             </v-carousel>
