@@ -10,6 +10,9 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+// Make public folder images static
+//app.use(express.static("public"))
+
 /**
  * Post request for creating a new account
  */
@@ -142,8 +145,12 @@ app.get('/motivational-images', async (req, res) => {
  * Post request for setting default images for user with no images
  */
 app.post('/default-images', async (req, res) => {
-    const { email, images } = req.body
-    const result = await setDefaultImages(email, images)
+    const { email, default_imgs } = req.body
+
+    console.log("Email received: ", email)
+    console.log("Images received: ", default_imgs)
+
+    const result = await setDefaultImages(email, default_imgs)
 
     res.send({
         status: result

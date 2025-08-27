@@ -81,6 +81,7 @@ export async function createFocusListCollection(emailId){
   await setDoc(doc(db, "users", emailId, "focus-list", "restricted_sites"), {})
 }
 
+
 /**
  * Logging in the user
  * 

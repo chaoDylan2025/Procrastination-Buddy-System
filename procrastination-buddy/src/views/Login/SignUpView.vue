@@ -2,7 +2,7 @@
 import {useRouter} from 'vue-router'
 import { ref } from 'vue'
 import AuthenticationService from '../../services/AuthenticationService'
-import { setDefaultImages } from '../../frontend-code/image_functions'
+import { setDefaultImages, default_imgs } from '../../frontend-code/image_functions'
 
 const router = useRouter()
 
@@ -31,7 +31,7 @@ async function createUser(){
  */
 async function moveToLoginPage(response){
     if(response.status == true){
-        await setDefaultImages(response.email).then(() => {
+        await AuthenticationService.settingDefaultImages({email: response.email, default_imgs: default_imgs.value}).then(() => {
             router.push('/login')
         })
     }
