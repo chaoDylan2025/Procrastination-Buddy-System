@@ -41,26 +41,6 @@ function moveToHomePage(result){
         generateErrorMsg(errorMsg.value)
     }
 }
-
-/**
- * Generate an error message based on Firebase error code
- * 
- * @param errorCode - Firebase error code
- */
-function generateErrorMsg(errorCode){
-    if(errorCode == "Firebase: Error (auth/invalid-credential)."){
-        errorMsg.value = "Wrong Email or Password"
-    }
-    current_error_msg_display.value = error_msg_display_style
-}
-
-/**
- * Remove styling for error message display area
- */
-function removeErrorMsgDisplay(){
-    errorMsg.value = ""
-    current_error_msg_display.value = ""
-}
 </script>
 
 <template>
