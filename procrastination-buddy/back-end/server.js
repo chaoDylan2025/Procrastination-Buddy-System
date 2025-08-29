@@ -36,11 +36,17 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body
     const result = await login(email, password)
 
-    res.send({
-        status: result.loggedIn,
-        email: result.email,
-        name: result.name
-    })
+    // Send data object if user successfully logs in
+    if(typeof result == Object){
+        res.send({
+            status: result.loggedIn,
+            email: result.email,
+            name: result.name
+        })
+    }
+    else{
+        res.send(result)
+    }
 })
 
 /**

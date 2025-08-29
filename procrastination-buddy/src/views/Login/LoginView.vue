@@ -10,6 +10,9 @@ const user_email = ref("")
 const user_password = ref("")
 const errorMsg = ref("")
 
+var current_error_msg_display = ref("")
+var error_msg_display_style = "mb-5 text-center"
+
 /**
  * Registers user in database
  */
@@ -36,28 +39,50 @@ function moveToHomePage(result){
     }
     else{
         errorMsg.value = result
+
+        generateErrorMsg(errorMsg.value)
     }
+}
+
+/**
+ * Generate an error message based on Firebase error code
+ * 
+ * @param errorCode - Firebase error code
+ */
+function generateErrorMsg(errorCode){
+    if(errorCode == "Firebase: Error (auth/invalid-credential)."){
+        errorMsg.value = "Wrong Email or Password"
+    }
+    current_error_msg_display.value = error_msg_display_style
+}
+
+/**
+ * Remove styling for error message display area
+ */
+function removeErrorMsgDisplay(){
+    errorMsg.value = ""
+    current_error_msg_display.value = ""
 }
 </script>
 
 <template>
     <div class="mt-5">
-        <!-- Login error message -->
-        <div>
-            {{ errorMsg }}
-        </div>
-
         <h3 class="text-center"> Login </h3>
         <br>
 
+        <!-- Login error message -->
+        <div :class="current_error_msg_display" style="color: red">
+            {{ errorMsg }}
+        </div>
+
         <v-responsive class="mx-auto" max-width="500">
             <p>Email:</p>
-            <v-text-field type="email" v-model="user_email"></v-text-field>
+            <v-text-field type="email" v-model="user_email" @click="removeErrorMsgDisplay"></v-text-field>
         </v-responsive>
 
         <v-responsive class="mx-auto" max-width="500">
             <p>Password:</p>
-            <v-text-field type="password" v-model="user_password"></v-text-field>
+            <v-text-field type="password" v-model="user_password" @click="removeErrorMsgDisplay"></v-text-field>
         </v-responsive>
 
         <v-container>
