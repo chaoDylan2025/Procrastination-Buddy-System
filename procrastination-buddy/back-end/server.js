@@ -122,13 +122,14 @@ app.post('/logout', async (req, res) => {
 })
 
 /**
- * Delete request for deleting user account
+ * Post request for deleting user account
  */
-app.delete('/delete-account', async (req, res) => {
-    const result = await deleteUserAccount()
+app.post('/delete-account', async (req, res) => {
+    const {email, password} = req.body
+    const result = await deleteUserAccount(email, password)
 
     if(result === true){
-        res.status(200).send('Deleted User Account')
+        res.send(true)
     }  
 })
 

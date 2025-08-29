@@ -1,5 +1,5 @@
 import * as firebaseAuth from "firebase/auth"
-import { doc, setDoc } from "firebase/firestore"
+import { deleteDoc, doc, setDoc } from "firebase/firestore"
 import { db } from "../firebase_setup.js"
 import { auth } from "../firebase_setup.js"
 
@@ -81,7 +81,6 @@ export async function createFocusListCollection(emailId){
   await setDoc(doc(db, "users", emailId, "focus-list", "restricted_sites"), {list: []})
 }
 
-
 /**
  * Logging in the user
  * 
@@ -138,15 +137,27 @@ export async function logout(){
 
 /**
  * Delete account
+ * 
+ * @param email - Current user's email address
+ * @param current_password - Current user's password
  */
-export async function deleteUserAccount(){
-  // Gets the current user
-  const user = auth.currentUser
+export async function deleteUserAccount(email, password){
+  let authCredentials = firebaseAuth.EmailAuthProvider
+  authCredentials = authCredentials.credential(email, password)
 
   try{
-    // Calls method that deletes user account
-    await firebaseAuth.deleteUser(user)
-    return true
+    if(authCredentials){
+      let user = auth.currentUser
+
+      // Delete user from database
+      await deleteDoc(doc(db, "users", email)).then(async () => {
+        await firebaseAuth.deleteUser(user) // Calls method that deletes user account
+      })
+      return true
+    }
+    else{
+      return false
+    }
   }
   catch(error){
     console.log(error)

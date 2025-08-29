@@ -13,6 +13,9 @@ export default {
     logoutUser () {
         return Api().post('logout')
     },
+    deleteAccount (credentials) {
+        return Api().post('delete-account', credentials)
+    },
     updateName(name){
         return Api().post('change-name', name)
     },
