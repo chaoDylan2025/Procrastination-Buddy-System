@@ -75,6 +75,7 @@ function changePassword(status, current_password, new_password, reenter_new_pass
 
         // Redirect user to homepage
         if(result.data){
+            user.email = null
             user.isLoggedIn = false
             router.push('/')
         }
