@@ -2,16 +2,14 @@
 import router from '../../router/index'
 import { ref, onMounted } from 'vue'
 import AuthenticationService from '../../services/AuthenticationService'
-import { userStore } from "../../stores/user";
+import { userStore } from "../../stores/user"
+import { current_error_msg_display, error_msg_display_style, generateErrorMsg } from "../../frontend-code/generate_error_codes"
 
 const user = userStore()
 
 const user_email = ref("")
 const user_password = ref("")
 const errorMsg = ref("")
-
-var current_error_msg_display = ref("")
-var error_msg_display_style = "mb-5 text-center"
 
 /**
  * Registers user in database
