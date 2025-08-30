@@ -13,6 +13,10 @@ export function generateErrorMsg(errorCode){
     if(errorCode == "Firebase: Error (auth/invalid-credential)."){
         errorMsg.value = "Wrong Email or Password"
     }
+    else if(errorCode == "Firebase: Error (auth/email-already-in-use)."){
+        errorMsg.value = "Email already in use"
+    }
+
     current_error_msg_display.value = error_msg_display_style
 }
 

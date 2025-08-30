@@ -22,7 +22,7 @@ app.post('/signup', async (req, res) => {
 
     const result = await createUser(email, password, confirm_password)    
     
-    if(result){
+    if(result == true){
         res.send({
             status: result,
             email: email
