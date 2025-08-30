@@ -1,12 +1,8 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
 import { ref, onMounted } from 'vue'
-import AuthenticationService from '../services/AuthenticationService'
+import AuthenticationService from '../../services/AuthenticationService'
 
-var completed_tasks = ref(0)
-var scheduled_tasks = ref(0)
-var rescheduled_tasks = ref(0)
-var deleted_tasks = ref(0)
 </script>
 
 <template>
@@ -14,43 +10,43 @@ var deleted_tasks = ref(0)
         <v-row>
             <v-col></v-col>
             <v-col>
-                <p class="text-center text-h4"> Tasks Stats </p>
+                <p class="text-center text-h4"> Focus List Stats </p>
             </v-col>
             <v-col></v-col>
         </v-row>
-        <v-row class="mt-10">
-            <v-col>
-                <div>
-                    <v-avatar size="108" color="surface-variant">
-                        <p> {{ completed_tasks }} </p>
-                    </v-avatar>
-                    <p class="mt-2"> Tasks Completed </p>
+
+        <v-row class="mt-10" justify="center">
+            <div>
+                <div class="mb-5 d-flex flex-column text-center">
+                    <div>
+                        
+                    </div>
+
+                    <div>
+                        <p class="mt-2"> Number of restricted websites </p>
+                    </div>
                 </div>
-            </v-col>
-            <v-col>
-                <div>
-                    <v-avatar size="108" color="surface-variant">
-                        <p> {{ scheduled_tasks }} </p>
-                    </v-avatar>
-                    <p class="mt-2"> Tasks Scheduled </p>
+
+                <div class="mb-5 d-flex flex-column text-center">
+                    <div>
+                    </div>
+                    
+                    <div>
+                        <p class="mt-2"> Most visited restricted website </p>
+                    </div>
                 </div>
-            </v-col>
-            <v-col>
-                <div>
-                    <v-avatar size="108" color="surface-variant">
-                        <p> {{ rescheduled_tasks }} </p>
-                    </v-avatar>
-                    <p class="mt-2"> Tasks Rescheduled </p>
+
+                <div class="d-flex flex-column text-center">
+                    <div>
+                    </div>
+                    
+                    <div>
+                        <p class="mt-2"> Least visited restricted website </p>
+                    </div>
                 </div>
-            </v-col>
-            <v-col>
-                <div>
-                    <v-avatar size="108" color="surface-variant">
-                        <p> {{ deleted_tasks }} </p>
-                    </v-avatar>
-                    <p class="mt-2"> Tasks Deleted </p>
-                </div>
-            </v-col>
+            </div>
+
+            
         </v-row>
     </v-container>
 </template>

@@ -14,7 +14,7 @@ const links = ref([
 ]);
 
 const profile_tabs = ref([
-  {text: 'Task Statistics', to: "/Stats"},
+  {text: 'Focus List Statistics', to: "/Stats"},
   {text: 'Profile Information', to: "/Profile"}
 ])
 
