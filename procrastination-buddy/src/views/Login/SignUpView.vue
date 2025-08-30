@@ -2,13 +2,15 @@
 import {useRouter} from 'vue-router'
 import { ref } from 'vue'
 import AuthenticationService from '../../services/AuthenticationService'
+import { default_imgs } from '../../frontend-code/image_functions'
+import { current_error_msg_display, errorMsg, generateErrorMsg, removeErrorMsgDisplay } from "../../frontend-code/generate_error_codes"
+
 
 const router = useRouter()
 
 const user_email = ref("")
 const user_password = ref("")
 const confirmPassWord = ref("")
-const errorMsg = ref("")
 
 /**
  * Registers user in database
@@ -19,7 +21,7 @@ async function createUser(){
         password: user_password.value,
         confirm_password: confirmPassWord.value
     }).then((result) => {
-        moveToLoginPage(result.data.status)
+        moveToLoginPage(result.data)
     })
 }
 
@@ -28,13 +30,17 @@ async function createUser(){
  * 
  * @param response - Data from ExpressJS server
  */
-function moveToLoginPage(response){
-        if(response == true){
-        router.push('/login')
-        }
-        else{
+async function moveToLoginPage(response){
+    if(response.status == true){
+        await AuthenticationService.settingDefaultImages({email: response.email, default_imgs: default_imgs.value}).then(() => {
+            router.push('/login')
+        })
+    }
+    else{
         errorMsg.value = response
-        }
+
+        generateErrorMsg(errorMsg.value)
+    }
 }
 </script>
 
@@ -44,23 +50,23 @@ function moveToLoginPage(response){
             <h3> Sign up for an account </h3>
 
             <!-- Signup Error Messages -->
-            <div id="error-msg">
+            <div :class="current_error_msg_display" style="color: red;">
                 {{ errorMsg }}
             </div>
 
             <v-responsive class="mx-auto" max-width="500">
                 <p>Email: </p>
-                <v-text-field type="email" v-model="user_email"></v-text-field>
+                <v-text-field type="email" v-model="user_email" @click="removeErrorMsgDisplay"></v-text-field>
             </v-responsive>
             
             <v-responsive class="mx-auto" max-width="500">
                 <p>Password: </p>
-                <v-text-field type="password" v-model="user_password"></v-text-field>
+                <v-text-field type="password" v-model="user_password" @click="removeErrorMsgDisplay"></v-text-field>
             </v-responsive>
 
             <v-responsive class="mx-auto" max-width="500">
                 <p>Confirm Password: </p>
-                <v-text-field type="password" v-model="confirmPassWord"></v-text-field>
+                <v-text-field type="password" v-model="confirmPassWord" @click="removeErrorMsgDisplay"></v-text-field>
             </v-responsive>
 
             <v-container>

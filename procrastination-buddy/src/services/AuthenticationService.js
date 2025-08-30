@@ -13,6 +13,9 @@ export default {
     logoutUser () {
         return Api().post('logout')
     },
+    deleteAccount (credentials) {
+        return Api().post('delete-account', credentials)
+    },
     updateName(name){
         return Api().post('change-name', name)
     },
@@ -28,8 +31,8 @@ export default {
     updateImagesAndLayout () {
         return Api().get('motivational-images')
     },
-    settingDefaultImages (images) {
-        return Api().post('default-images', images)
+    settingDefaultImages (email_and_images) {
+        return Api().post('default-images', email_and_images)
     },
     settingImagesAndImageLayout (images_and_layout){
         return Api().post('update-images-and-layout', images_and_layout)

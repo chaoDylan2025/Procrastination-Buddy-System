@@ -10,17 +10,27 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
+// Make public folder images static
+//app.use(express.static("public"))
+
 /**
  * Post request for creating a new account
  */
 app.post('/signup', async (req, res) => {
     // Sets values for email, password, and password to confirm
     const { email, password, confirm_password } = req.body
-    const result = await createUser(email, password, confirm_password)
 
-    res.send({
-        status: result
-    })
+    const result = await createUser(email, password, confirm_password)    
+    
+    if(result == true){
+        res.send({
+            status: result,
+            email: email
+        })
+    }
+    else{
+        res.send(result)
+    }
 })
 
 /**
@@ -31,11 +41,17 @@ app.post('/login', async (req, res) => {
     const { email, password } = req.body
     const result = await login(email, password)
 
-    res.send({
-        status: result.loggedIn,
-        email: result.email,
-        name: result.name
-    })
+    // Send data object if user successfully logs in
+    if(typeof result == Object){
+        res.send({
+            status: result.loggedIn,
+            email: result.email,
+            name: result.name
+        })
+    }
+    else{
+        res.send(result)
+    }
 })
 
 /**
@@ -117,13 +133,14 @@ app.post('/logout', async (req, res) => {
 })
 
 /**
- * Delete request for deleting user account
+ * Post request for deleting user account
  */
-app.delete('/delete-account', async (req, res) => {
-    const result = await deleteUserAccount()
+app.post('/delete-account', async (req, res) => {
+    const {email, password} = req.body
+    const result = await deleteUserAccount(email, password)
 
     if(result === true){
-        res.status(200).send('Deleted User Account')
+        res.send(true)
     }  
 })
 
@@ -140,8 +157,12 @@ app.get('/motivational-images', async (req, res) => {
  * Post request for setting default images for user with no images
  */
 app.post('/default-images', async (req, res) => {
-    const { images } = req.body
-    const result = await setDefaultImages(images)
+    const { email, default_imgs } = req.body
+
+    console.log("Email received: ", email)
+    console.log("Images received: ", default_imgs)
+
+    const result = await setDefaultImages(email, default_imgs)
 
     res.send({
         status: result

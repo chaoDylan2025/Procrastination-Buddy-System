@@ -1,5 +1,6 @@
 <script setup>
-import { ref, onMounted } from 'vue'
+import {useRouter} from 'vue-router'
+import { ref } from 'vue'
 import AuthenticationService from '../../services/AuthenticationService'
 import { userStore } from '../../stores/user'
 
@@ -15,6 +16,8 @@ var open_change_password_dialog = ref(false)
 var open_delete_account_dialog = ref(false)
 
 var current_name_displayed = ref("")
+
+const router = useRouter()
 
 const user = userStore()
 
@@ -59,6 +62,25 @@ function changePassword(status, current_password, new_password, reenter_new_pass
         })
     }
 }
+
+/**
+ * Delete the user from the database and redirect them to home page
+ * 
+ * @param status - Closes the dialog for changing password
+ * @param password - Current user's password
+ */
+ async function deleteUser(status, password){
+    await AuthenticationService.deleteAccount({email: user.email, password: password}).then((result) => {
+        open_delete_account_dialog.value = status
+
+        // Redirect user to homepage
+        if(result.data){
+            user.email = null
+            user.isLoggedIn = false
+            router.push('/')
+        }
+    })
+ }
 
 /**
  * Change the user's email address
@@ -150,6 +172,7 @@ function changeEmail(status, email){
             @change="changeEmail"/>
         <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" 
             @change="changePassword"/>
-        <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"/>
+        <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"
+            @delete="deleteUser"/>
     </v-container>
 </template>

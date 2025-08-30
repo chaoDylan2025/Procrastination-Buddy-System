@@ -1,4 +1,6 @@
 import * as firebaseAuth from "firebase/auth"
+import { deleteDoc, doc, setDoc } from "firebase/firestore"
+import { db } from "../firebase_setup.js"
 import { auth } from "../firebase_setup.js"
 
 // Contains signed-in user's email
@@ -37,9 +39,11 @@ firebaseAuth.onAuthStateChanged(auth, (user) => {
 export async function createUser(emailId, password, confirm_password){
   if(confirm_password === password){
     try{
-      await firebaseAuth.createUserWithEmailAndPassword(auth, emailId, password).then(() => {
-        return true
+      await firebaseAuth.createUserWithEmailAndPassword(auth, emailId, password).then(async () => {
+        assignDataToUser(emailId)
       })
+
+      return true
     } 
     catch(error){
       const errorMessage = error.message
@@ -53,6 +57,28 @@ export async function createUser(emailId, password, confirm_password){
       return "Password and confirmation password do not match!"
     }
   }
+}
+
+/**
+ * Assign default data to the new user
+ * 
+ * @param emailId - Current user's email address
+ */
+export async function assignDataToUser(emailId){
+  await setDoc(doc(db, "users", emailId), {}).then(async () => {
+    createFocusListCollection(emailId)
+  })
+}
+
+/**
+ * Create "focus-list" collection
+ * 
+ * "focus-list" will contain the current user's restricted websites list
+ * 
+ * @param emailId - Current user's email address
+ */
+export async function createFocusListCollection(emailId){
+  await setDoc(doc(db, "users", emailId, "focus-list", "restricted_sites"), {list: []})
 }
 
 /**
@@ -111,15 +137,27 @@ export async function logout(){
 
 /**
  * Delete account
+ * 
+ * @param email - Current user's email address
+ * @param current_password - Current user's password
  */
-export async function deleteUserAccount(){
-  // Gets the current user
-  const user = auth.currentUser
+export async function deleteUserAccount(email, password){
+  let authCredentials = firebaseAuth.EmailAuthProvider
+  authCredentials = authCredentials.credential(email, password)
 
   try{
-    // Calls method that deletes user account
-    await firebaseAuth.deleteUser(user)
-    return true
+    if(authCredentials){
+      let user = auth.currentUser
+
+      // Delete user from database
+      await deleteDoc(doc(db, "users", email)).then(async () => {
+        await firebaseAuth.deleteUser(user) // Calls method that deletes user account
+      })
+      return true
+    }
+    else{
+      return false
+    }
   }
   catch(error){
     console.log(error)
