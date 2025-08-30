@@ -28,7 +28,7 @@ async function logUser(){
  * @param result - Data from ExpressJS server
  */
 function moveToHomePage(result){
-    if(result.status == true){
+    if(result.loggedIn == true){
         user.email = result.email
         user.name = result.name
         user.isLoggedIn = true
