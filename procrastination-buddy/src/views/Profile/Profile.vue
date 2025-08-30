@@ -103,47 +103,43 @@ function changeEmail(status, email){
         <v-row class="mt-10">
             <v-col></v-col>
             <v-col>
-                <v-row class="mb-4">
-                    <v-row>
-                        <v-col>
+                <div class="mb-8">
+                    <div class="mb-2">
+                        <div>
                             <div class="text-h6 font-weight-black">
                                 Name:
                             </div>
-                        </v-col>
-                    </v-row>
+                        </div>
+                    </div>
                
-                    <v-row>
-                        <v-col cols="auto">
-                           <div style="width: auto;">
-                                {{current_name_displayed}}
-                           </div> 
-                        </v-col>
-                        <v-col>
+                    <div class="d-flex justify-space-between">
+                        <div>
+                            {{current_name_displayed}}
+                        </div> 
+                        <div>
                             <v-btn class="ml-16" size="x-small" @click="open_name_change_dialog = true"> Change </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-row>
+                        </div>
+                    </div>
+                </div>
 
-                <v-row>
-                    <v-row>
-                        <v-col>
-                            <div class="text-h6 font-weight-black">
-                                Email:
-                            </div>
-                        </v-col>
-                    </v-row>
+                <div>
+                    <div class="mb-2">
+                        <div class="text-h6 font-weight-black">
+                            Email:
+                        </div>
+                    </div>
                
-                    <v-row>
-                        <v-col cols="auto">
-                           <div style="width: auto;">
+                    <div>
+                        <div class="d-flex justify-space-between">
+                           <div>
                                 {{user.email}}
                            </div> 
-                        </v-col>
-                        <v-col>
-                            <v-btn class="ml-16" size="x-small" @click="open_email_change_dialog = true"> Change </v-btn>
-                        </v-col>
-                    </v-row>
-                </v-row>
+                            <div>
+                                <v-btn class="ml-16" size="x-small" @click="open_email_change_dialog = true"> Change </v-btn>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </v-col>
             <v-col></v-col>
         </v-row>
@@ -151,7 +147,7 @@ function changeEmail(status, email){
         <v-row class="mt-10">
             <v-col></v-col>
             <v-col>
-                <v-btn class="ml-16" @click="open_change_password_dialog = true"> Change Password </v-btn>
+                <v-btn class="ml-16" size="small" @click="open_change_password_dialog = true"> Change Password </v-btn>
             </v-col>
             <v-col></v-col>
         </v-row>
@@ -159,7 +155,7 @@ function changeEmail(status, email){
         <v-row class="mt-10">
             <v-col></v-col>
             <v-col>
-                <v-btn class="ml-16" @click="open_delete_account_dialog = true"> Delete Account </v-btn>
+                <v-btn class="ml-16" size="small" @click="open_delete_account_dialog = true"> Delete Account </v-btn>
             </v-col>
             <v-col></v-col>
         </v-row>
