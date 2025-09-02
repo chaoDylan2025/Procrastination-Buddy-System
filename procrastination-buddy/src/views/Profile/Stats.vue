@@ -1,12 +1,49 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
+import AuthenticationService from '../../services/AuthenticationService'
 import { ref, onMounted } from 'vue'
-import AuthenticationService from '../services/AuthenticationService'
 
-var completed_tasks = ref(0)
-var scheduled_tasks = ref(0)
-var rescheduled_tasks = ref(0)
-var deleted_tasks = ref(0)
+var list_of_sites = ref([]) // Actual array from database
+
+// Results to display for each stat
+var number_sites_result = ref("")
+var most_visited_result = ref("")
+var least_visited_result = ref("")
+
+/**
+ * Retrieves the total length of current user's restricted websites list 
+ */
+function getTotalSites(){
+    if(list_of_sites.value.length > 0){
+        number_sites_result.value = list_of_sites.value.length
+    }
+    else{
+        number_sites_result.value = "Please add a website"
+    }
+}
+
+/**
+ * Retrieves the most visited and least visited restricted websites
+ */
+function getVisitedResults(){
+    if(list_of_sites.value.length > 0){
+        let tempArr = list_of_sites.value.sort((a, b) => a.num_visited - b.num_visited)
+        most_visited_result.value = tempArr[tempArr.length-1].link
+        least_visited_result.value = tempArr[0].link
+    }
+    else{
+        most_visited_result.value = "Please log any visits for restricted websites"
+        least_visited_result.value = "Please log any visits for restricted websites"
+    }
+}
+
+// Gets the current user's restricted websites list
+onMounted(async () => {
+    let result = await AuthenticationService.restrictedWebsitesList();
+    list_of_sites.value = result.data.list
+
+    getTotalSites();
+    getVisitedResults();
+})
 </script>
 
 <template>
@@ -14,43 +51,43 @@ var deleted_tasks = ref(0)
         <v-row>
             <v-col></v-col>
             <v-col>
-                <p class="text-center text-h4"> Tasks Stats </p>
+                <p class="mt-3 text-center text-h4"> Focus List Stats </p>
             </v-col>
             <v-col></v-col>
         </v-row>
-        <v-row class="mt-10">
-            <v-col>
-                <div>
-                    <v-avatar size="108" color="surface-variant">
-                        <p> {{ completed_tasks }} </p>
-                    </v-avatar>
-                    <p class="mt-2"> Tasks Completed </p>
+
+        <v-row class="mt-10" justify="center">
+            <div>
+                <div class="mb-5 d-flex flex-column text-center">
+                    <div>
+                        <p class="mt-3 font-weight-bold"> Number of restricted websites </p>
+                    </div>
+
+                    <div>
+                        <p class="mt-2"> {{ number_sites_result }} </p>
+                    </div>
                 </div>
-            </v-col>
-            <v-col>
-                <div>
-                    <v-avatar size="108" color="surface-variant">
-                        <p> {{ scheduled_tasks }} </p>
-                    </v-avatar>
-                    <p class="mt-2"> Tasks Scheduled </p>
+
+                <div class="mb-5 d-flex flex-column text-center">
+                    <div>
+                        <p class="mt-3 font-weight-bold"> Most visited restricted website </p>
+                    </div>
+
+                    <div>
+                        <p class="mt-2"> {{ most_visited_result }} </p>
+                    </div>
                 </div>
-            </v-col>
-            <v-col>
-                <div>
-                    <v-avatar size="108" color="surface-variant">
-                        <p> {{ rescheduled_tasks }} </p>
-                    </v-avatar>
-                    <p class="mt-2"> Tasks Rescheduled </p>
+
+                <div class="d-flex flex-column text-center">
+                    <div>
+                        <p class="mt-3 font-weight-bold"> Least visited restricted website </p>
+                    </div>
+
+                    <div>
+                        <p class="mt-2"> {{ least_visited_result }} </p>
+                    </div>
                 </div>
-            </v-col>
-            <v-col>
-                <div>
-                    <v-avatar size="108" color="surface-variant">
-                        <p> {{ deleted_tasks }} </p>
-                    </v-avatar>
-                    <p class="mt-2"> Tasks Deleted </p>
-                </div>
-            </v-col>
+            </div>
         </v-row>
     </v-container>
 </template>

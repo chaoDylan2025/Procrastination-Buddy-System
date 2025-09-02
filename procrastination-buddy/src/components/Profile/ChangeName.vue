@@ -29,26 +29,23 @@ function exitAndUpdate(){
     <v-app>
         <v-dialog
             v-model="props.open_name_change_dialog"
-            height="500"
+            height="300"
             width="500"
         >
             <v-card>
-                <v-spacer></v-spacer>
                 <h2 class="mt-8 text-center"> Change Name </h2>
 
                 <!-- Textfield where current user enters a new display name -->
-                <v-row class="mt-4">
-                    <v-responsive class="mx-auto">
-                        <v-text-field v-model="current_entered_name" class="pa-10" label="Enter new name"></v-text-field>
+                <v-row class="mt-5">
+                    <v-responsive class="pa-10">
+                        <v-text-field v-model="current_entered_name" label="Enter new name"></v-text-field>
                     </v-responsive>
                 </v-row>
 
-                <v-card-actions class="mb-4 d-flex justify-space-around">
-                    <v-btn class="ml-auto" @click="exitDialogModal()">Back</v-btn>
-                    <v-spacer></v-spacer>
-                    <v-btn class="mr-auto" @click="exitAndUpdate()">Confirm</v-btn> 
+                <v-card-actions>
+                    <v-btn @click="exitDialogModal()">Back</v-btn>
+                    <v-btn @click="exitAndUpdate()">Confirm</v-btn> 
                 </v-card-actions>
-                <v-spacer></v-spacer>
             </v-card>
         </v-dialog>
     </v-app>
