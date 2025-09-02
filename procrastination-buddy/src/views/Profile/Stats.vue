@@ -5,17 +5,44 @@ import { ref, onMounted } from 'vue'
 var list_of_sites = ref([]) // Actual array from database
 
 // Results to display for each stat
-var number_sites_result = ref("Please add a website")
-var most_visited_result = ref("Please add a website")
-var least_visited_result = ref("Please add a website")
+var number_sites_result = ref("")
+var most_visited_result = ref("")
+var least_visited_result = ref("")
+
+/**
+ * Retrieves the total length of current user's restricted websites list 
+ */
+function getTotalSites(){
+    if(list_of_sites.value.length > 0){
+        number_sites_result.value = list_of_sites.value.length
+    }
+    else{
+        number_sites_result.value = "Please add a website"
+    }
+}
+
+/**
+ * Retrieves the most visited and least visited restricted websites
+ */
+function getVisitedResults(){
+    if(list_of_sites.value.length > 0){
+        let tempArr = list_of_sites.value.sort((a, b) => a.num_visited - b.num_visited)
+        most_visited_result.value = tempArr[tempArr.length-1].link
+        least_visited_result.value = tempArr[0].link
+    }
+    else{
+        most_visited_result.value = "Please log any visits for restricted websites"
+        least_visited_result.value = "Please log any visits for restricted websites"
+    }
+}
 
 // Gets the current user's restricted websites list
 onMounted(async () => {
     let result = await AuthenticationService.restrictedWebsitesList();
     list_of_sites.value = result.data.list
-    console.log("List of sites: ", list_of_sites.value)
-    console.log("Number of restricted websites: ", list_of_sites.value.length)
-    console.log("Most visited restricted website: ")
+
+    getTotalSites();
+    getVisitedResults();
 })
 </script>
 
