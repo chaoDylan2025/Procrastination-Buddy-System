@@ -29,10 +29,10 @@ function changeEmail(){
         <v-dialog
             v-model="props.open_change_email_dialog"
             width="500"
-            height="250"
+            height="300"
         >
             <v-card>
-                <v-card-title class="text-h5 text-center font-weight-black"> Enter a new email address to change to </v-card-title>
+                <h2 class="mt-8 text-center"> Enter a new email address to change to </h2>
 
                 <!-- Textfield where current user enters a new email address -->
                 <v-row class="ma-8">
