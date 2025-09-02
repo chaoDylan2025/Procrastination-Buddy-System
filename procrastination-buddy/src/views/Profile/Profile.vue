@@ -161,7 +161,7 @@ function changeEmail(status, email){
         </v-row>
     </v-container>
 
-    <v-container>
+    <v-container v-show="false">
         <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="(state) => open_name_change_dialog = state" 
             @update="changeUserName"/>
         <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" 
