@@ -37,7 +37,7 @@ function changePassword(){
             width="500"
         >
             <v-card>
-                <v-card-title class="text-h5 font-weight-black"> Change your current password </v-card-title>
+                <h2 class="mt-8 text-center"> Change your current password </h2>
 
                 <!-- Enter current password -->
                 <v-row class="mt-5 ml-5 mr-5">

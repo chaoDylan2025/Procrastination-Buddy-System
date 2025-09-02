@@ -26,11 +26,11 @@ function deleteAccount(){
     <v-app>
         <v-dialog
             v-model="props.open_delete_account_dialog"
-            height="200"
+            height="300"
             width="500"
         >
             <v-card>
-                <v-card-title class="text-h6 font-weight-black"> Are you sure you want to delete your account? </v-card-title>
+                <h2 class="mt-8 text-center"> Are you sure you want to delete your account? </h2>
 
                 <!-- Current user enters their password to delete their account -->
                 <v-row class="mt-5">
