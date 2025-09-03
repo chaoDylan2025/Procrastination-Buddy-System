@@ -13,26 +13,29 @@ var least_visited_result = ref("")
  * Retrieves the total length of current user's restricted websites list 
  */
 function getTotalSites(){
-    if(list_of_sites.value.length > 0){
-        number_sites_result.value = list_of_sites.value.length
-    }
-    else{
-        number_sites_result.value = "Please add a website"
-    }
+    number_sites_result.value = list_of_sites.value.length
 }
 
 /**
  * Retrieves the most visited and least visited restricted websites
  */
 function getVisitedResults(){
-    if(list_of_sites.value.length > 0){
+    let num_of_zero_visit_sites = 0
+
+    list_of_sites.value.forEach((site) => {
+        if(site.num_visited == 0){
+            num_of_zero_visit_sites ++
+        }
+    })
+
+    if(num_of_zero_visit_sites == list_of_sites.value.length){
+        most_visited_result.value = "Please log any visits for restricted websites"
+        least_visited_result.value = "Please log any visits for restricted websites"
+    }
+    else{
         let tempArr = list_of_sites.value.sort((a, b) => a.num_visited - b.num_visited)
         most_visited_result.value = tempArr[tempArr.length-1].link
         least_visited_result.value = tempArr[0].link
-    }
-    else{
-        most_visited_result.value = "Please log any visits for restricted websites"
-        least_visited_result.value = "Please log any visits for restricted websites"
     }
 }
 
@@ -41,8 +44,15 @@ onMounted(async () => {
     let result = await AuthenticationService.restrictedWebsitesList();
     list_of_sites.value = result.data.list
 
-    getTotalSites();
-    getVisitedResults();
+    if(list_of_sites.value.length > 0){
+        getTotalSites();
+        getVisitedResults();
+    }
+    else{
+        number_sites_result.value = "Please add a website"
+        most_visited_result.value = "Please log any visits for restricted websites"
+        least_visited_result.value = "Please log any visits for restricted websites"
+    }
 })
 </script>
 
