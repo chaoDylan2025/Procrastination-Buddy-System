@@ -52,13 +52,14 @@ onMounted(async() => {
                 <v-col cols="5">
                     <p class="text-center"> Want to get started with using Procastination Buddy?</p>
                     <RouterLink to="/SignUp">
-                        <p class="mt-2 text-center"> Sign up for an account </p>
+                        <p class="mt-3 text-center"> Sign up for an account </p>
                     </RouterLink>
                 </v-col>
                 <v-col></v-col>
             </v-row>
 
             <v-carousel
+            class="mt-4"
             show-arrows="hover"
             cycle="1"
             hide-delimiter-background
