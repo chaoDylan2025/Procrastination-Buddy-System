@@ -32,6 +32,13 @@ async function logUserOut(){
     console.error(error)
   }
 }
+
+onMounted(() => {
+  // Clear session storage if user is logged out
+  if(user.isLoggedIn == false || user.email == null){
+    sessionStorage.clear()
+  }
+})
 </script>
 
 <template>
@@ -51,7 +58,7 @@ async function logUserOut(){
         </v-btn>
       </div>
 
-      <div class="ml-10" v-if="user.isLoggedIn === false">
+      <div class="ml-10" v-if="user.isLoggedIn === false || user.email == null">
         <v-btn to="/login">
           Login
         </v-btn>

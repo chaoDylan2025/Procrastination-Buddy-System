@@ -26,17 +26,19 @@ async function getImagesAndLayout(){
 }
 
 onMounted(async() => {
-    user.email = await isLoggedIn()
-    await getImagesAndLayout().then((result) => {
-        current_imgs.value = result
-        displayImages.value = true
-    })
+    if(user.isLoggedIn == true){
+        user.email = await isLoggedIn()
+        await getImagesAndLayout().then((result) => {
+            current_imgs.value = result
+            displayImages.value = true
+        })
+    }
 })
 </script>
 
 <template>
     <v-container>
-        <v-container v-if="user.email == null">
+        <v-container v-if="user.isLoggedIn == false || user.email == null">
             <v-row>
                 <v-col></v-col>
                 <v-col>
