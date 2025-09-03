@@ -79,7 +79,7 @@ onMounted(() => {
               :key="index"
             >
               <v-list-item-title>
-                <v-btn size="small" :to="tab.to">
+                <v-btn size="small" :to="tab.to" variant="plain">
                   {{ tab.text }}
                 </v-btn>
               </v-list-item-title>
