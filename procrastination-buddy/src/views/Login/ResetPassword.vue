@@ -5,21 +5,27 @@ import AuthenticationService from '../../services/AuthenticationService'
 
 const router = useRouter()
 
-const user_email = ref("")
-const errorMsg = ref("")
+const default_msg = "Enter your email address to be sent a link for resetting your password"
+
+var user_email = ref("")
+var currentMsg = ref(default_msg)
+
+var currentMsgStyle = ref("")
+
+var error_msg_styling = "color: red;"
 
 /**
  * Sends an email to current user for resetting their password
  */
 function sendPasswordResetEmail(){
-    if(user_email != ""){
-        errorMsg.value = ""
+    if(user_email.value != ""){
         AuthenticationService.sendPasswordResetEmail({email: user_email.value}).then((result) => {
             moveToLoginPage(result.data.status)
         })
     }
     else{
-        errorMsg.value = "Please enter an email"
+        currentMsg.value = "Please enter an email"
+        currentMsgStyle.value = error_msg_styling
     }
 }
 
@@ -32,9 +38,14 @@ function moveToLoginPage(result){
     if(result == true){
         router.push('/login')
     }
-    else{
-        errorMsg.value = result
-    }
+}
+
+/**
+ * Reset error message styling
+ */
+function resetErrorMsgStyle(){
+    currentMsg.value = default_msg
+    currentMsgStyle.value = ""
 }
 </script>
 
@@ -42,14 +53,11 @@ function moveToLoginPage(result){
     <v-app>
         <div class="mt-5">
             <h3 class="text-center"> Password Reset </h3>
-            <h4 class="mt-4 mb-4 text-center"> Enter your email address to be sent a link for resetting your password </h4>
-            <div class="mt-4 mb-4 text-center" id="error-msg">
-                {{ errorMsg }}
-            </div>
+            <h4 class="mt-4 mb-4 text-center" :style="currentMsgStyle"> {{ currentMsg }} </h4>
 
             <v-responsive class="mx-auto" max-width="500">
                 <p>Email: </p>
-                <v-text-field type="email" v-model="user_email"></v-text-field>
+                <v-text-field type="email" v-model="user_email" @click="resetErrorMsgStyle"></v-text-field>
             </v-responsive>
 
             <v-container>
