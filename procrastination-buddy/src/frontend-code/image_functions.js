@@ -36,23 +36,18 @@ export var motivational_imgs = ref([
     {image: "/images/template-motivational-quote-positive-quote-success-quote-for-inspirational-self-motivation-can-be-used-for-greeting-card-typography-poster-free-vector.jpg", selected: false, styling: ""},
 ])
 
-// Current images
-export var current_imgs = ref([])
-// Current image layout
-export var current_img_layout = ref(4)
+export var current_imgs = ref([]) // Current images
+export var current_img_layout = ref(4) // Current image layout
 
-// Displays 'Confirm' button if an image has been selected
-export var display_confirm_btn = ref(false)
+export var display_confirm_btn = ref(false) // Displays 'Confirm' button if an image has been selected
 
-// Index of image to change
-export var change_image = ref(-1)
+export var change_image = ref(-1) // Index of image to change
 
 // Index of current selected image
 export var current_selected_img = ref(-1)
 export var selected_img_index = ref(-1)
 
-// Image to view
-export var imageToBeViewed = ref('')
+export var imageToBeViewed = ref('') // Image to view
 
 /**
  * Changes the current user's image layout

@@ -2,16 +2,19 @@ import { ref } from 'vue'
 import AuthenticationService from '../services/AuthenticationService'
 import { change_image, current_selected_img, display_confirm_btn, motivational_imgs, selected_img_index, imageToBeViewed, current_imgs, current_img_layout } from './image_functions.js'
 
-// Current motivational images
-export var original_user_motivational_images = ref([])
-// Current image layout
-export var original_user_image_layout = ref(12)
-// Confirms if images and layout have been updated or not
-export var is_images_and_layout_updated = ref([false, false])
-// Displays cancel and confirm buttons
-export var condition_for_displaying_buttons = ref(false)
+export var original_user_motivational_images = ref([]) // Current motivational images
+export var original_user_image_layout = ref(12) // Current image layout
 
-// Click events
+export var is_images_and_layout_updated = ref([false, false]) // Confirms if images and layout have been updated or not
+
+export var condition_for_displaying_buttons = ref(false) // Displays cancel and confirm buttons
+
+/**
+ * Functionality for Change Button
+ * 
+ * @param index - Index of image to change
+ * @param open_change_image_dialog - Opens the dialog for changing image
+ */
 export function changeButtonEvnt(index, open_change_image_dialog){
     change_image.value = index
     return open_change_image_dialog == false ? true : false

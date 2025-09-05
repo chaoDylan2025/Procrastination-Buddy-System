@@ -28,6 +28,7 @@ async function getImagesAndLayout(){
 onMounted(async() => {
     if(user.isLoggedIn == true){
         user.email = await isLoggedIn()
+        
         await getImagesAndLayout().then((result) => {
             current_imgs.value = result
             displayImages.value = true

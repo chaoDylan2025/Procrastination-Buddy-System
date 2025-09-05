@@ -5,7 +5,6 @@ import AuthenticationService from '../../services/AuthenticationService'
 import { default_imgs } from '../../frontend-code/image_functions'
 import { current_error_msg_display, errorMsg, generateErrorMsg, removeErrorMsgDisplay } from "../../frontend-code/generate_error_codes"
 
-
 const router = useRouter()
 
 const user_email = ref("")
@@ -78,7 +77,6 @@ async function moveToLoginPage(response){
                         Confirm
                     </v-btn>
                 </v-row>
-
             </v-container>
         </div>
     </v-app>

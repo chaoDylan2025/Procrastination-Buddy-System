@@ -29,11 +29,11 @@ function sendPasswordResetEmail(){
  * @param result - Data from ExpressJS server  
  */
 function moveToLoginPage(result){
-    if(response == true){
+    if(result == true){
         router.push('/login')
     }
     else{
-        errorMsg.value = response
+        errorMsg.value = result
     }
 }
 </script>
@@ -61,11 +61,9 @@ function moveToLoginPage(result){
                         Confirm
                     </v-btn>
                 </v-row>
-
             </v-container>
         </div>
     </v-app>
-
 </template>
 
 <style lang="css" scoped>

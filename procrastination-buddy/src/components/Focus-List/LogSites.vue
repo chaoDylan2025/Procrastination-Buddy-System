@@ -1,5 +1,4 @@
 <script setup>
-
 const props = defineProps({
     open_log_sites_dialog: Boolean,
     current_web_list: Array

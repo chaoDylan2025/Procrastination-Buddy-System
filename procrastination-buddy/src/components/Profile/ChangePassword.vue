@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+
 const props = defineProps({
     open_change_password_dialog: Boolean
 })
@@ -42,8 +43,8 @@ function changePassword(){
                 <!-- Enter current password -->
                 <v-row class="mt-5 ml-5 mr-5">
                     <v-responsive
-                            class="mx-auto"
-                            m-height="345"
+                        class="mx-auto"
+                        m-height="345"
                     >
                         <v-text-field v-model="current_password" 
                         :append-icon="showCurrentPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -57,8 +58,8 @@ function changePassword(){
                 <!-- Enter new password -->
                 <v-row class="mt-5 ml-5 mr-5">
                     <v-responsive
-                            class="mx-auto"
-                            m-height="345"
+                        class="mx-auto"
+                        m-height="345"
                     >
                         <v-text-field v-model="new_password" 
                         :append-icon="showNewPassword ? 'mdi-eye' : 'mdi-eye-off'"
@@ -72,8 +73,8 @@ function changePassword(){
                 <!-- Reenter new password -->
                 <v-row class="mt-5 ml-5 mr-5">
                     <v-responsive
-                            class="mx-auto"
-                            m-height="345"
+                        class="mx-auto"
+                        m-height="345"
                     >
                         <v-text-field 
                         v-model="reenter_new_password" 

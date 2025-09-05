@@ -1,11 +1,14 @@
 <script setup>
-
 const props = defineProps({
     image: String,
     open_image: Boolean,
 })
 
 const emit = defineEmits(['close'])
+
+/**
+ * Exit dialog for viewing full motivational image
+ */
 function exitDialogModal(){
     emit('close', false)
 }

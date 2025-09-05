@@ -17,6 +17,9 @@ function exitDialogModal(){
     emit('close', false)
 }
 
+/**
+ * Exits the dialog for deleting the current user's account and sends the entered password to backend
+ */
 function deleteAccount(){
     emit('delete', false, current_password.value)
 }

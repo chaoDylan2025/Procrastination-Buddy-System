@@ -40,7 +40,9 @@ function exitDialogModal(confirmed){
     if(confirmed){
         current_imgs.value[change_image.value] = motivational_imgs.value[current_selected_img.value]
     }
+
     is_images_different()
+    
     if(current_selected_img.value != -1){
         unselect_image(motivational_imgs.value[current_selected_img.value])
         current_selected_img.value = -1

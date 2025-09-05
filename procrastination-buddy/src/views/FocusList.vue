@@ -70,7 +70,6 @@ function exitLogSitesDialog(state, writeData){
  * Adds the updated restricted websites list to the database
  */
 async function updateRestrictedSitesList(){
-    console.log(list_of_sites.value)
     await AuthenticationService.settingRestrictedWebsitesList(list_of_sites.value).then((result) => {
         if(result.data.status){
             return true
