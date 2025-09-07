@@ -7,10 +7,7 @@ In order to use the application, the user must first create an account. Once an 
 
 A personal motivational page will be unique for each user, and contains all of the images that a user can select to keep themselves motivated. The user can change the layout by choosing how many images are displayed per row.
 
-A focus list includes websites that a user does not to vist while signed in. To ensure that the user does not visit those restricted websites, a connected Google Chrome extension will block access to those websites. If the extension is not installed, the user will need to manually enter how many times they visited their restricted websites.
-
-If a user attempts to visit a restricted website, they will be redirected to a motivational image or GIF of their choice to help them refocus on their work.
-
+A focus list contains websites that the user wants to avoid while working. The user can add new websites to the list or remove any existing websites. If the user visits any of the restricted websites, they must manually log how many times they visited each website on the Focus List page.
 
 ## Cloud Services that I selected 
 - Firebase Authentication
