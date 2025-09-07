@@ -41,29 +41,6 @@ function changeUserName(status, name){
 }
 
 /**
- * Change the user's current password
- * 
- * @param status - Closes the dialog for changing password
- * @param current_password - Current user's original password
- * @param new_password - New password for current user
- * @param reenter_new_password - Confirms new password to change to for current user
- */
-function changePassword(status, current_password, new_password, reenter_new_password){
-    if(reenter_new_password != new_password){
-        console.log("New passwords do not match...")
-    }
-    else{
-        let credentials = {email: user.email, current_password: current_password, new_password: new_password}
-
-        AuthenticationService.changePassword(credentials).then((result) => {
-            if(result){
-                open_change_password_dialog.value = status
-            }
-        })
-    }
-}
-
-/**
  * Delete the user from the database and redirect them to home page
  * 
  * @param status - Closes the dialog for changing password
@@ -166,8 +143,7 @@ function changeEmail(status, email){
             @update="changeUserName"/>
         <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" 
             @change="changeEmail"/>
-        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" 
-            @change="changePassword"/>
+        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" />
         <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"
             @delete="deleteUser"/>
     </v-container>
