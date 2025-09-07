@@ -81,14 +81,18 @@ app.post('/password-reset', (req, res) => {
 /**
  * Post request for changing password
  */
-app.post('/change-password', (req, res) => {
+app.post('/change-password', async (req, res) => {
     const { email, current_password, new_password } = req.body
 
-    changePassword(email, current_password, new_password)
+    let result = await changePassword(email, current_password, new_password)
+    console.log(result)
 
-    res.send({
-        status: true
-    })
+    if(result == true){
+        res.send(true)
+    }
+    else{
+        res.send(result)
+    }
 })
 
 /**

@@ -187,20 +187,20 @@ export function sendPasswordResetEmail(email){
  * @param current_password - Current user's password 
  * @param new_password - New password for account
  */
-export function changePassword(email, current_password, new_password){
-  let authCredentials = firebaseAuth.EmailAuthProvider
-  authCredentials = authCredentials.credential(email, current_password)
+export async function changePassword(email, current_password, new_password){
+  try{
+    let authCredentials = firebaseAuth.EmailAuthProvider.credential(email, current_password)
+    let current_user = auth.currentUser
 
-  let current_user = auth.currentUser
+    await firebaseAuth.reauthenticateWithCredential(current_user, authCredentials)
+    await firebaseAuth.updatePassword(current_user, new_password)
 
-  firebaseAuth.reauthenticateWithCredential(current_user, authCredentials).then(() => {
-    firebaseAuth.updatePassword(current_user, new_password).then(() => {
-      console.log("Password has been successfully changed...")
-    })
-  })
-  .catch((error) => {
-    console.log("Error: ", error)
-  })
+    console.log("Password has been successfully changed...")
+
+    return true
+  } catch (error) {
+    return error.code
+  }
 }
 
 /**
