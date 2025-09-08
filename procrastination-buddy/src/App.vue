@@ -24,7 +24,7 @@ const profile_tabs = ref([
 async function logUserOut(){
   try{
     const result = await AuthenticationService.logoutUser()
-    if(result.data.status == true){
+    if(result.data == true){
       user.isLoggedIn = false
     }
   }

@@ -71,7 +71,7 @@ function exitLogSitesDialog(state, writeData){
  */
 async function updateRestrictedSitesList(){
     await AuthenticationService.settingRestrictedWebsitesList(list_of_sites.value).then((result) => {
-        if(result.data.status){
+        if(result.data){
             return true
         }
         else{

@@ -95,5 +95,5 @@ export function checkUpdatedStatus(){
  */
 export async function setImagesAndLayout(){
     const result = await AuthenticationService.settingImagesAndImageLayout({image_layout: current_img_layout.value, images: current_imgs.value})
-    return result.data.status
+    return result.data
 }

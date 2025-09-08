@@ -32,7 +32,7 @@ current_name_displayed.value = user.name == "" ? "Please enter a proper name" : 
 function changeUserName(status, name){
     if(name != ""){
         AuthenticationService.updateName({name: name}).then((result) => {
-            if(result){
+            if(result.data){
                 user.name = name, current_name_displayed.value = user.name
                 open_name_change_dialog.value = status
             }
@@ -67,7 +67,7 @@ function changeUserName(status, name){
  */
 function changeEmail(status, email){
     AuthenticationService.changeEmail({email: email}).then((result) => {
-        if(result.data.status){
+        if(result.data){
             open_email_change_dialog.value = status
             alert("A confirmation link has been sent to your new email. Please verify to complete the change.")
         }

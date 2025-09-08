@@ -31,8 +31,10 @@ async function createUser(){
  */
 async function moveToLoginPage(response){
     if(response.status == true){
-        await AuthenticationService.settingDefaultImages({email: response.email, default_imgs: default_imgs.value}).then(() => {
-            router.push('/login')
+        await AuthenticationService.settingDefaultImages({email: response.email, default_imgs: default_imgs.value}).then((result) => {
+            if(result.data){
+                router.push('/login')
+            }
         })
     }
     else{

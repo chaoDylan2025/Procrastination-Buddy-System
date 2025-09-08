@@ -23,9 +23,8 @@ export async function getImagesAndLayout(){
  * @param images - Default motivational images 
  */
 export async function setDefaultImages(email, images){
-    await setDoc(doc(db, "users", email, "personal-motivational-page", "current_images"), {image_layout: 4, images: images}).then(() => {
-        return true
-    })
+    await setDoc(doc(db, "users", email, "personal-motivational-page", "current_images"), {image_layout: 4, images: images})
+    return true
 }
 
 /**

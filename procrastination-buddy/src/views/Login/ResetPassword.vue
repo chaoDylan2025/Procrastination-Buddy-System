@@ -20,7 +20,7 @@ var error_msg_styling = "color: red;"
 function sendPasswordResetEmail(){
     if(user_email.value != ""){
         AuthenticationService.sendPasswordResetEmail({email: user_email.value}).then((result) => {
-            moveToLoginPage(result.data.status)
+            moveToLoginPage(result.data)
         })
     }
     else{

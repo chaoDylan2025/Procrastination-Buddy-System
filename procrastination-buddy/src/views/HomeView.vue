@@ -14,7 +14,7 @@ var displayImages = ref(false)
  */
 async function isLoggedIn(){
     let result = await AuthenticationService.userIsLoggedIn()
-    return result.data.email
+    return result.data
 }
 
 /**

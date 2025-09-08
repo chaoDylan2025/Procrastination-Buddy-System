@@ -10,9 +10,6 @@ const app = express()
 app.use(express.json())
 app.use(cors())
 
-// Make public folder images static
-//app.use(express.static("public"))
-
 /**
  * Post request for creating a new account
  */
@@ -59,10 +56,7 @@ app.post('/login', async (req, res) => {
  */
 app.get('/logged-in', (req, res) => {
     const result = getUser()
-
-    res.send({
-        email: result
-    })
+    res.send(result)
 })
 
 /**
@@ -73,9 +67,7 @@ app.post('/password-reset', (req, res) => {
 
     sendPasswordResetEmail(email)
 
-    res.send({
-        status: true
-    })
+    res.send(true)
 })
 
 /**
@@ -85,7 +77,6 @@ app.post('/change-password', async (req, res) => {
     const { email, current_password, new_password } = req.body
 
     let result = await changePassword(email, current_password, new_password)
-    console.log(result)
 
     if(result == true){
         res.send(true)
@@ -103,9 +94,7 @@ app.post('/change-email', (req, res) => {
 
     changeEmail(email)
 
-    res.send({
-        status: true
-    })
+    res.send(true)
 })
 
 /**
@@ -116,11 +105,8 @@ app.post('/change-name', (req, res) => {
 
     updateDisplayedName(name)
 
-    res.send({
-        status: true
-    })
+    res.send(true)
 })
-
 
 /**
  * Post request for logging user out
@@ -130,9 +116,7 @@ app.post('/logout', async (req, res) => {
 
     if(result === true){
         console.log("User has been logged out...")
-        res.send({
-            status: result
-        })  
+        res.send(result)  
     }
 })
 
@@ -163,14 +147,13 @@ app.get('/motivational-images', async (req, res) => {
 app.post('/default-images', async (req, res) => {
     const { email, default_imgs } = req.body
 
-    console.log("Email received: ", email)
-    console.log("Images received: ", default_imgs)
+    //console.log("Email received: ", email)
+    //console.log("Images received: ", default_imgs)
 
     const result = await setDefaultImages(email, default_imgs)
+    console.log(result)
 
-    res.send({
-        status: result
-    })
+    res.send(result)
 })
 
 /**
@@ -180,9 +163,7 @@ app.post('/update-images-and-layout', async (req, res) => {
     const { image_layout, images } = req.body
     const result = await updateImagesAndLayout(image_layout, images)
 
-    res.send({
-        status: result
-    })
+    res.send(result)
 })
 
 /**
@@ -190,6 +171,7 @@ app.post('/update-images-and-layout', async (req, res) => {
  */
 app.get('/restricted-sites-list', async (req, res) => {
     const result = await getRestrictedSitesList()
+
     res.send(result)
 })
 
@@ -200,9 +182,7 @@ app.post('/update-restricted-sites-list', async (req, res) => {
     const website = req.body
     const result = await setRestrictedSiteList({list: website})
 
-    res.send({
-        status: result
-    })
+    res.send(result)
 })
 
 app.listen(process.env.PORT || 3000)
