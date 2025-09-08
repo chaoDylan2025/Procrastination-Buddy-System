@@ -130,9 +130,9 @@ export async function deleteUserAccount(email, password){
       let user = auth.currentUser
 
       // Delete user from database
-      await deleteDoc(doc(db, "users", email)).then(async () => {
-        await firebaseAuth.deleteUser(user) // Calls method that deletes user account
-      })
+      await deleteDoc(doc(db, "users", email))
+      await firebaseAuth.deleteUser(user)
+
       return true
     }
     else{
