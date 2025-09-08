@@ -76,7 +76,7 @@ function moveToHomePage(result){
             </v-row>
 
             <v-row class="mt-10" justify="center" no-gutters>
-                <v-btn to="/Password-reset">
+                <v-btn @click="removeErrorMsgDisplay" to="/Password-reset">
                     Reset Password
                 </v-btn>
             </v-row>
