@@ -102,7 +102,7 @@ onMounted(async() => {
                         <span> Cancel </span>
                     </v-btn>
                 </v-col>
-                <v-col v-if="user.email != null" class="mt-5 text-center">
+                <v-col v-if="user.isLoggedIn == true" class="mt-5 text-center">
                     <v-menu open-on-hover>
                         <template v-slot:activator="{ props }">
                             <v-btn
@@ -130,7 +130,7 @@ onMounted(async() => {
                 </v-col>
 
                 <v-col v-else>
-                    <h2 class="text-center"> Please login to your account </h2>
+                    <h2 class="mt-8 text-center"> Please login to your account </h2>
                 </v-col>
 
                 <v-col class="mt-5 text-center">
