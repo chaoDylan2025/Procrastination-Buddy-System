@@ -9,7 +9,7 @@ const props = defineProps({
 
 const user = userStore()
 
-const emit = defineEmits(['close'])
+const emit = defineEmits(['close', 'change'])
 
 var current_password = ref("")
 var new_password = ref("")
@@ -54,7 +54,7 @@ function changePassword(){
         AuthenticationService.changePassword({email: user.email, current_password: current_password.value, 
             new_password: new_password.value}).then((result) => {
                 if(result.data == true){
-                    emit('close', false)
+                    emit('change', false)
                 }
                 else{
                     currentMsg.value = generateErrorMsg(result.data)

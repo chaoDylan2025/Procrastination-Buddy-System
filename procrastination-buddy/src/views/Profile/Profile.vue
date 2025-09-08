@@ -73,6 +73,25 @@ function changeEmail(status, email){
         }
     })
 }
+
+/**
+ * Redirect user to login page after password change
+ * 
+ * @param status - CLoses the dialog for changing current user's password
+ */
+async function changePassword(status){
+    await AuthenticationService.logoutUser().then((result) => {
+        if(result.data){
+            open_change_password_dialog.value = status
+
+            user.name = ""
+            user.email = null
+            user.isLoggedIn = false
+            
+            router.push('/login')
+        }
+    })
+}
 </script>
 
 <template>
@@ -143,7 +162,8 @@ function changeEmail(status, email){
             @update="changeUserName"/>
         <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" 
             @change="changeEmail"/>
-        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" />
+        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" 
+            @change="changePassword"/>
         <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"
             @delete="deleteUser"/>
     </v-container>
