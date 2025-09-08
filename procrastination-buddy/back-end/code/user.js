@@ -39,9 +39,11 @@ firebaseAuth.onAuthStateChanged(auth, (user) => {
 export async function createUser(emailId, password, confirm_password){
   if(confirm_password === password){
     try{
-      await firebaseAuth.createUserWithEmailAndPassword(auth, emailId, password).then(async () => {
-        assignDataToUser(emailId)
-      })
+      await firebaseAuth.createUserWithEmailAndPassword(auth, emailId, password)
+
+      // Assign default data to the new user
+      await setDoc(doc(db, "users", emailId), {})
+      await setDoc(doc(db, "users", emailId, "focus-list", "restricted_sites"), {list: []})
 
       return true
     } 
@@ -57,28 +59,6 @@ export async function createUser(emailId, password, confirm_password){
       return "Password and confirmation password do not match!"
     }
   }
-}
-
-/**
- * Assign default data to the new user
- * 
- * @param emailId - Current user's email address
- */
-export async function assignDataToUser(emailId){
-  await setDoc(doc(db, "users", emailId), {}).then(async () => {
-    createFocusListCollection(emailId)
-  })
-}
-
-/**
- * Create "focus-list" collection
- * 
- * "focus-list" will contain the current user's restricted websites list
- * 
- * @param emailId - Current user's email address
- */
-export async function createFocusListCollection(emailId){
-  await setDoc(doc(db, "users", emailId, "focus-list", "restricted_sites"), {list: []})
 }
 
 /**
