@@ -44,8 +44,7 @@ function moveToHomePage(result){
 
 <template>
     <div class="mt-5">
-        <h3 class="text-center"> Login </h3>
-        <br>
+        <h3 class="mb-5 text-center"> Login </h3>
 
         <!-- Login error message -->
         <div :class="current_error_msg_display" style="color: red">

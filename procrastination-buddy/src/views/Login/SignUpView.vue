@@ -48,7 +48,7 @@ async function moveToLoginPage(response){
 <template>
     <v-app>
         <div class="mt-5">
-            <h3> Sign up for an account </h3>
+            <h3 class="mb-5 text-center"> Sign up for an account </h3>
 
             <!-- Signup Error Messages -->
             <div :class="current_error_msg_display" style="color: red;">
@@ -72,7 +72,7 @@ async function moveToLoginPage(response){
 
             <v-container>
                 <v-row justify="center" no-gutters>
-                    <v-btn to="/login" class="mx-8">
+                    <v-btn @click="removeErrorMsgDisplay" to="/login" class="mx-8">
                         Back
                     </v-btn>
                     <v-btn @click="createUser" class="mx-8">
