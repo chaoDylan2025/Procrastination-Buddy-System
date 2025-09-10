@@ -14,6 +14,7 @@ const emit = defineEmits(['close', 'update'])
  * Exits the dialog for changing display name
  */
 function exitDialogModal(){
+    current_entered_name.value = ""
     emit('close', false)
 }
 
@@ -22,6 +23,7 @@ function exitDialogModal(){
  */
 function exitAndUpdate(){
     emit('update', false, current_entered_name.value)
+    current_entered_name.value = ""
 }
 </script>
 

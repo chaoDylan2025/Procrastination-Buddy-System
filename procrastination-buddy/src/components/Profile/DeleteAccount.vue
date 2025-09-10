@@ -14,6 +14,7 @@ const emit = defineEmits('close', 'delete')
  * Exits the dialog for deleting the current user's account
  */
 function exitDialogModal(){
+    current_password.value = ""
     emit('close', false)
 }
 
@@ -21,6 +22,7 @@ function exitDialogModal(){
  * Exits the dialog for deleting the current user's account and sends the entered password to backend
  */
 function deleteAccount(){
+    current_password.value = ""
     emit('delete', false, current_password.value)
 }
 </script>

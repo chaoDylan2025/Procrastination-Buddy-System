@@ -13,6 +13,7 @@ const emit = defineEmits(['close', 'change'])
  * Exits the dialog for changing email
  */
 function exitDialogModal(){
+    new_email_address.value = ""
     emit('close', false)
 }
 
@@ -21,6 +22,7 @@ function exitDialogModal(){
  */
 function changeEmail(){
     emit('change', false, new_email_address.value)
+    new_email_address.value = ""
 }
 </script>
 

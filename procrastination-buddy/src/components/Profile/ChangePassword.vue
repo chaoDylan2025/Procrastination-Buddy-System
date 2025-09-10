@@ -27,6 +27,9 @@ var error_msg_styling = "color: red;"
  * Exits the dialog for changing current user's password
  */
 function exitDialogModal(){
+    current_password.value = ""
+    new_password.value = ""
+    reenter_new_password.value = ""
     emit('close', false)
 }
 
@@ -55,6 +58,9 @@ function changePassword(){
             new_password: new_password.value}).then((result) => {
                 if(result.data == true){
                     emit('change', false)
+                    current_password.value = ""
+                    new_password.value = ""
+                    reenter_new_password.value = ""
                 }
                 else{
                     currentMsg.value = generateErrorMsg(result.data)
