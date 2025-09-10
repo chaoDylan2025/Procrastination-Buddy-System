@@ -4,6 +4,7 @@ import { changeImageLayout, getImagesAndLayout, current_imgs, current_img_layout
 import { is_images_and_layout_updated, condition_for_displaying_buttons, checkUpdatedStatus, 
          original_user_motivational_images, original_user_image_layout, setImagesAndLayout } from '../frontend-code/image_events'
 import { userStore } from '../stores/user'
+import AuthenticationService from '../services/AuthenticationService'
 import Content from '../components/Motivational-Page/Content.vue'
 
 var image_layout_options = ["1 per row", "3 per row"] // Contains options for changing image layout
@@ -87,8 +88,17 @@ function updateImageLayout(image_layout){
 }
 
 onMounted(async() => {
-    let result = await getImagesAndLayout()
-    setCurrentData(result)
+    let result = await AuthenticationService.userIsLoggedIn()
+    
+    if(result.data){
+        let result = await getImagesAndLayout()
+        setCurrentData(result)
+    }
+    else{
+        user.name = ""
+        user.email = null
+        user.isLoggedIn = false
+    }
 })
 </script>
 

@@ -1,6 +1,6 @@
 <script setup>
 import {useRouter} from 'vue-router'
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import AuthenticationService from '../../services/AuthenticationService'
 import { userStore } from '../../stores/user'
 
@@ -18,7 +18,6 @@ var open_delete_account_dialog = ref(false)
 var current_name_displayed = ref("")
 
 const router = useRouter()
-
 const user = userStore()
 
 current_name_displayed.value = user.name == "" ? "Please enter a proper name" : user.name
@@ -92,6 +91,17 @@ async function changePassword(status){
         }
     })
 }
+
+onMounted(async () => {
+    let result = await AuthenticationService.userIsLoggedIn()
+
+    if(result.data == false){
+        user.name = ""
+        user.email = null
+        user.isLoggedIn = false
+        router.push('/')
+    }
+})
 </script>
 
 <template>

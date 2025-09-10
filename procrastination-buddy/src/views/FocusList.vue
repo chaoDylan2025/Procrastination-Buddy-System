@@ -82,9 +82,18 @@ async function updateRestrictedSitesList(){
 
 // Gets the current user's restricted websites list
 onMounted(async () => {
-    let result = await AuthenticationService.restrictedWebsitesList();
-    list_of_sites.value = result.data.list
-    previous_list_of_sites = JSON.stringify(list_of_sites.value)
+    let result = await AuthenticationService.userIsLoggedIn()
+
+    if(result.data){
+        let list_result = await AuthenticationService.restrictedWebsitesList();
+        list_of_sites.value = list_result.data.list
+        previous_list_of_sites = JSON.stringify(list_of_sites.value)
+    }
+    else{
+        user.name = ""
+        user.email = null
+        user.isLoggedIn = false
+    }
 })
 </script>
 

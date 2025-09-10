@@ -25,6 +25,8 @@ async function logUserOut(){
   try{
     const result = await AuthenticationService.logoutUser()
     if(result.data == true){
+      user.name = ""
+      user.email = null
       user.isLoggedIn = false
     }
   }
@@ -33,10 +35,15 @@ async function logUserOut(){
   }
 }
 
-onMounted(() => {
-  // Clear session storage if user is logged out
-  if(user.isLoggedIn == false || user.email == null){
-    sessionStorage.clear()
+onMounted(async () => {
+  let result = await AuthenticationService.userIsLoggedIn()
+
+  if(result == false){
+    user.name = ""
+    user.email = null
+    user.isLoggedIn = false
+
+    sessionStorage.clear() // Clear session storage if user is logged out
   }
 })
 </script>

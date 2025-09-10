@@ -1,6 +1,8 @@
 <script setup>
 import AuthenticationService from '../../services/AuthenticationService'
 import { ref, onMounted } from 'vue'
+import {useRouter} from 'vue-router'
+import { userStore } from '../../stores/user'
 
 var list_of_sites = ref([]) // Actual array from database
 
@@ -8,6 +10,9 @@ var list_of_sites = ref([]) // Actual array from database
 var number_sites_result = ref("")
 var most_visited_result = ref("")
 var least_visited_result = ref("")
+
+const router = useRouter()
+const user = userStore()
 
 /**
  * Retrieves the total length of current user's restricted websites list 
@@ -41,17 +46,27 @@ function getVisitedResults(){
 
 // Gets the current user's restricted websites list
 onMounted(async () => {
-    let result = await AuthenticationService.restrictedWebsitesList();
-    list_of_sites.value = result.data.list
+    let result = await AuthenticationService.userIsLoggedIn()
 
-    if(list_of_sites.value.length > 0){
-        getTotalSites();
-        getVisitedResults();
+    if(result.data){
+        let list_result = await AuthenticationService.restrictedWebsitesList();
+        list_of_sites.value = list_result.data.list
+
+        if(list_of_sites.value.length > 0){
+            getTotalSites();
+            getVisitedResults();
+        }
+        else{
+            number_sites_result.value = "Please add a website"
+            most_visited_result.value = "Please log any visits for restricted websites"
+            least_visited_result.value = "Please log any visits for restricted websites"
+        }
     }
     else{
-        number_sites_result.value = "Please add a website"
-        most_visited_result.value = "Please log any visits for restricted websites"
-        least_visited_result.value = "Please log any visits for restricted websites"
+        user.name = ""
+        user.email = null
+        user.isLoggedIn = false
+        router.push('/')
     }
 })
 </script>
