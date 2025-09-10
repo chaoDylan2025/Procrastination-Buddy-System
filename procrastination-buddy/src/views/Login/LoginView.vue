@@ -69,7 +69,7 @@ function moveToHomePage(result){
             </v-row>
             
             <v-row class="mt-10" justify="center" no-gutters>
-                <v-btn to="/SignUp">
+                <v-btn @click="removeErrorMsgDisplay" to="/SignUp">
                     Sign up
                 </v-btn>
             </v-row>
