@@ -16,7 +16,6 @@ app.use(cors())
 app.post('/signup', async (req, res) => {
     // Sets values for email, password, and password to confirm
     const { email, password, confirm_password } = req.body
-
     const result = await createUser(email, password, confirm_password)    
     
     if(result == true){
@@ -64,9 +63,7 @@ app.get('/logged-in', (req, res) => {
  */
 app.post('/password-reset', (req, res) => {
     const { email } = req.body
-
     sendPasswordResetEmail(email)
-
     res.send(true)
 })
 
@@ -75,7 +72,6 @@ app.post('/password-reset', (req, res) => {
  */
 app.post('/change-password', async (req, res) => {
     const { email, current_password, new_password } = req.body
-
     let result = await changePassword(email, current_password, new_password)
 
     if(result == true){
@@ -91,9 +87,7 @@ app.post('/change-password', async (req, res) => {
  */
 app.post('/change-email', (req, res) => {
     const { email } = req.body
-
     changeEmail(email)
-
     res.send(true)
 })
 
@@ -102,9 +96,7 @@ app.post('/change-email', (req, res) => {
  */
 app.post('/change-name', (req, res) => {
     const { name } = req.body
-
     updateDisplayedName(name)
-
     res.send(true)
 })
 
@@ -133,55 +125,45 @@ app.post('/delete-account', async (req, res) => {
 })
 
 /**
- * Get request for getting current motivational images of user
+ * Get request for getting user's current motivational images
  */
 app.get('/motivational-images', async (req, res) => {
     const result = await getImagesAndLayout()
-
     res.send(result)
 })
 
 /**
- * Post request for setting default images for user with no images
+ * Post request for setting default images for new user
  */
 app.post('/default-images', async (req, res) => {
     const { email, default_imgs } = req.body
-
-    //console.log("Email received: ", email)
-    //console.log("Images received: ", default_imgs)
-
     const result = await setDefaultImages(email, default_imgs)
-    console.log(result)
-
     res.send(result)
 })
 
 /**
- * Post request for setting updated images and image layout for current user
+ * Post request for setting images and image layout for current user
  */
 app.post('/update-images-and-layout', async (req, res) => {
     const { image_layout, images } = req.body
     const result = await updateImagesAndLayout(image_layout, images)
-
     res.send(result)
 })
 
 /**
- * Get request for getting the user's current restricted websites list
+ * Get request for getting the user's restricted websites list
  */
 app.get('/restricted-sites-list', async (req, res) => {
     const result = await getRestrictedSitesList()
-
     res.send(result)
 })
 
 /**
- * Post request for updating user's current restricted websites list
+ * Post request for updating user's restricted websites list
  */
 app.post('/update-restricted-sites-list', async (req, res) => {    
     const website = req.body
     const result = await setRestrictedSiteList({list: website})
-
     res.send(result)
 })
 

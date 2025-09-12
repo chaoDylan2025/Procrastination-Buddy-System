@@ -1,7 +1,6 @@
 import * as firebaseAuth from "firebase/auth"
 import { deleteDoc, doc, setDoc } from "firebase/firestore"
-import { db } from "../firebase_setup.js"
-import { auth } from "../firebase_setup.js"
+import { db, auth } from "../firebase_setup.js"
 
 // Contains signed-in user's email
 export var user_email = null
@@ -22,7 +21,6 @@ firebaseAuth.onAuthStateChanged(auth, (user) => {
     if (user) {
       console.log("User is currently logged in...")
       user_email = auth.currentUser.email
-      console.log("User email: ", user_email)
     } 
     else {
       console.log("User is not logged in...")
@@ -52,7 +50,6 @@ export async function createUser(emailId, password, confirm_password){
       return errorMessage
     }
   }
-
   else{
     // Return error message if confirmation password does not match password
     if(confirm_password !== password){
@@ -105,7 +102,6 @@ export function getUser(){
  */
 export async function logout(){
   try{
-    // Calls method that signs out the user
     await firebaseAuth.signOut(auth)
     user_email = null
     return true
@@ -138,8 +134,7 @@ export async function deleteUserAccount(email, password){
     else{
       return false
     }
-  }
-  catch(error){
+  } catch(error){
     console.log(error)
   }
 }
