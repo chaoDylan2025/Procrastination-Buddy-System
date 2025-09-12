@@ -5,10 +5,9 @@ const props = defineProps({
     open_name_change_dialog: Boolean,
     current_name: String
 })
+const emit = defineEmits(['close', 'update'])
 
 let current_entered_name = ref(props.current_name)
-
-const emit = defineEmits(['close', 'update'])
 
 /**
  * Exits the dialog for changing display name

@@ -4,11 +4,10 @@ import { ref } from 'vue'
 const props = defineProps({
     open_delete_account_dialog: Boolean
 })
+const emit = defineEmits('close', 'delete')
 
 var current_password = ref("")
 var showCurrentPassword = ref(false)
-
-const emit = defineEmits('close', 'delete')
 
 /**
  * Exits the dialog for deleting the current user's account

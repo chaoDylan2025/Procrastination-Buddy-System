@@ -6,7 +6,6 @@ import Content from './Content.vue'
 const props = defineProps({
     open_change_image_dialog: Boolean
 })
-
 const emit = defineEmits(['close'])
 
 /**
@@ -22,12 +21,14 @@ function is_images_different(){
             num_imgs_different ++
         }
     }
+
     if(num_imgs_different >= 1){
         is_images_and_layout_updated.value[0] = true
     }
     else{
         is_images_and_layout_updated.value[0] = false
     }
+
     checkUpdatedStatus()
 }
 
@@ -48,6 +49,7 @@ function exitDialogModal(confirmed){
         current_selected_img.value = -1
         display_confirm_btn.value = false
     }
+    
     emit('close', false)
 }
 </script>

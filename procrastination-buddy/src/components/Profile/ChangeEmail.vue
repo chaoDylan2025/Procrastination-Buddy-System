@@ -4,10 +4,9 @@ import { ref } from 'vue'
 const props = defineProps({
     open_change_email_dialog: Boolean
 })
+const emit = defineEmits(['close', 'change'])
 
 var new_email_address = ref("")
-
-const emit = defineEmits(['close', 'change'])
 
 /**
  * Exits the dialog for changing email

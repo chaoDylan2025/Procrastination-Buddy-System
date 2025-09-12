@@ -6,7 +6,6 @@ import { default_imgs } from '../../frontend-code/image_functions'
 import { current_error_msg_display, errorMsg, generateErrorMsg, removeErrorMsgDisplay } from "../../frontend-code/generate_error_codes"
 
 const router = useRouter()
-
 const user_email = ref("")
 const user_password = ref("")
 const confirmPassWord = ref("")
@@ -39,7 +38,6 @@ async function moveToLoginPage(response){
     }
     else{
         errorMsg.value = response
-
         generateErrorMsg(errorMsg.value)
     }
 }
@@ -50,7 +48,7 @@ async function moveToLoginPage(response){
         <div class="mt-5">
             <h3 class="mb-5 text-center"> Sign up for an account </h3>
 
-            <!-- Signup Error Messages -->
+            <!-- Signup Error Message -->
             <div :class="current_error_msg_display" style="color: red;">
                 {{ errorMsg }}
             </div>

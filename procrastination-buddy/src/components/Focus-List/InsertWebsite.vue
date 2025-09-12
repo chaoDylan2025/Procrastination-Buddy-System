@@ -5,7 +5,6 @@ const props = defineProps({
     open_make_new_list_dialog: Boolean,
     current_web_list: Array
 })
-
 const emit = defineEmits(['close'])
 
 var new_restricted_wesbite = ref("")

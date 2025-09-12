@@ -6,10 +6,8 @@ import AuthenticationService from '../../services/AuthenticationService'
 const props = defineProps({
     open_change_password_dialog: Boolean
 })
-
-const user = userStore()
-
 const emit = defineEmits(['close', 'change'])
+const user = userStore()
 
 var current_password = ref("")
 var new_password = ref("")

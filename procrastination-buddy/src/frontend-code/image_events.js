@@ -4,9 +4,7 @@ import { change_image, current_selected_img, display_confirm_btn, motivational_i
 
 export var original_user_motivational_images = ref([]) // Current motivational images
 export var original_user_image_layout = ref(12) // Current image layout
-
 export var is_images_and_layout_updated = ref([false, false]) // Confirms if images and layout have been updated or not
-
 export var condition_for_displaying_buttons = ref(false) // Displays cancel and confirm buttons
 
 /**

@@ -6,12 +6,10 @@ import { userStore } from '../stores/user'
 import { ref, onMounted } from 'vue'
 
 const user = userStore() // Pinia store for user information
-
 const edit_list_dialog = ref(false)
 const log_sites_dialog = ref(false)
 
 var list_of_sites = ref([]) // Actual array from database
-
 var previous_list_of_sites = ""
 
 // Current message to display

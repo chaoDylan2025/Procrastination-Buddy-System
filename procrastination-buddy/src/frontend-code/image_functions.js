@@ -38,9 +38,7 @@ export var motivational_imgs = ref([
 
 export var current_imgs = ref([]) // Current images
 export var current_img_layout = ref(4) // Current image layout
-
 export var display_confirm_btn = ref(false) // Displays 'Confirm' button if an image has been selected
-
 export var change_image = ref(-1) // Index of image to change
 
 // Index of current selected image

@@ -6,7 +6,6 @@ import { userStore } from "../../stores/user"
 import { current_error_msg_display, errorMsg, generateErrorMsg, removeErrorMsgDisplay } from "../../frontend-code/generate_error_codes"
 
 const user = userStore()
-
 const user_email = ref("")
 const user_password = ref("")
 
@@ -36,7 +35,6 @@ function moveToHomePage(result){
     }
     else{
         errorMsg.value = result
-
         generateErrorMsg(errorMsg.value)
     }
 }

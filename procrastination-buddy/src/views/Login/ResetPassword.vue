@@ -4,14 +4,11 @@ import { ref } from 'vue'
 import AuthenticationService from '../../services/AuthenticationService'
 
 const router = useRouter()
-
 const default_msg = "Enter your email address to be sent a link for resetting your password"
 
 var user_email = ref("")
 var currentMsg = ref(default_msg)
-
 var currentMsgStyle = ref("")
-
 var error_msg_styling = "color: red;"
 
 /**

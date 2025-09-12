@@ -3,7 +3,6 @@ const props = defineProps({
     image: String,
     open_image: Boolean,
 })
-
 const emit = defineEmits(['close'])
 
 /**

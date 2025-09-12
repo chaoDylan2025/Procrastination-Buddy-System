@@ -4,15 +4,12 @@ import { userStore } from "./stores/user";
 import AuthenticationService from './services/AuthenticationService'
 
 const user = userStore()
-
 const showWelcomeMsg = ref(true)
-
 const links = ref([
   { text: "About", to: "/about"},
   { text: "Motivation Page", to: "/MotivationPage"},
   { text: "Focus List", to: "/FocusList"},
-]);
-
+])
 const profile_tabs = ref([
   {text: 'Focus List Statistics', to: "/Stats"},
   {text: 'Profile Information', to: "/Profile"}

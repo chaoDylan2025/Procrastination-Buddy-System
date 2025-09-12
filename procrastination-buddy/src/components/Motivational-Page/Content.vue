@@ -12,7 +12,6 @@ const props = defineProps({
     show_all_images: Boolean,
     show_download_button: Boolean,
 })
-
 const user = userStore()
 
 var open_change_image_dialog = ref(false) 
@@ -60,6 +59,7 @@ var openImage = ref(false)
                         <v-spacer></v-spacer>
                     </v-row>
                 </v-col>
+                
                 <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => open_change_image_dialog = closeImageChangingDialog(state)"/>
                 <Image :image="imageToBeViewed" :open_image="openImage" @close="(state) => openImage = state"/>
             </v-row>

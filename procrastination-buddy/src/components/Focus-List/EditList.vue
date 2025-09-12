@@ -6,7 +6,6 @@ const props = defineProps({
     open_edit_list_dialog: Boolean,
     current_web_list: Array
 })
-
 const emit = defineEmits(['close'])
 
 var open_new_list_dialog = ref(false)
