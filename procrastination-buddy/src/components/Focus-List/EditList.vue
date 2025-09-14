@@ -9,6 +9,7 @@ const props = defineProps({
 const emit = defineEmits(['close'])
 
 var open_new_list_dialog = ref(false)
+var display_error_message = ref(false)
 
 /**
  * Deletes website in the list
@@ -20,15 +21,31 @@ function delete_website(index){
 }
 
 /**
+ * Opens the dialog for inserting a website
+ */
+function openInsertWebDialog(){
+    open_new_list_dialog.value = true
+    display_error_message.value = false
+}
+
+/**
  * Inserts new website in current restricted websites list
  * 
  * @param state - Opens or closes dialog
  * @param website - Restricted website to insert into list
  */
 function insertNewWebsite(state, website){
-    if(website != ""){
-        props.current_web_list.push({link: website, num_visited: 0});
+    let website_included = props.current_web_list.some((site) => {
+        return site.link.toLowerCase() === website.toLowerCase()
+    })
+
+    if(website != "" && website_included == false){
+        props.current_web_list.push({link: website, num_visited: 0})
     }
+    else if(website_included == true){
+        display_error_message.value = true
+    }
+    
     open_new_list_dialog.value = state
 }
 
@@ -52,6 +69,10 @@ function exitEditListDialog(writeData){
             >
                 <div v-if="props.current_web_list.length != 0" class="font-weight-bold text-center mb-3" style="color: black;"> Restricted Websites </div>
                 <div v-else class="font-weight-bold text-center mb-3" style="color: black;"> Please enter a website that you would like to restrict yourself from visiting </div>
+
+                <div v-show="display_error_message">
+                    <p class="mb-2 text-center" style="color: red;"> Please enter a different website </p>
+                </div>
                 
                 <!-- Contains current list of websites that a user can edit and delete -->
                 <div class="d-flex ml-4 mb-4" v-for="(item, i) in props.current_web_list">
@@ -64,7 +85,7 @@ function exitEditListDialog(writeData){
                 <!-- Users can press this button to add another restricted website to their list -->
                 <v-row class="mt-4">
                     <v-col></v-col>
-                    <v-btn @click="open_new_list_dialog = true" density="compact" icon="mdi-plus"></v-btn>
+                    <v-btn @click="openInsertWebDialog" density="compact" icon="mdi-plus"></v-btn>
                     <v-col></v-col>
                 </v-row>
 

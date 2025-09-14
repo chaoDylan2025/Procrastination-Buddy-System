@@ -149,12 +149,9 @@ onMounted(async () => {
             <h2 class="mt-8 text-center"> Please login to your account </h2>
         </v-container>
         
-        <v-container>
+        <v-container v-show="false">
             <EditList :open_edit_list_dialog="edit_list_dialog" :current_web_list="list_of_sites" @close="exitEditListDialog"/>
-        </v-container>
-
-        <v-continer>
             <LogSites :open_log_sites_dialog="log_sites_dialog" :current_web_list="list_of_sites" @close="exitLogSitesDialog"/>
-        </v-continer>   
+        </v-container>
     </v-app>
 </template>
