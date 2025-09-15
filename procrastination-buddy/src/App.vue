@@ -15,6 +15,8 @@ const profile_tabs = ref([
   {text: 'Profile Information', to: "/Profile"}
 ])
 
+var canHover = ref(true)
+
 /**
  * Logout the current user
  */
@@ -30,6 +32,16 @@ async function logUserOut(){
   catch (error){
     console.error(error)
   }
+}
+
+/**
+ * Prevent menu from instantly reopening
+ */
+function menuClick(){
+  canHover.value = false
+  setTimeout(() => {
+    canHover.value = true
+  }, 1000)
 }
 
 onMounted(async () => {
@@ -69,8 +81,7 @@ onMounted(async () => {
       </div>
 
       <div class="ml-10" v-else>
-        <v-menu open-on-hover open-delay="1000"
-        close-delay="1000">
+        <v-menu :open-on-hover="canHover">
           <template v-slot:activator="{ props }">
             <v-btn v-bind="props">
               Profile
@@ -83,7 +94,7 @@ onMounted(async () => {
               :key="index"
             >
               <v-list-item-title>
-                <v-btn size="small" :to="tab.to" variant="plain">
+                <v-btn @click="menuClick" size="small" :to="tab.to" variant="plain">
                   {{ tab.text }}
                 </v-btn>
               </v-list-item-title>
