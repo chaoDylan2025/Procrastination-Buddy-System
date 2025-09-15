@@ -76,8 +76,8 @@ function hasMotivationalImg(index){
                 </v-col>
                 
                 <v-container v-show="false">
-                    <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="(state) => open_change_image_dialog = closeImageChangingDialog(state)"/>
-                    <Image :image="imageToBeViewed" :open_image="openImage" @close="(state) => openImage = state"/>
+                    <ChangeImage :open_change_image_dialog="open_change_image_dialog" @close="open_change_image_dialog = closeImageChangingDialog(false)"/>
+                    <Image :image="imageToBeViewed" :open_image="openImage" @close="openImage = false"/>
                 </v-container>
             </v-row>
         </v-container>

@@ -14,14 +14,14 @@ let current_entered_name = ref(props.current_name)
  */
 function exitDialogModal(){
     current_entered_name.value = ""
-    emit('close', false)
+    emit('close')
 }
 
 /**
  * Exits the dialog and changes the current user's display name
  */
 function exitAndUpdate(){
-    emit('update', false, current_entered_name.value)
+    emit('update', current_entered_name.value)
     current_entered_name.value = ""
 }
 </script>

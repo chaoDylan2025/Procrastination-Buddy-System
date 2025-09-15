@@ -50,7 +50,7 @@ function exitDialogModal(confirmed){
         display_confirm_btn.value = false
     }
     
-    emit('close', false)
+    emit('close')
 }
 </script>
 

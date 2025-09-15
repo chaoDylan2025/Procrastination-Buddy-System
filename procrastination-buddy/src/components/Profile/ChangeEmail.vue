@@ -13,14 +13,14 @@ var new_email_address = ref("")
  */
 function exitDialogModal(){
     new_email_address.value = ""
-    emit('close', false)
+    emit('close')
 }
 
 /**
  * Exits the dialog and changes the current user's email
  */
 function changeEmail(){
-    emit('change', false, new_email_address.value)
+    emit('change', new_email_address.value)
     new_email_address.value = ""
 }
 </script>

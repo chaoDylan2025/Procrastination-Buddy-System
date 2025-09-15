@@ -28,7 +28,7 @@ function exitDialogModal(){
     current_password.value = ""
     new_password.value = ""
     reenter_new_password.value = ""
-    emit('close', false)
+    emit('close')
 }
 
 /**
@@ -55,7 +55,7 @@ function changePassword(){
         AuthenticationService.changePassword({email: user.email, current_password: current_password.value, 
             new_password: new_password.value}).then((result) => {
                 if(result.data == true){
-                    emit('change', false)
+                    emit('change')
                     current_password.value = ""
                     new_password.value = ""
                     reenter_new_password.value = ""

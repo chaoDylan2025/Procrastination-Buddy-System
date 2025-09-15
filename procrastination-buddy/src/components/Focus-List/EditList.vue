@@ -34,7 +34,7 @@ function openInsertWebDialog(){
  * @param state - Opens or closes dialog
  * @param website - Restricted website to insert into list
  */
-function insertNewWebsite(state, website){
+function insertNewWebsite(website){
     let website_included = props.current_web_list.some((site) => {
         return site.link.toLowerCase() === website.toLowerCase()
     })
@@ -46,7 +46,7 @@ function insertNewWebsite(state, website){
         display_error_message.value = true
     }
     
-    open_new_list_dialog.value = state
+    open_new_list_dialog.value = false
 }
 
 /**
@@ -55,7 +55,7 @@ function insertNewWebsite(state, website){
  * @param writeData - Updates or does not update current user's restricted websites list
  */
 function exitEditListDialog(writeData){
-    emit('close', false, writeData)
+    emit('close', writeData)
 }
 </script>
 

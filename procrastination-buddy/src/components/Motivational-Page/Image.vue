@@ -9,7 +9,7 @@ const emit = defineEmits(['close'])
  * Exit dialog for viewing full motivational image
  */
 function exitDialogModal(){
-    emit('close', false)
+    emit('close')
 }
 </script>
 

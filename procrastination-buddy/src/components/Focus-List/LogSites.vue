@@ -11,7 +11,7 @@ const emit = defineEmits(['close'])
  * @param writeData - Updates or does not update current user's restricted websites list
  */
 function exitLogSitesDialogModal(writeData=false){
-    emit('close', false, writeData)
+    emit('close', writeData)
 }
 </script>
 

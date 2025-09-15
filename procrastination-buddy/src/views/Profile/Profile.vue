@@ -25,15 +25,14 @@ current_name_displayed.value = user.name == "" ? "Please enter a proper name" : 
 /**
  * Change the current user's displayed name
  * 
- * @param status - Closes the dialog for changing display name
  * @param name - New display name
  */
-function changeUserName(status, name){
+function changeUserName(name){
     if(name != ""){
         AuthenticationService.updateName({name: name}).then((result) => {
             if(result.data){
                 user.name = name, current_name_displayed.value = user.name
-                open_name_change_dialog.value = status
+                open_name_change_dialog.value = false
             }
         })
     }
@@ -42,12 +41,11 @@ function changeUserName(status, name){
 /**
  * Delete the user from the database and redirect them to home page
  * 
- * @param status - Closes the dialog for changing password
  * @param password - Current user's password
  */
- async function deleteUser(status, password){
+ async function deleteUser(password){
     await AuthenticationService.deleteAccount({email: user.email, password: password}).then((result) => {
-        open_delete_account_dialog.value = status
+        open_delete_account_dialog.value = false
 
         // Redirect user to homepage
         if(result.data){
@@ -61,13 +59,12 @@ function changeUserName(status, name){
 /**
  * Change the user's email address
  * 
- * @param status - Closes the dialog for changing current user's email
  * @param email - New email address for current user
  */
-function changeEmail(status, email){
+function changeEmail(email){
     AuthenticationService.changeEmail({email: email}).then((result) => {
         if(result.data){
-            open_email_change_dialog.value = status
+            open_email_change_dialog.value = false
             alert("A confirmation link has been sent to your new email. Please verify to complete the change.")
         }
     })
@@ -75,13 +72,11 @@ function changeEmail(status, email){
 
 /**
  * Redirect user to login page after password change
- * 
- * @param status - CLoses the dialog for changing current user's password
  */
-async function changePassword(status){
+async function changePassword(){
     await AuthenticationService.logoutUser().then((result) => {
         if(result.data){
-            open_change_password_dialog.value = status
+            open_change_password_dialog.value = false
 
             user.name = ""
             user.email = null
@@ -168,13 +163,13 @@ onMounted(async () => {
     </v-container>
 
     <v-container v-show="false">
-        <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="(state) => open_name_change_dialog = state" 
+        <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="open_name_change_dialog = false" 
             @update="changeUserName"/>
-        <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="(state) => open_email_change_dialog = state" 
+        <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="open_email_change_dialog = false" 
             @change="changeEmail"/>
-        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="(state) => open_change_password_dialog = state" 
+        <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="open_change_password_dialog = false" 
             @change="changePassword"/>
-        <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="(state) => open_delete_account_dialog = state"
+        <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="open_delete_account_dialog = false"
             @delete="deleteUser"/>
     </v-container>
 </template>

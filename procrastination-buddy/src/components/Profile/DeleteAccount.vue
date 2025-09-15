@@ -14,7 +14,7 @@ var showCurrentPassword = ref(false)
  */
 function exitDialogModal(){
     current_password.value = ""
-    emit('close', false)
+    emit('close')
 }
 
 /**
@@ -22,7 +22,7 @@ function exitDialogModal(){
  */
 function deleteAccount(){
     current_password.value = ""
-    emit('delete', false, current_password.value)
+    emit('delete', current_password.value)
 }
 </script>
 

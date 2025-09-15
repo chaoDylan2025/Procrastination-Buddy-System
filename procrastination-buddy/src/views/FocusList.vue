@@ -34,7 +34,7 @@ function openLogSitesDialog(){
  * @param state - Closes the dialog
  * @param writeData - Updates or does not update current user's restricted websites list
  */
-function exitEditListDialog(state, writeData){
+function exitEditListDialog(writeData){
     if(writeData){
         updateRestrictedSitesList()
         previous_list_of_sites = JSON.stringify(list_of_sites.value)
@@ -43,16 +43,15 @@ function exitEditListDialog(state, writeData){
         list_of_sites.value = JSON.parse(previous_list_of_sites)
     }
 
-    edit_list_dialog.value = state
+    edit_list_dialog.value = false
 }
 
 /**
  * Closes the Log Sites dialog
  * 
- * @param state - Closes the dialog
  * @param writeData - Updates or does not update current user's restricted websites list
  */
-function exitLogSitesDialog(state, writeData){
+function exitLogSitesDialog(writeData){
     if(writeData){
         updateRestrictedSitesList()
         previous_list_of_sites = JSON.stringify(list_of_sites.value)
@@ -61,7 +60,7 @@ function exitLogSitesDialog(state, writeData){
         list_of_sites.value = JSON.parse(previous_list_of_sites)
     }
 
-    log_sites_dialog.value = state
+    log_sites_dialog.value = false
 }
 
 /**

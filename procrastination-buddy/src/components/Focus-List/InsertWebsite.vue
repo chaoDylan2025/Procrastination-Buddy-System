@@ -15,7 +15,7 @@ var new_restricted_wesbite = ref("")
  * @param new_restricted_wesbite - New restricted website to insert into the list 
  */
 function exitDialogModal(new_restricted_wesbite=""){
-    emit('close', false, new_restricted_wesbite)
+    emit('close', new_restricted_wesbite)
 }
 </script>
 
