@@ -1,3 +1,7 @@
 body{
   background-color: lightblue;
 }
+
+.v-btn.v-btn--active {
+  --v-theme-overlay-multiplier: 0;
+}
