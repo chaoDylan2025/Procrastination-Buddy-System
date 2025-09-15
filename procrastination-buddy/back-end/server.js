@@ -85,9 +85,10 @@ app.post('/change-password', async (req, res) => {
 /**
  * Post request for changing email
  */
-app.post('/change-email', (req, res) => {
-    const { email } = req.body
-    changeEmail(email)
+app.post('/change-email', async (req, res) => {
+    const { old_email, email } = req.body
+    console.log("Old email: ", old_email)
+    await changeEmail(old_email, email)
     res.send(true)
 })
 

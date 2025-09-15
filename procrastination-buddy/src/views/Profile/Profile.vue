@@ -6,12 +6,10 @@ import { userStore } from '../../stores/user'
 
 // Importing components
 import ChangeName from '../../components/Profile/ChangeName.vue'
-import ChangeEmail from '../../components/Profile/ChangeEmail.vue'
 import ChangePassword from '../../components/Profile/ChangePassword.vue'
 import DeleteAccount from '../../components/Profile/DeleteAccount.vue'
 
 var open_name_change_dialog = ref(false)
-var open_email_change_dialog = ref(false)
 var open_change_password_dialog = ref(false)
 var open_delete_account_dialog = ref(false)
 
@@ -55,20 +53,6 @@ function changeUserName(name){
         }
     })
  }
-
-/**
- * Change the user's email address
- * 
- * @param email - New email address for current user
- */
-function changeEmail(email){
-    AuthenticationService.changeEmail({email: email}).then((result) => {
-        if(result.data){
-            open_email_change_dialog.value = false
-            alert("A confirmation link has been sent to your new email. Please verify to complete the change.")
-        }
-    })
-}
 
 /**
  * Redirect user to login page after password change
@@ -122,25 +106,6 @@ onMounted(async () => {
                         </div>
                     </div>
                 </div>
-
-                <div>
-                    <div class="mb-2">
-                        <div class="text-h6 font-weight-black">
-                            Email:
-                        </div>
-                    </div>
-               
-                    <div>
-                        <div class="d-flex justify-space-between">
-                           <div>
-                                {{user.email}}
-                           </div> 
-                            <div>
-                                <v-btn class="ml-16" size="x-small" @click="open_email_change_dialog = true"> Change </v-btn>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </v-col>
             <v-col></v-col>
         </v-row>
@@ -165,8 +130,6 @@ onMounted(async () => {
     <v-container v-show="false">
         <ChangeName :open_name_change_dialog="open_name_change_dialog" @close="open_name_change_dialog = false" 
             @update="changeUserName"/>
-        <ChangeEmail :open_change_email_dialog="open_email_change_dialog" @close="open_email_change_dialog = false" 
-            @change="changeEmail"/>
         <ChangePassword :open_change_password_dialog="open_change_password_dialog" @close="open_change_password_dialog = false" 
             @change="changePassword"/>
         <DeleteAccount :open_delete_account_dialog="open_delete_account_dialog" @close="open_delete_account_dialog = false"

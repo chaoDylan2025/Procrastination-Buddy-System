@@ -1,5 +1,5 @@
 import * as firebaseAuth from "firebase/auth"
-import { deleteDoc, doc, setDoc } from "firebase/firestore"
+import { collection, deleteDoc, doc, getDoc, getDocs, setDoc } from "firebase/firestore"
 import { db, auth } from "../firebase_setup.js"
 
 // Contains signed-in user's email
@@ -183,10 +183,31 @@ export async function changePassword(email, current_password, new_password){
  * 
  * @param email - New email for current user
  */
-export function changeEmail(email){
+export async function changeEmail(old_email, email){
   firebaseAuth.verifyBeforeUpdateEmail(auth.currentUser, email).then(() => {
     console.log("New email has been verified...")
   })
+
+  console.log("New email: ", email)
+
+  let old_doc_exists= await getDoc(doc(db, "users", old_email))
+  let original_focus_list_data = await getDocs(collection(db, "users", old_email, "focus-list"))
+  let original_motivational_page_data = await getDocs(collection(db, "users", old_email, "personal-motivational-page")) 
+
+  if(old_doc_exists.exists()){
+    for(const docSnap of original_focus_list_data.docs){
+      const data = docSnap.data()
+      const new_doc_focus_list_source = doc(db, "users", email, "focus-list", docSnap.id)
+      await setDoc(new_doc_focus_list_source, data)
+    }
+    for(const docSnap of original_motivational_page_data.docs){
+      const data = docSnap.data()
+      const new_doc_motivational_page_source = doc(db, "users", email, "personal-motivational-page", docSnap.id)
+      await setDoc(new_doc_motivational_page_source, data)
+    }
+
+    await deleteDoc(doc(db, "users", old_email))
+  }
 }
 
 /**

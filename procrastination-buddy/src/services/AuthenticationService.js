@@ -19,9 +19,6 @@ export default {
     updateName(name){
         return Api().post('change-name', name)
     },
-    changeEmail(email){
-        return Api().post('change-email', email)
-    },
     changePassword(credentials){
         return Api().post('change-password', credentials)
     },
