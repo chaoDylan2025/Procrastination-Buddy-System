@@ -12,3 +12,6 @@ A focus list contains websites that the user wants to avoid while working. The u
 ## Cloud Services that I selected 
 - Firebase Authentication
 - Cloud Firestore
+
+## Link to Instructions
+[Go to this file for instructions on how to setup and run app](./procrastination-buddy/README.md)
