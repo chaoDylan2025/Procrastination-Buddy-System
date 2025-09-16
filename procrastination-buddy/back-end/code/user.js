@@ -179,17 +179,6 @@ export async function changePassword(email, current_password, new_password){
 }
 
 /**
- * Change user email once user has verified email
- * 
- * @param email - New email for current user
- */
-export function changeEmail(email){
-  firebaseAuth.verifyBeforeUpdateEmail(auth.currentUser, email).then(() => {
-    console.log("New email has been verified...")
-  })
-}
-
-/**
  * Update user's displayed name
  * 
  * @param name - New display name for current user 

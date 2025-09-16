@@ -70,10 +70,10 @@ async function moveToLoginPage(response){
 
             <v-container>
                 <v-row justify="center" no-gutters>
-                    <v-btn @click="removeErrorMsgDisplay" to="/login" class="mx-8">
+                    <v-btn size="small" @click="removeErrorMsgDisplay" to="/login" class="mx-8">
                         Back
                     </v-btn>
-                    <v-btn @click="createUser" class="mx-8">
+                    <v-btn size="small" @click="createUser" class="mx-8">
                         Confirm
                     </v-btn>
                 </v-row>
