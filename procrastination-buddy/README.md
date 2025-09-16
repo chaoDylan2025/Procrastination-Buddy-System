@@ -27,19 +27,37 @@ npm install
     - Select **Start in test mode**
    
 ### Step 4: Setup an .env file
+Click on **Project Overview** gear icon and select **Project settings**
+  - Under **Your apps**, select the **Web** platform
+  - Come up with a nickname
+  - Select **Use npm**
+  - Copy the Firebase configuration
+  ```
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "your_api_key",
+    authDomain: "your_auth_domain,
+    projectId: "your_project_id",
+    storageBucket: "your_storage_bucket",
+    messagingSenderId: "your_messaging_sender_id",
+    appId: "your_app_id"
+  };
+  ```
 Open the project and navigate to procrastination-buddy
 ```
 cd procrastination-buddy
 ```
 
-Click on the gear icon and select **Project settings**
-
-
-
-
-
-
-
+Create a file called .env and add your Firebase configuration
+```
+FIREBASE_API_KEY= 'your_api_key'
+FIREBASE_AUTH_DOMAIN= 'your_auth_domain'
+FIREBASE_PROJECT_ID= 'your_project_id'
+FIREBASE_STORAGE_BUCKET= 'your_storage_bucket'
+FIREBASE_MESSAGING_SENDER_ID= 'your_messaging_sender_id'
+FIREBASE_APP_ID= 'your_app_id'
+FIREBASE_MEASUREMENT_ID= 'your_measurement_id'
+```
 
 ### Compile and Hot-Reload for Development
 
