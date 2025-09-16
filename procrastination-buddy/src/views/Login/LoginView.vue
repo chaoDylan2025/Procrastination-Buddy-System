@@ -61,19 +61,19 @@ function moveToHomePage(result){
 
         <v-container>
             <v-row justify="center" no-gutters>
-                <v-btn @click="logUser">
+                <v-btn size="small" @click="logUser">
                     Sign in
                 </v-btn>
             </v-row>
             
             <v-row class="mt-10" justify="center" no-gutters>
-                <v-btn @click="removeErrorMsgDisplay" to="/SignUp">
+                <v-btn size="small" @click="removeErrorMsgDisplay" to="/SignUp">
                     Sign up
                 </v-btn>
             </v-row>
 
             <v-row class="mt-10" justify="center" no-gutters>
-                <v-btn @click="removeErrorMsgDisplay" to="/Password-reset">
+                <v-btn size="small" @click="removeErrorMsgDisplay" to="/Password-reset">
                     Reset Password
                 </v-btn>
             </v-row>

@@ -59,10 +59,10 @@ function resetErrorMsgStyle(){
 
             <v-container>
                 <v-row justify="center" no-gutters>
-                    <v-btn to="/login" class="mx-8">
+                    <v-btn size="small" to="/login" class="mx-8">
                         Back
                     </v-btn>
-                    <v-btn @click="sendPasswordResetEmail()" class="mx-8">
+                    <v-btn size="small" @click="sendPasswordResetEmail()" class="mx-8">
                         Confirm
                     </v-btn>
                 </v-row>

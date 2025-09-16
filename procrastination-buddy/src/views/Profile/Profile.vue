@@ -110,7 +110,7 @@ onMounted(async () => {
             <v-col></v-col>
         </v-row>
 
-        <v-row class="mt-10">
+        <v-row class="mt-12">
             <v-col></v-col>
             <v-col>
                 <v-btn class="ml-16" size="small" @click="open_change_password_dialog = true"> Change Password </v-btn>
@@ -118,7 +118,7 @@ onMounted(async () => {
             <v-col></v-col>
         </v-row>
 
-        <v-row class="mt-10">
+        <v-row class="mt-12">
             <v-col></v-col>
             <v-col>
                 <v-btn class="ml-16" size="small" @click="open_delete_account_dialog = true"> Delete Account </v-btn>
