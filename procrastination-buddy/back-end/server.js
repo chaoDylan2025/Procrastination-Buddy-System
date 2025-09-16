@@ -1,6 +1,6 @@
 import express from 'express'
 import cors from 'cors'
-import { createUser, login, getUser, logout, sendPasswordResetEmail, updateDisplayedName, changePassword, changeEmail, deleteUserAccount } from './code/user.js'
+import { createUser, login, getUser, logout, sendPasswordResetEmail, updateDisplayedName, changePassword, deleteUserAccount } from './code/user.js'
 import { getImagesAndLayout, setDefaultImages, updateImagesAndLayout } from './code/motivational_page.js'
 import { getRestrictedSitesList, setRestrictedSiteList } from './code/focus_list_page.js'
 
@@ -80,16 +80,6 @@ app.post('/change-password', async (req, res) => {
     else{
         res.send(result)
     }
-})
-
-/**
- * Post request for changing email
- */
-app.post('/change-email', async (req, res) => {
-    const { old_email, email } = req.body
-    console.log("Old email: ", old_email)
-    await changeEmail(old_email, email)
-    res.send(true)
 })
 
 /**
