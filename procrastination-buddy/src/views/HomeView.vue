@@ -83,7 +83,8 @@ onMounted(async() => {
             <v-row>
                 <v-col></v-col>
                 <v-col>
-                    <p class="text-h5 text-center mt-5"> Hello! Here are some images to help motivate you :) </p>
+                    <p v-if="user.name != '' && user.name != null" class="text-h5 text-center mt-5"> Hello {{user.name}}! Here are some images to help motivate you :) </p>
+                    <p v-else class="text-h5 text-center mt-5"> Hello! Here are some images to help motivate you :) </p>
                 </v-col>
                 <v-col></v-col>
             </v-row>
